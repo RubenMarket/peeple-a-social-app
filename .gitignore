@@ -36,7 +36,9 @@ assets/
 jwt/
 Podfile.lock
 GoogleService-Info.plist
-"Icon\r"
+.DS_Store
+.firebaserc
+
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
