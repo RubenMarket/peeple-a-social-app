@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view alpha="0.80000000000000004" contentMode="scaleToFill" id="iN0-l3-epB" customClass="shelfiecontroller" customModule="People" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wefie" translatesAutoresizingMaskIntoConstraints="NO" id="beY-Zx-hYq">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6M-W4-Mgv">
+                    <rect key="frame" x="16" y="35.5" width="343" height="217"/>
+                    <subviews>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTu-dK-Jhj">
+                            <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="150" id="7cW-2a-JeK"/>
+                                <constraint firstAttribute="height" constant="50" id="vC8-gj-a3u"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="29"/>
+                            <state key="normal" title="Books">
+                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="XTu-dK-Jhj" firstAttribute="top" secondItem="L6M-W4-Mgv" secondAttribute="top" id="DNV-0w-hbJ"/>
+                        <constraint firstItem="XTu-dK-Jhj" firstAttribute="leading" secondItem="L6M-W4-Mgv" secondAttribute="leading" id="nX8-1r-aHl"/>
+                        <constraint firstAttribute="height" constant="217" id="yrm-oz-Yt0"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVh-P7-ris">
+                    <rect key="frame" x="16" y="289.5" width="343" height="217"/>
+                    <subviews>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c52-fM-iv1">
+                            <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="SSL-fl-mJp"/>
+                                <constraint firstAttribute="width" constant="150" id="uiY-CG-JDB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="29"/>
+                            <state key="normal" title="Movies">
+                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="217" id="DKB-m0-fYq"/>
+                        <constraint firstItem="c52-fM-iv1" firstAttribute="leading" secondItem="pVh-P7-ris" secondAttribute="leading" id="ZcT-wp-u96"/>
+                        <constraint firstItem="c52-fM-iv1" firstAttribute="top" secondItem="pVh-P7-ris" secondAttribute="top" id="aZe-nW-3yc"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="pVh-P7-ris" secondAttribute="trailing" constant="16" id="52a-P8-wur"/>
+                <constraint firstItem="pVh-P7-ris" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="127" id="7fs-y2-LNW"/>
+                <constraint firstAttribute="bottom" secondItem="beY-Zx-hYq" secondAttribute="bottom" id="BZr-Ww-sU8"/>
+                <constraint firstItem="L6M-W4-Mgv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Evr-OS-rtb"/>
+                <constraint firstItem="L6M-W4-Mgv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-127" id="HCA-3F-q0e"/>
+                <constraint firstAttribute="trailing" secondItem="beY-Zx-hYq" secondAttribute="trailing" id="R0i-kw-Ytj"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="L6M-W4-Mgv" secondAttribute="trailing" constant="16" id="UBn-0b-ewu"/>
+                <constraint firstItem="beY-Zx-hYq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WHA-5r-RbQ"/>
+                <constraint firstItem="pVh-P7-ris" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="jKI-AU-L4T"/>
+                <constraint firstItem="beY-Zx-hYq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vLU-D2-oZv"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bookview" destination="L6M-W4-Mgv" id="pQG-va-Ulq"/>
+                <outlet property="movieview" destination="pVh-P7-ris" id="47y-ji-4ux"/>
+            </connections>
+            <point key="canvasLocation" x="137.8125" y="104.5774647887324"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="wefie" width="1014" height="1144"/>
+    </resources>
+</document>

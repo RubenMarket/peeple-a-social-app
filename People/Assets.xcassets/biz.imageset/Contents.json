@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "biz.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
