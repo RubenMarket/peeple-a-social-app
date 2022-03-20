@@ -11,7 +11,23 @@ import XCTest
 
 class peepleTests: XCTestCase {
 
-   let main = MainPage()
+    var main:MainPage!
     
+    func textFieldInputConstraints(){
+        let emptySearch = main.filteredInputStrings(text: "")
+        XCTAssertEqual(emptySearch, "")
+        // 20 + character to empty string
+        let longSearch = main.filteredInputStrings(text: "abcdefghijklmnopqrstuvwrstuvxyz")
+        XCTAssertEqual(longSearch, "")
+        // good input
+        let goodSearch = main.filteredInputStrings(text: "ruben-99-thgb")
+        XCTAssertEqual(goodSearch, "ruben-99-thgb")
+    }
+    func databaseSearchTest(){
+        // will empty string begin a search. 
+        let invalidString = main.findGroups(text: "")
+        let WontBeginAQuery:Bool = false
+        XCTAssertEqual(invalidString, WontBeginAQuery)
+    }
     
 }

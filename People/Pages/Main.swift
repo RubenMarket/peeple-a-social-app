@@ -260,8 +260,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             if Peeple.GroupisSetTo == .search {
             if sender.state == .began {
             guard let text = UIPasteboard.general.string else { return }
-            
-            findGroups(text: text)
+            findGroups(text: filteredInputStrings(text: text))
             }
             }
         }
@@ -1303,8 +1302,11 @@ extension MainPage {
             self.collectionView.reloadData()
         }
     }
-    func findGroups(text: String) {
-        guard let user = app.currentUser else { return }
+    func findGroups(text: String) -> Bool {
+        if text == "" {
+            print("String empty or Did not pass Requirements")
+            return false }
+        guard let user = app.currentUser else { return false}
         // The partition determines which subset of data to access.
         let partitionValue = "allGroups=\(Location.city)"
         // Get a sync configuration from the user object.
@@ -1321,8 +1323,16 @@ extension MainPage {
                 self.search_Groups = Realm.objects(allGroups.self).filter("_id == '\(text)'")
                 if let group = self.search_Groups?.first {
                     self.toGroupChatWith(ID: group._id, name: group.name, pic: group.image, color: group.color) }
+                
             }
         }
+        return true
+    }
+    func filteredInputStrings(text:String) -> String {
+        // longer than 20 characters dont pass
+        if text.count >= 20 { return "" }
+        // all tests passed. return text
+        return text
     }
     func loadPeepData(one:Int,two:Int,three:Int,uid:String){
         guard let user = app.currentUser else { return }

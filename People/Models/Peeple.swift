@@ -102,13 +102,10 @@ struct Location {
     static var continent:String = "earth"
     static var city:String = "peeple"
 }
-//extension Notification.Name {
-//    static let updatefeedcolors = Notification.Name("setAR")
-//    static let refreshdata = Notification.Name("refreshdata")
-//    static let madegroup = Notification.Name("madegroup")
-//    static let refreshpeople = Notification.Name("refreshpeople")
-//    static let editPeep = Notification.Name("editPeep")
-//}
+struct Errors {
+    static var InvalidString:String = "Invalid String"
+}
+
 class MusicPlayer {
     static let shared = MusicPlayer()
     var audioPlayer: AVAudioPlayer?

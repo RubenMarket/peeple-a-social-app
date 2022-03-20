@@ -239,14 +239,14 @@ class charightview : UIView {
         self.secondcharbut.setTitle(causes[one], for: .normal)
         self.selectedTags[0] = two
     }
-    func animateBack(){
-        while animate {
-            backImage.frame.x + = 1
-            
-            
-        }
-        
-    }
+//    func animateBack(){
+//        while animate {
+//            backImage.frame.x + = 1
+//            
+//            
+//        }
+//        
+//    }
     override func layoutSubviews() {
         super.layoutSubviews()
 //        swipedd()
