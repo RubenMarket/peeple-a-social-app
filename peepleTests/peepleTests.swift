@@ -13,6 +13,8 @@ class peepleTests: XCTestCase {
 
     var main:MainPage!
     
+    
+    //textField check comes first
     func textFieldInputConstraints(){
         let emptySearch = main.filteredInputStrings(text: "")
         XCTAssertEqual(emptySearch, "")
@@ -24,10 +26,16 @@ class peepleTests: XCTestCase {
         XCTAssertEqual(goodSearch, "ruben-99-thgb")
     }
     func databaseSearchTest(){
-        // will empty string begin a search. 
-        let invalidString = main.findGroups(text: "")
-        let WontBeginAQuery:Bool = false
-        XCTAssertEqual(invalidString, WontBeginAQuery)
+        // will empty string begin a search.
+        
+        //group query
+        let invalidGString = main.findGroups(text: "")
+        let WontBeginAGQuery:Bool = false
+        XCTAssertEqual(invalidGString, WontBeginAGQuery)
+        //people query
+        let invalidPString = main.findPeople(text: "")
+        let WontBeginAPQuery:Bool = false
+        XCTAssertEqual(invalidPString, WontBeginAPQuery)
     }
     
 }

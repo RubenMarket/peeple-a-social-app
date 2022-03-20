@@ -260,14 +260,19 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             if Peeple.GroupisSetTo == .search {
             if sender.state == .began {
             guard let text = UIPasteboard.general.string else { return }
-            findGroups(text: filteredInputStrings(text: text))
+                var didQuery:Bool = false
+               didQuery = findGroups(text: filteredInputStrings(text: text))
+                print("search success and did query is: \(didQuery)")
             }
             }
         }
         if Peeple.CurrentPage == .People {
             if sender.state == .began {
             guard let text = UIPasteboard.general.string else { return }
-            findPeople(text: text)
+                var didQuery:Bool = false
+               didQuery = findPeople(text: filteredInputStrings(text: text))
+                print("search success and did query is: \(didQuery)")
+            
             }
         }
         if Peeple.CurrentPage == .Profile {
@@ -1285,8 +1290,11 @@ extension MainPage {
         collectionView.reloadData()
         stopLoading()
     }
-    func findPeople(text: String) {
-        guard let user = app.currentUser else { return }
+    func findPeople(text: String) -> Bool{
+        if text == "" {
+            print("String empty or Did not pass Requirements")
+            return false }
+        guard let user = app.currentUser else { return false}
         // The partition determines which subset of data to access.
         let partitionValue = "allPeople=\(Location.continent)"
         // Get a sync configuration from the user object.
@@ -1301,6 +1309,7 @@ extension MainPage {
             }
             self.collectionView.reloadData()
         }
+        return true
     }
     func findGroups(text: String) -> Bool {
         if text == "" {
@@ -1329,6 +1338,7 @@ extension MainPage {
         return true
     }
     func filteredInputStrings(text:String) -> String {
+        // extra checks and text filters here
         // longer than 20 characters dont pass
         if text.count >= 20 { return "" }
         // all tests passed. return text
