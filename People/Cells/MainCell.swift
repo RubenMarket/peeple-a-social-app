@@ -39,7 +39,7 @@ class MainViewCell: UICollectionViewCell {
         mainImageView.image = UIImage(named: Peeple.PeoplecellImage)
         mainImageView.contentMode = .scaleAspectFit
             mainTextLabel.text = personName
-        mainTextLabel.isHidden = false
+        mainTextLabel.isHidden = true
         topLeftImageView.isHidden = true
             lockImageView.isHidden = !isPrivate
         peepOne.image = UIImage(named: Peeple.peepPics[peep1])

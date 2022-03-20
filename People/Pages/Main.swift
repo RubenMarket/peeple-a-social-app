@@ -24,6 +24,8 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     fileprivate var locationManager: CLLocationManager?
     lazy var geocoder = CLGeocoder()
     fileprivate var didPass:Bool = false
+    private var myGroupLoaded:Bool = false
+    private var myPeopleLoaded:Bool = false
     // Peep Views
     private weak var peepOneView:UIView?
     private weak var peepTwoView:UIView?
@@ -336,7 +338,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 case .settings:
                     Peeple.ProfileisSetTo = .peepOne
                 }
-                fetchProfileData(user:user)
+                peepSwitch(peepImage: pageOptionIndicator, peepOneView: peepOneView, peepTwoView: peepTwoView, peepThreeView: peepThreeView, optionsView: editProfileView, allPeepView: profilePageView, currentOption: Peeple.ProfileisSetTo,peepOne: Peeple.peepOne,peepTwo: Peeple.peepTwo,peepThree: Peeple.peepThree)
             case .GroupChat:
                 fetchGroupData(user: user)
             case .Person:
@@ -350,7 +352,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 case .settings:
                     Person.currentOption = .peepOne
                 }
-                PersonPeepSwitch()
+                peepSwitch(peepImage: pageOptionIndicator, peepOneView: personPeepOne, peepTwoView: personPeepTwo, peepThreeView: personPeepThree, optionsView: editProfileView, allPeepView: personPeepView, currentOption: Person.currentOption,peepOne: Person.peepOne,peepTwo: Person.peepTwo,peepThree: Person.peepThree)
             }
         case .down:
             //option down
@@ -405,7 +407,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 case .settings:
                     Peeple.ProfileisSetTo = .peepThree
                 }
-                fetchProfileData(user:user)
+                peepSwitch(peepImage: pageOptionIndicator, peepOneView: peepOneView, peepTwoView: peepTwoView, peepThreeView: peepThreeView, optionsView: editProfileView, allPeepView: profilePageView, currentOption: Peeple.ProfileisSetTo,peepOne: Peeple.peepOne,peepTwo: Peeple.peepTwo,peepThree: Peeple.peepThree)
             case .GroupChat:
                 fetchGroupData(user: user)
             case .Person:
@@ -419,7 +421,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 case .settings:
                     Person.currentOption = .peepThree
                 }
-                PersonPeepSwitch()
+                peepSwitch(peepImage: pageOptionIndicator, peepOneView: personPeepOne, peepTwoView: personPeepTwo, peepThreeView: personPeepThree, optionsView: editProfileView, allPeepView: personPeepView, currentOption: Person.currentOption,peepOne: Person.peepOne,peepTwo: Person.peepTwo,peepThree: Person.peepThree)
             }
         
         default:
@@ -506,11 +508,13 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     Peeple.peepOne = me.one
                     Peeple.peepTwo = me.two
                     Peeple.peepThree = me.three
+                    self.loadPeepData(one: me.one, two: me.two, three: me.three, uid: user.id)
                 }
             }
         }
         
         fetchPlanetData(user:user)
+        
     }
     // MARK: ViewDidAppear
     override func viewDidAppear(_ animated: Bool) {
@@ -954,7 +958,6 @@ extension MainPage {
         switch Peeple.GroupisSetTo {
         case .all:
             makeGroupView.isHidden = true
-           
             if all_Groups == nil {
                 startLoading()
                 self.middleLabel.text = "all groups"
@@ -979,9 +982,10 @@ extension MainPage {
         case .my:
             makeGroupView.isHidden = true
             if my_Groups == nil {
-                startLoading()
                 self.middleLabel.text = "my groups"
                 self.middleLabel.isHidden = false
+                if self.myGroupLoaded { return }
+                startLoading()
             // The partition determines which subset of data to access.
             let partitionValue = "me=\(user.id)"
             // Get a sync configuration from the user object.
@@ -990,6 +994,7 @@ extension MainPage {
                 switch result {
                 case .failure(let error):
                     print("Failed to open realm: \(error.localizedDescription)")
+                    self.myGroupLoaded = true
                     self.stopLoading()
                 case .success(let Realm):
                     if let me = Realm.objects(mePersonV2.self).first {
@@ -1046,6 +1051,8 @@ extension MainPage {
         case .all:
             if all_People == nil {
                 startLoading()
+                self.middleLabel.text = "all people"
+                self.middleLabel.isHidden = false
             // The partition determines which subset of data to access.
                 let partitionValue = "allPeople=\(Location.continent)"
             // Get a sync configuration from the user object.
@@ -1057,7 +1064,7 @@ extension MainPage {
                     self.stopLoading()
                 case .success(let Realm):
                     self.all_People = Realm.objects(allPeople.self).sorted(byKeyPath: "_id")
-                    
+                    self.middleLabel.isHidden = true
                     self.stopLoading()
                     self.collectionView.reloadData()
                 }
@@ -1069,6 +1076,9 @@ extension MainPage {
             self.collectionView.reloadData()
         case .my:
             if my_People == nil {
+                self.middleLabel.text = "my people"
+                self.middleLabel.isHidden = false
+                if self.myPeopleLoaded { return }
                 startLoading()
             // The partition determines which subset of data to access.
             let partitionValue = "me=\(user.id)"
@@ -1078,14 +1088,14 @@ extension MainPage {
                 switch result {
                 case .failure(let error):
                     print("Failed to open realm: \(error.localizedDescription)")
+                    self.myPeopleLoaded = true
                     self.stopLoading()
                 case .success(let Realm):
                     // fill my_people array
                     if let me = Realm.objects(mePersonV2.self).first {
                         self.my_People = me.myPeople.sorted(byKeyPath: "_id")
                         if self.my_People?.count == 0 {
-                            self.middleLabel.text = "no people added"
-                            self.middleLabel.isHidden = false
+                            self.middleLabel.isHidden = true
                         }
                     }
                     self.stopLoading()
@@ -1102,7 +1112,6 @@ extension MainPage {
     }
     func fetchProfileData(user:User){
         Peeple.CurrentPage = .Profile
-        Peeple.ProfileisSetTo = .peepOne
         pageOptionIndicator.image = UIImage(named: Peeple.peepPics[Peeple.peepOne])
         pageTab.image = nil
         topRightLabel.image = UIImage(named: Peeple.ProfileLabel)
@@ -1123,6 +1132,7 @@ extension MainPage {
                 view.snp.makeConstraints { (make) in
                         make.edges.equalTo(profilePageView) }
                 }
+            peepOneView?.isHidden = false
             editProfileView.isHidden = true
             profilePageView.isHidden = false
                 self.stopLoading()
@@ -1175,40 +1185,43 @@ extension MainPage {
         personPeepOne?.layoutSubviews()
         stopLoading()
     }
-    func PersonPeepSwitch(){
-        switch Person.currentOption {
+    func peepSwitch(peepImage:UIImageView,peepOneView:UIView?,peepTwoView:UIView?,peepThreeView:UIView?,optionsView:UIView,allPeepView:UIView,currentOption:Peeple.ProfileOptions,peepOne:Int,peepTwo:Int,peepThree:Int){
+        switch currentOption {
         case .peepOne:
-            pageOptionIndicator.image = UIImage(named: Peeple.peepPics[Person.peepOne])
-            if personPeepOne != nil {
-                personPeepOne?.isHidden = false
-                personPeepTwo?.isHidden = true
-                personPeepThree?.isHidden = true
-                editProfileView.isHidden = true
-                personPeepView.isHidden = false
+            peepImage.image = UIImage(named: Peeple.peepPics[peepOne])
+            if peepOneView != nil {
+                peepOneView?.isHidden = false
+                peepOneView?.layoutSubviews()
+                peepTwoView?.isHidden = true
+                peepThreeView?.isHidden = true
+                optionsView.isHidden = true
+                allPeepView.isHidden = false
                 self.stopLoading()
             }
         case .peepTwo:
-            pageOptionIndicator.image = UIImage(named: Peeple.peepPics[Person.peepTwo])
-            if personPeepTwo != nil {
-                personPeepOne?.isHidden = true
-                personPeepTwo?.isHidden = false
-                personPeepThree?.isHidden = true
-                editProfileView.isHidden = true
-                personPeepView.isHidden = false
+            peepImage.image = UIImage(named: Peeple.peepPics[peepTwo])
+            if peepTwoView != nil {
+                peepOneView?.isHidden = true
+                peepTwoView?.layoutSubviews()
+                peepTwoView?.isHidden = false
+                peepThreeView?.isHidden = true
+                optionsView.isHidden = true
+                allPeepView.isHidden = false
             }
         case .peepThree:
-            pageOptionIndicator.image = UIImage(named: Peeple.peepPics[Person.peepThree])
-            if personPeepThree != nil {
-                personPeepOne?.isHidden = true
-                personPeepTwo?.isHidden = true
-                personPeepThree?.isHidden = false
-                editProfileView.isHidden = true
-                personPeepView.isHidden = false
+            peepImage.image = UIImage(named: Peeple.peepPics[peepThree])
+            if peepThreeView != nil {
+                peepOneView?.isHidden = true
+                peepTwoView?.isHidden = true
+                peepThreeView?.isHidden = false
+                peepThreeView?.layoutSubviews()
+                optionsView.isHidden = true
+                allPeepView.isHidden = false
             }
             case .settings:
-            pageOptionIndicator.image = UIImage(named: "pers")
-            editProfileView.isHidden = false
-            personPeepView.isHidden = true
+            peepImage.image = UIImage(named: "pers")
+            optionsView.isHidden = false
+            allPeepView.isHidden = true
             collectionView.reloadData()
             
         }
@@ -1262,39 +1275,39 @@ extension MainPage {
             self.collectionView.reloadData()
         }
     }
-//    func loadPeepData(one:Int,two:Int,three:Int,uid:String){
-//        guard let user = app.currentUser else { return }
-//        let thePeeps:[Int] = [one,two,three]
-//        let partitionValue = "peeps=\(uid)"
-//        let configuration = user.configuration(partitionValue: partitionValue)
-//        Realm.asyncOpen(configuration: configuration) { (result) in
-//            switch result {
-//            case .failure(let error):
-//                print("Failed to open realm: \(error.localizedDescription)")
-//                // Handle error...
-//            case .success(let realm):
-//                // Realm opened
-//                if let peeps = realm.objects(myPeeps.self).first {
-//                    for Peep in thePeeps {
-//                        switch Peep {
-//                        case 1:
-//                            if let charight = peeps.charight {  Peeps.charight = charight }
-//                        case 2:
-//                            if let cleanergy = peeps.cleanergy {  Peeps.cleanergy = cleanergy }
-//                        case 3:
-//                            if let cleanergy = peeps.cleanergy {  Peeps.cleanergy = cleanergy }
-//                        default:
-//                            print("no peep")
-//
-//                        }
-//                    }
-//
-//                }
-//
-//
-//            }
-//        }
-//    }
+    func loadPeepData(one:Int,two:Int,three:Int,uid:String){
+        guard let user = app.currentUser else { return }
+        let thePeeps:[Int] = [one,two,three]
+        let partitionValue = "peeps=\(uid)"
+        let configuration = user.configuration(partitionValue: partitionValue)
+        Realm.asyncOpen(configuration: configuration) { (result) in
+            switch result {
+            case .failure(let error):
+                print("Failed to open realm: \(error.localizedDescription)")
+                // Handle error...
+            case .success(let realm):
+                // Realm opened
+                if let peeps = realm.objects(myPeeps.self).first {
+                    for Peep in thePeeps {
+                        switch Peep {
+                        case 1:
+                            if let charight = peeps.charight {  Peeps.charight = charight }
+                        case 2:
+                            if let cleanergy = peeps.cleanergy {  Peeps.clenny = cleanergy }
+                        case 3:
+                            if let porty = peeps.portflio {  Peeps.porty = porty }
+                        default:
+                            print("no peep")
+
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+    }
 //    func loadPersonPeepData(one:Int,two:Int,three:Int,id:String){
 //        guard let user = app.currentUser else { return }
 //        let thePeeps:[Int] = [one,two,three]

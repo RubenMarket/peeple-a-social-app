@@ -70,8 +70,7 @@ struct Peeple {
 }
 
 struct Person {
-    enum PersonOptions { case peepOne, peepTwo, peepThree, settings }
-    static var currentOption:PersonOptions = .peepOne
+    static var currentOption:Peeple.ProfileOptions = .peepOne
     static var ID:String = ""
     static var name:String = ""
     static var peepOne:Int = 0
@@ -79,6 +78,16 @@ struct Person {
     static var peepThree:Int = 0
     static var color = 0
     static var pic = ""
+    static var charight:charightChoice?
+    static var clenny:cleanergyClenny?
+    static var porty:portflioPost?
+}
+
+struct Peeps {
+    static var charight:charightChoice?
+    static var clenny:cleanergyClenny?
+    static var porty:portflioPost?
+    
 }
 struct Group {
     static var ID:String = ""

@@ -198,40 +198,40 @@ class charightview : UIView {
         
         
     }
-//    func updateMyData(){
-//        guard let Charight = Peeps.charight else { return }
-//            let one = Charight.choice1
-//            let two = Charight.choice2
-//            if two != -1 { firstcharimage.image = UIImage(named:causeImages[two]) }
-//            self.firstcharbut.setTitle(causes[two], for: .normal)
-//            self.selectedTags[1] = one
-//            if one != -1 {  secondcharimage.image = UIImage(named:causeImages[one]) }
-//            self.secondcharbut.setTitle(causes[one], for: .normal)
-//            self.selectedTags[0] = two
-//        
-//    }
-//    func addPersonData(){
-//        guard let Charight = Person.charight else { return }
-//            let one = Charight.choice1
-//            let two = Charight.choice2
-//            if two != -1 { firstcharimage.image = UIImage(named:causeImages[two]) }
-//            self.firstcharbut.setTitle(causes[two], for: .normal)
-//            self.selectedTags[1] = one
-//            if one != -1 {  secondcharimage.image = UIImage(named:causeImages[one]) }
-//            self.secondcharbut.setTitle(causes[one], for: .normal)
-//            self.selectedTags[0] = two
-//    }
+    func updateMyData(){
+        guard let Charight = Peeps.charight else { return }
+            let one = Charight.choice1
+            let two = Charight.choice2
+            if two != -1 { firstcharimage.image = UIImage(named:causeImages[two]) }
+            self.firstcharbut.setTitle(causes[two], for: .normal)
+            self.selectedTags[1] = one
+            if one != -1 {  secondcharimage.image = UIImage(named:causeImages[one]) }
+            self.secondcharbut.setTitle(causes[one], for: .normal)
+            self.selectedTags[0] = two
+        
+    }
+    func addPersonData(){
+        guard let Charight = Person.charight else { return }
+            let one = Charight.choice1
+            let two = Charight.choice2
+            if two != -1 { firstcharimage.image = UIImage(named:causeImages[two]) }
+            self.firstcharbut.setTitle(causes[two], for: .normal)
+            self.selectedTags[1] = one
+            if one != -1 {  secondcharimage.image = UIImage(named:causeImages[one]) }
+            self.secondcharbut.setTitle(causes[one], for: .normal)
+            self.selectedTags[0] = two
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
 //        swipedd()
         firstcharview.addShadow()
         secondcharview.addShadow()
-//        switch ID.selected {
-//        case "":
-//            updateMyData()
-//        default:
-//            addPersonData()
-//        }
+        switch ID.selected {
+        case "":
+            updateMyData()
+        default:
+            addPersonData()
+        }
         self.sharedPeepNum = Int.random(in: 1...Peeple.rarity)
         self.centerxp = self.firstcharview.center.x
         
