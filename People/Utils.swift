@@ -53,8 +53,6 @@ extension UIView {
         self.backgroundColor = color
     }
     
-}
-extension UIView {
     func circle() {
         self.layer.cornerRadius = self.frame.height / 4
         self.layer.masksToBounds = true  }
@@ -74,6 +72,44 @@ extension UIView {
         layer.shouldRasterize = true
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
 }
+    func buttonbordercolor(color:UIColor) {
+        
+        
+        self.layer.borderColor = color.cgColor
+        
+        
+        
+    }
+    func addShadow() {
+        layer.shadowOffset = CGSize(width: 0.3, height: 0.3)
+        layer.shadowRadius = 0.3
+        layer.shadowOpacity = 1
+        layer.shadowColor = UIColor.black.cgColor
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.shouldRasterize = true
+    }
+    func addBorderr(side: UIButtonBorderSide, color: UIColor, width: CGFloat) {
+        let border = CALayer()
+        border.backgroundColor = color.cgColor
+        
+        switch side {
+        case .Top:
+            border.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: width)
+        case .Bottom:
+            border.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: width)
+        case .Left:
+            border.frame = CGRect(x: 0, y: 0, width: width, height: self.frame.size.height)
+        case .Right:
+            border.frame = CGRect(x: self.frame.size.width - width, y: 0, width: width, height: self.frame.size.height)
+        }
+        self.layer.masksToBounds = true
+        self.layer.addSublayer(border)
+        
+    }
+    func removeBorderr() {
+       
+        
+    }
 }
 //extension RealmSwift {
 //    func deleteObject(object: Object, completionClosure: () -> ()) {
@@ -125,73 +161,60 @@ extension UIButton {
         self.layer.addSublayer(border)
     }
 }
-extension UIView {
-    
-    func buttonbordercolor(color:UIColor) {
-        
-        
-        self.layer.borderColor = color.cgColor
-        
-        
-        
-    }
-    func addShadow() {
-        layer.shadowOffset = CGSize(width: 0.3, height: 0.3)
-        layer.shadowRadius = 0.3
-        layer.shadowOpacity = 1
-        layer.shadowColor = UIColor.black.cgColor
-        layer.rasterizationScale = UIScreen.main.scale
-        layer.shouldRasterize = true
-    }
-    func addBorderr(side: UIButtonBorderSide, color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        
-        switch side {
-        case .Top:
-            border.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: width)
-        case .Bottom:
-            border.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: width)
-        case .Left:
-            border.frame = CGRect(x: 0, y: 0, width: width, height: self.frame.size.height)
-        case .Right:
-            border.frame = CGRect(x: self.frame.size.width - width, y: 0, width: width, height: self.frame.size.height)
-        }
-        self.layer.masksToBounds = true
-        self.layer.addSublayer(border)
-        
-    }
-    func removeBorderr() {
-       
-        
-    }
-}
-extension UITableView {
-    
-    func addtableBorder(side: UIButtonBorderSide, color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        
-        switch side {
-        case .Top:
-            border.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: width)
-        case .Bottom:
-            border.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: width)
-        case .Left:
-            border.frame = CGRect(x: 0, y: 0, width: width, height: self.frame.size.height)
-        case .Right:
-            border.frame = CGRect(x: self.frame.size.width - width, y: 0, width: width, height: self.frame.size.height)
-        }
-        self.layer.masksToBounds = true
-        self.layer.addSublayer(border)
-    }
-}
 extension UIViewController {
     func count(count:Int)-> Int{
         if count > 17 {
             return 17
         } else {
             return count
+        }
+    }
+    func emptyPerson(){
+        Person.ID = ""
+        Person.peepOne = 0
+        Person.peepTwo = 0
+        Person.peepThree = 0
+        Person.name = ""
+        Person.color = 0
+        Person.pic = ""
+    }
+    func animateViews(labelImage:UIImageView,collection:UICollectionView,topRightBut:UIImageView,peepView:UIView?,completionHandler:(Bool) -> Void) {
+        labelImage.alpha = 0
+        collection.alpha = 0
+        topRightBut.alpha = 0
+        peepView?.alpha = 0
+        UIView.animate(withDuration: 0.8, delay: 0, options: .curveEaseIn) {
+            labelImage.alpha = 1
+            collection.alpha = 1
+            topRightBut.alpha = 1
+            peepView?.alpha = 1
+        } 
+        completionHandler(true)
+
+    }
+    func loadPeep(num:Int) -> UIView {
+        switch num {
+        case 1 :
+            return charightview.instanceFromNib()
+        case 2 :
+            return cleanergy.instanceFromNib()
+        case 3 :
+            let porty = portoflio()
+            return porty.instanceFromNib()
+        case 4 :
+            return spacechip.instanceFromNib()
+        case 8 :
+            return theorize.instanceFromNib()
+        case 10 :
+            return shelfiecontroller.instanceFromNib()
+        case 12 :
+            return mymecontroller.instanceFromNib()
+        case 14 :
+            return betatester.instanceFromNib()
+        case 16 :
+            return awemember.instanceFromNib()
+        default :
+            return comingsoon.instanceFromNib()
         }
     }
     func checkPermission() {
@@ -292,37 +315,11 @@ extension UIImage {
     }
 }
 extension UIView {
-    
-    
-    func tobounds(){
-    
-        layer.masksToBounds = true
-        
-        
-    }
-    
-    
-    
-    
-}
-extension UIView {
-    
-    func cornernine () {
-        
-        
-        layer.cornerRadius = 9
-    }
-    
     func eventview(){
-        
         layer.cornerRadius = frame.height / 5
         layer.masksToBounds = true
-        
     }
     
-    
-}
-extension UIView {
     func rotatean(){
           let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
          
@@ -333,8 +330,6 @@ extension UIView {
          rotation.toValue = Double.pi * 4
           layer.add(rotation, forKey: "rotationAnimation")
     }
-}
-extension UIView {
     func shake(){
         let animation = CABasicAnimation(keyPath: "position")
         animation.duration = 0.07
@@ -345,8 +340,7 @@ extension UIView {
       
         self.layer.add(animation, forKey: "position")
     }
-}
-extension UIView {
+
     func wiggle(){
         let transformAnim  = CAKeyframeAnimation(keyPath:"transform")
         transformAnim.values  = [NSValue(caTransform3D: CATransform3DMakeRotation(0.27, 0.0, 0.0, 1.0)),NSValue(caTransform3D: CATransform3DMakeRotation(-0.27 , 0, 0, 1))]
@@ -375,30 +369,6 @@ extension String
     }
 }
 
-
-extension UIView {
-    
-    
-    func setGradientBackground(colorTop: UIColor, colorBottom: UIColor) {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorBottom.cgColor, colorTop.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
-        gradientLayer.locations = [0, 1]
-        gradientLayer.frame = bounds
-        
-        layer.insertSublayer(gradientLayer, at: 0)
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
 extension UIImage {
     func inverseImage(cgResult: Bool) -> UIImage? {
         let coreImage = UIKit.CIImage(image: self)
@@ -412,29 +382,6 @@ extension UIImage {
     }
 }
 
-extension UIView {
-    
-    
-    func setGradient(colorTop: UIColor, colorBottom: UIColor) {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorBottom.cgColor, colorTop.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
-        gradientLayer.locations = [0, 0]
-        gradientLayer.frame = bounds
-        
-        layer.insertSublayer(gradientLayer, at: 0)
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
 
 extension UIView{
     func animShow(){
@@ -475,10 +422,33 @@ extension UIView{
     }
     
     
+    func setGradientBackground(colorTop: UIColor, colorBottom: UIColor) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorBottom.cgColor, colorTop.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
+        gradientLayer.locations = [0, 1]
+        gradientLayer.frame = bounds
+        
+        layer.insertSublayer(gradientLayer, at: 0)
+    }
     
-}
+    
+    
+    func setGradient(colorTop: UIColor, colorBottom: UIColor) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorBottom.cgColor, colorTop.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
+        gradientLayer.locations = [0, 0]
+        gradientLayer.frame = bounds
+        
+        layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    
 
-extension UIView {
+
     func shake(duration: CFTimeInterval) {
         let translation = CAKeyframeAnimation(keyPath: "transform.translation.x");
         translation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
@@ -595,34 +565,6 @@ extension UIViewController {
     
     
 }
-extension UITableView{
-    func addTopborder() {
-        let thickness: CGFloat = 0.7
-       let topBorder = CALayer()
-       
-       topBorder.frame = CGRect(x: 0.0, y: 0.0, width: frame.size.width, height: thickness)
-//       layer.masksToBounds = true
-       layer.addSublayer(topBorder)
-       
-    }
-    
-    func addBottomborder() {
-          let thickness: CGFloat = 0.7
-         let bottomBorder = CALayer()
-         
-         bottomBorder.frame = CGRect(x:0, y: frame.size.height - thickness, width: frame.size.width, height:thickness)
-         bottomBorder.backgroundColor = UIColor.lightGray.cgColor
-//         layer.masksToBounds = true
-         layer.addSublayer(bottomBorder)
-         
-      }
-    
-    
-    
-    
-    
-}
-
 extension UIView {
     func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))

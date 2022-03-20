@@ -96,9 +96,7 @@ struct Group {
     static var pic = ""
 }
 struct ID {
-    static var selected:String = ""
     static var my:String = ""
-    
 }
 struct Location {
     static var continent:String = "earth"
@@ -114,7 +112,7 @@ struct Location {
 class MusicPlayer {
     static let shared = MusicPlayer()
     var audioPlayer: AVAudioPlayer?
-//    var peepPlayer: AVAudioPlayer?
+    var peepPlayer: AVAudioPlayer?
     func startBackgroundMusic() {
 
         if let bundle = Bundle.main.path(forResource: "peepleSound", ofType: "wav") {
@@ -133,23 +131,23 @@ class MusicPlayer {
             }
         }
     }
-//    func playPeep() {
-//        if let bundle = Bundle.main.path(forResource: "peepsound", ofType: "mp3") {
-//            try? AVAudioSession.sharedInstance().setCategory(.ambient)
-//            try? AVAudioSession.sharedInstance().setActive(true)
-//            let backgroundMusic = NSURL(fileURLWithPath: bundle)
-//            do {
-//                peepPlayer = try AVAudioPlayer(contentsOf:backgroundMusic as URL)
-//                guard let audioPlayer = peepPlayer else { return }
-//                audioPlayer.numberOfLoops = 0
-//                audioPlayer.volume = 0.3
-//                audioPlayer.prepareToPlay()
-//                audioPlayer.play()
-//            } catch {
-//                print(error)
-//            }
-//        }
-//    }
+    func playPeep() {
+        if let bundle = Bundle.main.path(forResource: "peepsound", ofType: "mp3") {
+            try? AVAudioSession.sharedInstance().setCategory(.ambient)
+            try? AVAudioSession.sharedInstance().setActive(true)
+            let backgroundMusic = NSURL(fileURLWithPath: bundle)
+            do {
+                peepPlayer = try AVAudioPlayer(contentsOf:backgroundMusic as URL)
+                guard let audioPlayer = peepPlayer else { return }
+                audioPlayer.numberOfLoops = 0
+                audioPlayer.volume = 0.3
+                audioPlayer.prepareToPlay()
+                audioPlayer.play()
+            } catch {
+                print(error)
+            }
+        }
+    }
     func stopBackgroundMusic() {
         guard let audioPlayer = audioPlayer else { return }
         audioPlayer.stop()

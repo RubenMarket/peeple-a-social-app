@@ -59,6 +59,7 @@
 		8479FD34275154480074098F /* makeGroup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8479FD33275154480074098F /* makeGroup.xib */; };
 		8479FD36275159C70074098F /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479FD35275159C70074098F /* Main.swift */; };
 		8479FD3827517B7A0074098F /* editProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8479FD3727517B7A0074098F /* editProfile.xib */; };
+		8480F81527E768C7001859DA /* peepsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8480F81427E768C6001859DA /* peepsound.mp3 */; };
 		8481197FD838860A4197252B /* Pods_People.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED383403FC54E35530547268 /* Pods_People.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,7 @@
 		8479FD33275154480074098F /* makeGroup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = makeGroup.xib; sourceTree = "<group>"; };
 		8479FD35275159C70074098F /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		8479FD3727517B7A0074098F /* editProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = editProfile.xib; sourceTree = "<group>"; };
+		8480F81427E768C6001859DA /* peepsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = peepsound.mp3; sourceTree = SOURCE_ROOT; };
 		8C10420553EDC8376A10EF1D /* Pods-People.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-People.debug.xcconfig"; path = "Pods/Target Support Files/Pods-People/Pods-People.debug.xcconfig"; sourceTree = "<group>"; };
 		ED383403FC54E35530547268 /* Pods_People.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_People.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -184,6 +186,7 @@
 				821D9FAF20B7A48900CD69D7 /* Main.storyboard */,
 				821D9FB220B7A48900CD69D7 /* Assets.xcassets */,
 				821D9FAB20B7A48900CD69D7 /* AppDelegate.swift */,
+				8480F81427E768C6001859DA /* peepsound.mp3 */,
 				82BC3B0E26B75E5900E4F027 /* peepleSound.wav */,
 				82AEC10F2104E0B400C9B5C7 /* Models */,
 				82AEC1102104E0CD00C9B5C7 /* Cells */,
@@ -398,6 +401,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8480F81527E768C7001859DA /* peepsound.mp3 in Resources */,
 				821D9FB620B7A48900CD69D7 /* LaunchScreen.storyboard in Resources */,
 				82E87639248A04CB0029C722 /* theorize.xib in Resources */,
 				82B1310824A502080048814F /* awemember.xib in Resources */,

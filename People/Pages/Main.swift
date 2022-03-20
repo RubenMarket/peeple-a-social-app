@@ -78,7 +78,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     print(error)
                     self.stopLoading()
                 case .success(let realm):
-                    let myGroup = myGroups(name: GroupName, image: "", color: Peeple.myAppColor, des: "", userId: user.id, key: generateCurrentTimeStamp())
+                    let myGroup = myGroups(name: GroupName, image: "", color: Peeple.myAppColor, des: generateCurrentTimeStamp(), userId: user.id, key: UUID().uuidString)
                     if let me = realm.objects(mePersonV2.self).first {
                     try! realm.write {
                         me.myGroups.append(myGroup)
@@ -210,6 +210,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         view.addGestureRecognizer(upSwipe)
         view.addGestureRecognizer(downSwipe)
     }
+    // MARK: SwipeActions
     @objc func handlePinch(_ sender:UIPinchGestureRecognizer) {
         if sender.scale > 2 {
             Peeple.zoomLevel = .one
@@ -221,12 +222,47 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         }
         collectionView.reloadData()
     }
-    // MARK: SwipeActions
+   
     @objc func handleHold(_ sender:UILongPressGestureRecognizer) {
+        if Peeple.CurrentPage == .GroupChat {
+            if sender.state == .began {
+                if Group.ID != "" {
+                    guard let user = app.currentUser else { return }
+                    let partitionValue2 = "me=\(user.id)"
+                    startLoading()
+                    // Get a sync configuration from the user object.
+                    let configuration2 = user.configuration(partitionValue: partitionValue2)
+                        Realm.asyncOpen(configuration: configuration2) { [self] (result) in
+                        switch result {
+                        case .failure(let error):
+                            print(error)
+                            self.stopLoading()
+                        case .success(let realm):
+                            let myGroup = myGroups(name: Group.name, image: Group.pic, color: Group.color, des: generateCurrentTimeStamp(), userId: user.id, key: UUID().uuidString)
+                            if let me = realm.objects(mePersonV2.self).first {
+                            try! realm.write {
+                                me.myGroups.append(myGroup)
+                            }
+                            self.my_Groups = me.myGroups.sorted(byKeyPath: "des", ascending: false)
+                            }
+                            self.stopLoading()
+                            let alert = UIAlertController(title: "Group Added to my Groups", message: "\(Group.name)", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        
+                    }
+                }
+                
+            }
+        }
         if Peeple.CurrentPage == .Group {
+            if Peeple.GroupisSetTo == .search {
             if sender.state == .began {
             guard let text = UIPasteboard.general.string else { return }
+            
             findGroups(text: text)
+            }
             }
         }
         if Peeple.CurrentPage == .People {
@@ -245,9 +281,12 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     }
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
         guard let user = app.currentUser else { return }
+        // alpha animating page switch with Util function
+        
         switch sender.direction {
         case .left:
             // page to the right
+            
             switch Peeple.CurrentPage {
             case .Planet:
                 fetchGroupData(user: user)
@@ -427,7 +466,30 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         default:
             return
         }
-       
+    }
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
+        if motion == .motionShake {
+            print("Shake Gesture Detected")
+            //show some alert here
+            if Peeple.CurrentPage == .GroupChat {
+                let pasteboard = UIPasteboard.general
+                pasteboard.string = Group.ID
+                let alert = UIAlertController(title: "Group Code saved to clipboard", message: "\(Group.name)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            if Peeple.CurrentPage == .Person {
+                let pasteboard = UIPasteboard.general
+                pasteboard.string = Person.ID
+                let alert = UIAlertController(title: "Person Code saved to clipboard", message: "\(Person.name)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     func ARSetUp(){
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -631,7 +693,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             case .my:
                 cell.myGroups = my_Groups?[indexPath.row]
             case .search:
-                cell.searchGroups = search_Groups?[indexPath.row]
+                return cell
             case .make:
                 return cell
             case .events:
@@ -658,7 +720,6 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     }
     // MARK: DidSelectItem
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        startLoading()
         switch Peeple.CurrentPage {
         case .Planet:
             switch Peeple.PlanetisSetTo {
@@ -683,8 +744,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 guard let group = my_Groups?[indexPath.row] else { return }
                 toGroupChatWith(ID: group.key, name: group.name, pic: group.image, color: group.color)
             case .search:
-                guard let group = search_Groups?[indexPath.row] else { return }
-                toGroupChatWith(ID: group._id, name: group.name, pic: group.image, color: group.color)
+                return
             case .make:
                 return
             case .events:
@@ -715,31 +775,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     }
     
     
-    func loadPeep(num:Int) -> UIView {
-        switch num {
-        case 1 :
-            return charightview.instanceFromNib()
-        case 2 :
-            return cleanergy.instanceFromNib()
-        case 3 :
-            let porty = portoflio()
-            return porty.instanceFromNib()
-        case 4 :
-            return spacechip.instanceFromNib()
-        case 8 :
-            return theorize.instanceFromNib()
-        case 10 :
-            return shelfiecontroller.instanceFromNib()
-        case 12 :
-            return mymecontroller.instanceFromNib()
-        case 14 :
-            return betatester.instanceFromNib()
-        case 16 :
-            return awemember.instanceFromNib()
-        default :
-            return comingsoon.instanceFromNib()
-        }
-    }
+    
     // MARK: Location Manager
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("here11")
@@ -901,12 +937,14 @@ extension MainPage {
         Peeple.CurrentPage = .Planet
         makeGroupView.isHidden = true
         pageTab.image = nil
+        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, peepView: profilePageView, completionHandler: { (true) in
         topRightLabel.image = UIImage(named: Peeple.PlanetLabel)
         profilePageView.isHidden = true
         pageTab.isHidden = false
         middleLabel.isHidden = true
         collectionView.reloadData()
         pageOptionIndicator.image = nil
+        })
         switch Peeple.PlanetisSetTo {
         case .earth:
         if self.stories == nil {
@@ -946,6 +984,7 @@ extension MainPage {
     func fetchGroupData(user:User){
         Peeple.CurrentPage = .Group
         pageTab.image = nil
+        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, peepView: profilePageView, completionHandler: { (true) in
         topRightLabel.image = UIImage(named: Peeple.GroupLabel)
         topRightLabel.isHidden = false
         profilePageView.isHidden = true
@@ -955,6 +994,7 @@ extension MainPage {
         pageOptionIndicator.isHidden = false
         pageOptionIndicator.image = nil
         collectionView.reloadData()
+        })
         switch Peeple.GroupisSetTo {
         case .all:
             makeGroupView.isHidden = true
@@ -1030,6 +1070,7 @@ extension MainPage {
 
     func fetchPeopleData(user:User){
         Peeple.CurrentPage = .People
+        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, peepView: profilePageView, completionHandler: { (true) in
         collectionView.reloadData()
         collectionView.isHidden = false
         // accessing all views relevant to peoplePage
@@ -1047,6 +1088,7 @@ extension MainPage {
         editProfileView.isHidden = true
         middleLabel.isHidden = true
         profilePageView.isHidden = true
+        })
         switch Peeple.PeopleisSetTo {
         case .all:
             if all_People == nil {
@@ -1112,6 +1154,7 @@ extension MainPage {
     }
     func fetchProfileData(user:User){
         Peeple.CurrentPage = .Profile
+        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, peepView: profilePageView, completionHandler: { (true) in
         pageOptionIndicator.image = UIImage(named: Peeple.peepPics[Peeple.peepOne])
         pageTab.image = nil
         topRightLabel.image = UIImage(named: Peeple.ProfileLabel)
@@ -1119,6 +1162,7 @@ extension MainPage {
         profilePageView.isHidden = false
         collectionView.isHidden = true
         middleLabel.isHidden = true
+        })
         if peepOneView == nil {
             self.peepOneView = loadPeep(num: Peeple.peepOne)
             self.peepTwoView = loadPeep(num: Peeple.peepTwo)
@@ -1150,6 +1194,7 @@ extension MainPage {
         
     }
     func toPersonWith(ID:String,name:String,pic:String,color:Int,one:Int,two:Int,three:Int){
+        startLoading()
         Peeple.CurrentPage = .Person
         Person.currentOption = .peepOne
         Person.ID = ID
@@ -1227,6 +1272,7 @@ extension MainPage {
         }
     }
     func toGroupChatWith(ID:String,name:String,pic:String,color:Int){
+        startLoading()
         Group.ID = ID
         Group.name = name
         Group.color = color
@@ -1259,7 +1305,6 @@ extension MainPage {
     }
     func findGroups(text: String) {
         guard let user = app.currentUser else { return }
-        middleLabel.isHidden = true
         // The partition determines which subset of data to access.
         let partitionValue = "allGroups=\(Location.city)"
         // Get a sync configuration from the user object.
@@ -1269,10 +1314,14 @@ extension MainPage {
             case .failure(let error):
                 print("Failed to open realm: \(error.localizedDescription)")
                 // Handle error...
+                let alert = UIAlertController(title: "No Group Found for code in \(Location.city)", message: "\(text)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "\(error.localizedDescription))", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             case .success(let Realm):
                 self.search_Groups = Realm.objects(allGroups.self).filter("_id == '\(text)'")
+                if let group = self.search_Groups?.first {
+                    self.toGroupChatWith(ID: group._id, name: group.name, pic: group.image, color: group.color) }
             }
-            self.collectionView.reloadData()
         }
     }
     func loadPeepData(one:Int,two:Int,three:Int,uid:String){
@@ -1341,14 +1390,6 @@ extension MainPage {
 //            }
 //        }
 //    }
-    func emptyPerson(){
-        Person.ID = ""
-        Person.peepOne = 0
-        Person.peepTwo = 0
-        Person.peepThree = 0
-        Person.name = ""
-        Person.color = 0
-        Person.pic = ""
-    }
+   
 }
 

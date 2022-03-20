@@ -210,6 +210,7 @@ print(userIdentifier)
                 alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
 //                    self.stopLoading(loadingView: self.loadingIndicator)
                 }))
+                self.stopLoading()
                 self.present(alert, animated: true, completion: nil)
             case .success(let realm):
                 // Realm opened

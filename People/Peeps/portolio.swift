@@ -94,34 +94,43 @@ class portoflio : UIView{
         self.usernameOrIDBut3.addShadow()
         
     }
-//    func updateMyData(){
-//        guard let Porty = Peeps.portlio else { return }
-//        let topic1 = Porty.topic1
-//        let topic2 = Porty.topic2
-//        let topic3 = Porty.topic3
-//        self.gameNameLabel1.text = topic1
-//        self.gameNameLabel2.text = topic2
-//        self.gameNameLabel3.text = topic3
-//        
-//    }
-//    func addPersonData(){
-//        guard let Porty = Person.portlio else { return }
-//        let topic1 = Porty.topic1
-//        let topic2 = Porty.topic2
-//        let topic3 = Porty.topic3
-//        self.gameNameLabel1.text = topic1
-//        self.gameNameLabel2.text = topic2
-//        self.gameNameLabel3.text = topic3
-//    }
+    func updateMyData(){
+        if let Porty = Peeps.porty {
+        let topic1 = Porty.topic1
+        let topic2 = Porty.topic2
+        let topic3 = Porty.topic3
+        self.gameNameLabel1.text = topic1
+        self.gameNameLabel2.text = topic2
+        self.gameNameLabel3.text = topic3
+        } else {
+            defaultViews()
+        }
+        
+    }
+    func addPersonData(){
+        if let Porty = Person.porty {
+        let topic1 = Porty.topic1
+        let topic2 = Porty.topic2
+        let topic3 = Porty.topic3
+        self.gameNameLabel1.text = topic1
+        self.gameNameLabel2.text = topic2
+        self.gameNameLabel3.text = topic3
+        } else { defaultViews()}
+    }
+    func defaultViews(){
+        self.gameNameLabel1.text = topics[0]
+        self.gameNameLabel2.text = topics[1]
+        self.gameNameLabel3.text = topics[2]
+    }
     override func layoutSubviews() {
         roundCornersP()
         self.sharedPeepNum = Int.random(in: 1...Peeple.rarity)
-//        switch ID.selected {
-//        case "":
-//            updateMyData()
-//        default:
-//            addPersonData()
-//        }
+        switch Person.ID {
+        case "":
+            updateMyData()
+        default:
+            addPersonData()
+        }
     }
     deinit {
         print("denitittittted portfolio")

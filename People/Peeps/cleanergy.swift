@@ -53,30 +53,30 @@ class cleanergy: UIView {
         // Your action
     }
     func updateMyData(){
-//        guard let Clenny = Peeps.cleanergy else { return }
-//        if Clenny.clearClouds {
-//            cleanearth()
-//        } else {
-//            dirtyworld()
-//        }
-        
+        if let Clenny = Peeps.clenny  {
+        if Clenny.clearClouds {
+            cleanPlanet()
+        } else {
+            dirtyPlanet()
+        }
+        }
     }
     func addPersonData(){
-//        guard let Clenny = Person.cleanergy else { return }
-//        if Clenny.clearClouds {
-//            cleanearth()
-//        } else {
-//            dirtyworld()
-//        }
-        
+        if let Clenny = Person.clenny  {
+        if Clenny.clearClouds {
+            cleanPlanet()
+        } else {
+            dirtyPlanet()
+        }
+        }
     }
     override func layoutSubviews() {
         clennyview.setPeepleCorners()
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
             clennyrecycleback.isUserInteractionEnabled = true
         clennyrecycleback.addGestureRecognizer(tapGestureRecognizer)
-        switch ID.selected {
-        case ID.my:
+        switch Person.ID {
+        case "":
             updateMyData()
         default:
             addPersonData()
@@ -84,7 +84,7 @@ class cleanergy: UIView {
         
        
        }
-    private func cleanearth(){
+    private func cleanPlanet(){
         clennycloudfront.image = nil
 //            UIImage(named: "")
         clennyrecycleback.image = UIImage(named: "clennnyrecycleback")
@@ -93,7 +93,7 @@ class cleanergy: UIView {
 //        clennyplane.isHidden = true
 //        clennyview.isHidden = true
     }
-    private func dirtyworld(){
+    private func dirtyPlanet(){
         clennycloudfront.image = UIImage(named: "dark2")
         clennyrecycleback.image = UIImage(named: "clennnynonrecycleback")
     }
