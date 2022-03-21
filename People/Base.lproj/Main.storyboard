@@ -59,7 +59,7 @@
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQ3-HM-09r">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="peeple - a social ap" translatesAutoresizingMaskIntoConstraints="NO" id="z14-v4-TKi">
+                                    <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightlogo" translatesAutoresizingMaskIntoConstraints="NO" id="z14-v4-TKi">
                                         <rect key="frame" x="39" y="0.0" width="298" height="475"/>
                                     </imageView>
                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="peepleLoading" translatesAutoresizingMaskIntoConstraints="NO" id="qY8-hX-Jej">
@@ -1086,7 +1086,6 @@
         <image name="cupinge" width="1537" height="1647"/>
         <image name="lightlogo" width="500" height="500"/>
         <image name="mucity" width="1537" height="1647"/>
-        <image name="peeple - a social ap" width="234" height="161"/>
         <image name="peepleLoading" width="416" height="416"/>
         <image name="pers" width="72" height="123"/>
         <image name="planetlabel" width="123" height="59"/>

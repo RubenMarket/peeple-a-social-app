@@ -241,12 +241,12 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                             let myGroup = myGroups(name: Group.name, image: Group.pic, color: Group.color, des: generateCurrentTimeStamp(), userId: user.id, key: UUID().uuidString)
                             if let me = realm.objects(mePersonV2.self).first {
                             try! realm.write {
-                                me.myGroups.append(myGroup)
-                            }
+                                me.myGroups.append(myGroup) }
                             self.my_Groups = me.myGroups.sorted(byKeyPath: "des", ascending: false)
                             }
                             self.stopLoading()
                             let alert = UIAlertController(title: "Group Added to my Groups", message: "\(Group.name)", preferredStyle: .alert)
+                            self.myGroupLoaded = false
                             alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
                             self.present(alert, animated: true, completion: nil)
                         }
@@ -286,7 +286,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
         guard let user = app.currentUser else { return }
         // alpha animating page switch with Util function
-        
+        MusicPlayer.shared.playPeep()
         switch sender.direction {
         case .left:
             // page to the right
