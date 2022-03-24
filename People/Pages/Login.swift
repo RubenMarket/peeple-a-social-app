@@ -146,87 +146,42 @@ print(userIdentifier)
             case .failure(let error):
                 print("Failed to open realm: \(error.localizedDescription)")
                 // Handle error...
+                
                 let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
                 alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
-//                    self.stopLoading(loadingView: self.loadingIndicator)
+                    DispatchQueue.main.async {
+                        self.stopLoading()
+                    }
                 }))
                 self.present(alert, animated: true, completion: nil)
             case .success(let realm):
                 // Realm opened
                 if realm.objects(mePersonV2.self).first != nil {
+                    print("returning user : mePerson found")
                     self.stopLoading()
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "tohome", sender: nil)
                     }
                 } else {
-                    
+                    print("non returning user : mePerson not found")
                     let mePeep = mePersonV2(image:"", name: self.name ?? "", biz: false, one: 1, two: 2, three: 3, priv: false, beta: false,_id: user.id)
-                    let myperson = myPeople(color: 5, image: "", name: "fred", bio: "", one: 1, two: 2, three: 3, _id: user.id)
-                    mePeep.myPeople.append(myperson)
                     try! realm.write {
-                        realm.add(mePeep,update: .modified)
+                        realm.add(mePeep, update: .all)
                     }
-                    self.newPerson(user: user)
+                    UserDefaults.standard.set("yup", forKey: "new")
+                    UserDefaults.standard.set(true, forKey: "made")
+                    UserDefaults.standard.set(0, forKey: "appColor")
+                                DispatchQueue.main.async {
+                                    self.stopLoading()
+                                    self.performSegue(withIdentifier: "tohome", sender: nil)
+                                }
                 }
             }
         }
         
     }
-    func newPerson(user:User) {
-        let configuration2 = user.configuration(partitionValue: "allPeople=\(Location.continent)")
-        let partitionValue = "peeps=\(user.id)"
-//        UserDefaults.standard.set(true, forKey: "firstPeeplePlus")
-//        UserDefaults.standard.set(true, forKey: "needsTutorial")
-        let configuration = user.configuration(partitionValue: partitionValue)
-        Realm.asyncOpen(configuration: configuration) { (result) in
-            switch result {
-            case .failure(let error):
-                print("Failed to open realm: \(error.localizedDescription)")
-                // Handle error...
-                DispatchQueue.main.async {
-//                    self.stopLoading(loadingView: self.loadingIndicator)
-                }
-            case .success(let realm):
-                // Realm opened
-                let clenny = cleanergyClenny(clearClouds: true)
-                let charight = charightChoice(choice1: 0, choice2: 1)
-                let porty = portflioPost(topic1: "Photography", topic2: "Sports", topic3: "Nature")
-                let myPeep = myPeeps(cleanergy: clenny, charight: charight,portflio:porty, _id: user.id)
-                    try! realm.write {
-                        realm.add(myPeep,update: .modified)
-                    
-                }
-                
-            }
-        }
-        Realm.asyncOpen(configuration: configuration2) { (result) in
-            switch result {
-            case .failure(let error):
-                print("Failed to open realm: \(error.localizedDescription)")
-                // Handle error...
-                let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
-                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
-//                    self.stopLoading(loadingView: self.loadingIndicator)
-                }))
-                self.stopLoading()
-                self.present(alert, animated: true, completion: nil)
-            case .success(let realm):
-                // Realm opened
-                let task = allPeople(color: 0, image: "", name: self.name ?? "", biz: false, bio: "",one : 1,two: 2,three: 3,priv:false, ID: user.id)
-                try! realm.write { realm.add(task,update: .modified) }
-                UserDefaults.standard.set("yup", forKey: "new")
-                UserDefaults.standard.set(true, forKey: "made")
-                UserDefaults.standard.set(0, forKey: "appColor")
-                self.stopLoading()
-                            DispatchQueue.main.async {
-                                self.performSegue(withIdentifier: "tohome", sender: nil)
-                            }
-                print("Successfully logged in as user \(user)")
-            }
-        }
-    }
+  
     func stopLoading() {
         
         timer?.invalidate()

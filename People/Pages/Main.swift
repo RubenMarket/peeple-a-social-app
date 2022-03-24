@@ -230,6 +230,8 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     guard let user = app.currentUser else { return }
                     let partitionValue2 = "me=\(user.id)"
                     startLoading()
+                    let pasteboard = UIPasteboard.general
+                    pasteboard.string = Group.ID
                     // Get a sync configuration from the user object.
                     let configuration2 = user.configuration(partitionValue: partitionValue2)
                         Realm.asyncOpen(configuration: configuration2) { [self] (result) in
@@ -242,10 +244,9 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                             if let me = realm.objects(mePersonV2.self).first {
                             try! realm.write {
                                 me.myGroups.append(myGroup) }
-                            self.my_Groups = me.myGroups.sorted(byKeyPath: "des", ascending: false)
                             }
                             self.stopLoading()
-                            let alert = UIAlertController(title: "Group Added to my Groups", message: "\(Group.name)", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Group saved and added to clipboard", message: "\(Group.name)", preferredStyle: .alert)
                             self.myGroupLoaded = false
                             alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
                             self.present(alert, animated: true, completion: nil)
@@ -279,6 +280,13 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             if sender.state == .began {
                 
                 
+            }
+            
+        }
+        if Peeple.CurrentPage == .Person {
+            if sender.state == .began {
+                let pasteboard = UIPasteboard.general
+                pasteboard.string = Person.ID
             }
             
         }
@@ -471,30 +479,30 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             return
         }
     }
-    override func becomeFirstResponder() -> Bool {
-        return true
-    }
-
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
-        if motion == .motionShake {
-            print("Shake Gesture Detected")
-            //show some alert here
-            if Peeple.CurrentPage == .GroupChat {
-                let pasteboard = UIPasteboard.general
-                pasteboard.string = Group.ID
-                let alert = UIAlertController(title: "Group Code saved to clipboard", message: "\(Group.name)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-            if Peeple.CurrentPage == .Person {
-                let pasteboard = UIPasteboard.general
-                pasteboard.string = Person.ID
-                let alert = UIAlertController(title: "Person Code saved to clipboard", message: "\(Person.name)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
-    }
+//    override func becomeFirstResponder() -> Bool {
+//        return true
+//    }
+//
+//    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
+//        if motion == .motionShake {
+//            print("Shake Gesture Detected")
+//            //show some alert here
+//            if Peeple.CurrentPage == .GroupChat {
+//                let pasteboard = UIPasteboard.general
+//                pasteboard.string = Group.ID
+//                let alert = UIAlertController(title: "Group Code saved to clipboard", message: "\(Group.name)", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
+//                self.present(alert, animated: true, completion: nil)
+//            }
+//            if Peeple.CurrentPage == .Person {
+//                let pasteboard = UIPasteboard.general
+//                pasteboard.string = Person.ID
+//                let alert = UIAlertController(title: "Person Code saved to clipboard", message: "\(Person.name)", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
+//                self.present(alert, animated: true, completion: nil)
+//            }
+//        }
+//    }
     func ARSetUp(){
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized: // the user has already authorized to access the camera.
@@ -568,6 +576,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             case .success(let Realm):
                 if let me = Realm.objects(mePersonV2.self).first {
                     // loading profile peeps and hiding them
+                    print("found mePerson")
                     UserDefaults.standard.set(user.id, forKey: "myCode")
                     Peeple.priv = me.priv
                     ID.my = user.id
@@ -575,7 +584,10 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     Peeple.peepTwo = me.two
                     Peeple.peepThree = me.three
                     self.loadPeepData(one: me.one, two: me.two, three: me.three, uid: user.id)
+                } else {
+                    print("mePerson not found")
                 }
+                
             }
         }
         
@@ -941,7 +953,7 @@ extension MainPage {
         Peeple.CurrentPage = .Planet
         makeGroupView.isHidden = true
         pageTab.image = nil
-        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, peepView: profilePageView, completionHandler: { (true) in
+        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
         topRightLabel.image = UIImage(named: Peeple.PlanetLabel)
         profilePageView.isHidden = true
         pageTab.isHidden = false
@@ -988,7 +1000,7 @@ extension MainPage {
     func fetchGroupData(user:User){
         Peeple.CurrentPage = .Group
         pageTab.image = nil
-        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, peepView: profilePageView, completionHandler: { (true) in
+        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
         topRightLabel.image = UIImage(named: Peeple.GroupLabel)
         topRightLabel.isHidden = false
         profilePageView.isHidden = true
@@ -1025,11 +1037,12 @@ extension MainPage {
             self.collectionView.reloadData()
         case .my:
             makeGroupView.isHidden = true
-            if my_Groups == nil {
+            if self.myGroupLoaded == false {
                 self.middleLabel.text = "my groups"
                 self.middleLabel.isHidden = false
-                if self.myGroupLoaded { return }
+                print("pre load check")
                 startLoading()
+                print("in loading")
             // The partition determines which subset of data to access.
             let partitionValue = "me=\(user.id)"
             // Get a sync configuration from the user object.
@@ -1042,10 +1055,16 @@ extension MainPage {
                     self.stopLoading()
                 case .success(let Realm):
                     if let me = Realm.objects(mePersonV2.self).first {
+                        print("mePerson found")
                         self.my_Groups = me.myGroups.sorted(byKeyPath: "des", ascending: false)
                         self.middleLabel.isHidden = true
                         self.collectionView.reloadData()
+                        self.myGroupLoaded = true
+                        print("loaded from realm")
+                    } else {
+                        print("mePerson not found")
                     }
+                    
                     self.stopLoading()
                 }
             }  }
@@ -1074,19 +1093,22 @@ extension MainPage {
 
     func fetchPeopleData(user:User){
         Peeple.CurrentPage = .People
-        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, peepView: profilePageView, completionHandler: { (true) in
+        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
         collectionView.reloadData()
         collectionView.isHidden = false
         // accessing all views relevant to peoplePage
         // hide all at first
         personPeepView.isHidden = true
         pageTab.image = nil
+        // setting pageLabel image
         topRightLabel.image = UIImage(named: Peeple.PeopleLabel)
+        // unhiding label when from a persons profile
+        topRightLabel.isHidden = false
         pageTab.isHidden = false
         middleLabel.isHidden = true
         pageOptionIndicator.isHidden = false
         pageOptionIndicator.image = nil
-        //hiding group view
+        // hiding group view
         makeGroupView.isHidden = true
         // hiding profile page info
         editProfileView.isHidden = true
@@ -1143,6 +1165,7 @@ extension MainPage {
                         if self.my_People?.count == 0 {
                             self.middleLabel.isHidden = true
                         }
+                        self.myPeopleLoaded = true
                     }
                     self.stopLoading()
                     self.collectionView.reloadData()
@@ -1158,7 +1181,7 @@ extension MainPage {
     }
     func fetchProfileData(user:User){
         Peeple.CurrentPage = .Profile
-        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, peepView: profilePageView, completionHandler: { (true) in
+        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
         pageOptionIndicator.image = UIImage(named: Peeple.peepPics[Peeple.peepOne])
         pageTab.image = nil
         topRightLabel.image = UIImage(named: Peeple.ProfileLabel)
@@ -1196,6 +1219,30 @@ extension MainPage {
         
            
         
+    }
+    func addAllPerson(user:User,name:String) {
+        let configuration2 = user.configuration(partitionValue: "allPeople=\(Location.continent)")
+      
+        Realm.asyncOpen(configuration: configuration2) { (result) in
+            switch result {
+            case .failure(let error):
+                print("Failed to open realm: \(error.localizedDescription)")
+                // Handle error...
+                let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
+//                    self.stopLoading(loadingView: self.loadingIndicator)
+                }))
+                self.stopLoading()
+                self.present(alert, animated: true, completion: nil)
+            case .success(let realm):
+                // Realm opened
+                let task = allPeople(color: 0, image: "", name: name, biz: false, bio: "",one : 1,two: 2,three: 3,priv:false, ID: user.id)
+                try! realm.write { realm.add(task,update: .modified) }
+            
+                print("Successfully logged in as user \(user)")
+            }
+        }
     }
     func toPersonWith(ID:String,name:String,pic:String,color:Int,one:Int,two:Int,three:Int){
         startLoading()
@@ -1235,6 +1282,7 @@ extension MainPage {
         stopLoading()
     }
     func peepSwitch(peepImage:UIImageView,peepOneView:UIView?,peepTwoView:UIView?,peepThreeView:UIView?,optionsView:UIView,allPeepView:UIView,currentOption:Peeple.ProfileOptions,peepOne:Int,peepTwo:Int,peepThree:Int){
+        allPeepView.alpha = 0.0
         switch currentOption {
         case .peepOne:
             peepImage.image = UIImage(named: Peeple.peepPics[peepOne])
@@ -1274,6 +1322,12 @@ extension MainPage {
             collectionView.reloadData()
             
         }
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseIn) {
+            allPeepView.alpha = 1.0
+        } completion: { (true) in
+            print("done")
+        }
+
     }
     func toGroupChatWith(ID:String,name:String,pic:String,color:Int){
         startLoading()
@@ -1283,6 +1337,7 @@ extension MainPage {
         Group.pic = pic
         topRightLabel.isHidden = true
         pageTab.isHidden = true
+        middleLabel.isHidden = true
         pageOptionIndicator.image = UIImage(named: Peeple.GroupBoxImage)
         topWordLabel.textColor = Peeple.colors[color]
         topWordLabel.text = name
@@ -1339,8 +1394,12 @@ extension MainPage {
     }
     func filteredInputStrings(text:String) -> String {
         // extra checks and text filters here
-        // longer than 20 characters dont pass
-        if text.count >= 20 { return "" }
+        
+        
+        // less than 20 characters dont pass
+        if text.count <= 20 { return "" }
+        //longer than 43 doesnt pass
+        if text.count >= 43 { return "" }
         // all tests passed. return text
         return text
     }

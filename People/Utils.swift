@@ -163,8 +163,8 @@ extension UIButton {
 }
 extension UIViewController {
     func count(count:Int)-> Int{
-        if count > 17 {
-            return 17
+        if count > 15 {
+            return 15
         } else {
             return count
         }
@@ -178,8 +178,9 @@ extension UIViewController {
         Person.color = 0
         Person.pic = ""
     }
-    func animateViews(labelImage:UIImageView,collection:UICollectionView,topRightBut:UIImageView,peepView:UIView?,completionHandler:(Bool) -> Void) {
+    func animateViews(labelImage:UIImageView,collection:UICollectionView,topRightBut:UIImageView,middleLabel:UILabel,peepView:UIView?,completionHandler:(Bool) -> Void) {
         labelImage.alpha = 0
+        middleLabel.alpha = 0
         collection.alpha = 0
         topRightBut.alpha = 0
         peepView?.alpha = 0
@@ -187,6 +188,7 @@ extension UIViewController {
             labelImage.alpha = 1
             collection.alpha = 1
             topRightBut.alpha = 1
+            middleLabel.alpha = 0.85
             peepView?.alpha = 1
         } 
         completionHandler(true)

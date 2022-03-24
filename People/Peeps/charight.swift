@@ -152,7 +152,31 @@ class charightview : UIView {
        
        }
     func editPeep(isEditing:Bool) {
-        
+//        let partitionValue = "peeps=\(user.id)"
+////        UserDefaults.standard.set(true, forKey: "firstPeeplePlus")
+////        UserDefaults.standard.set(true, forKey: "needsTutorial")
+//        let configuration = user.configuration(partitionValue: partitionValue)
+//        Realm.asyncOpen(configuration: configuration) { (result) in
+//            switch result {
+//            case .failure(let error):
+//                print("Failed to open realm: \(error.localizedDescription)")
+//                // Handle error...
+//                DispatchQueue.main.async {
+////                    self.stopLoading(loadingView: self.loadingIndicator)
+//                }
+//            case .success(let realm):
+//                // Realm opened
+//                let clenny = cleanergyClenny(clearClouds: true)
+//                let charight = charightChoice(choice1: 0, choice2: 1)
+//                let porty = portflioPost(topic1: "Photography", topic2: "Sports", topic3: "Nature")
+//                let myPeep = myPeeps(cleanergy: clenny, charight: charight,portflio:porty, _id: user.id)
+//                    try! realm.write {
+//                        realm.add(myPeep,update: .modified)
+//
+//                }
+//
+//            }
+//        }
         if isEditing {
             UIView.animate(withDuration: 1.0) {
                 self.buttonView.isHidden = false

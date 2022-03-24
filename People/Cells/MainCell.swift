@@ -22,14 +22,12 @@ class MainViewCell: UICollectionViewCell {
     
     func setEarthFeed(peep:Int,image:String,text:String){
         topLeftImageView.isHidden = false
-        mainImageView.contentMode = .scaleAspectFill
         mainImageView.image = UIImage(named: image)
         peepTwo.image = UIImage(named: Peeple.peepPics[peep])
     }
     func setGroups(groupName:String,groupColor:Int){
         mainImageView.image = UIImage(named: Peeple.GroupBoxImage)
         mainTextLabel.isHidden = false
-        mainImageView.contentMode = .scaleAspectFit
         topLeftImageView.isHidden = true
         mainTextLabel.text = groupName
         mainTextLabel.textColor = Peeple.colors[groupColor]
@@ -37,7 +35,6 @@ class MainViewCell: UICollectionViewCell {
     }
     func setPeople(personName:String,personColor:Int,peep1:Int,peep2:Int,peep3:Int,personImage:String,isPrivate:Bool){
         mainImageView.image = UIImage(named: Peeple.PeoplecellImage)
-        mainImageView.contentMode = .scaleAspectFit
             mainTextLabel.text = personName
         mainTextLabel.isHidden = true
         topLeftImageView.isHidden = true

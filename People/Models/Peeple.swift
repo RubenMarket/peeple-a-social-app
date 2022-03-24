@@ -137,7 +137,7 @@ class MusicPlayer {
                 peepPlayer = try AVAudioPlayer(contentsOf:backgroundMusic as URL)
                 guard let audioPlayer = peepPlayer else { return }
                 audioPlayer.numberOfLoops = 0
-                audioPlayer.volume = 0.3
+                audioPlayer.volume = 0.5
                 audioPlayer.prepareToPlay()
                 audioPlayer.play()
             } catch {
