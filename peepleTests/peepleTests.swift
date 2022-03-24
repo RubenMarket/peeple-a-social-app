@@ -18,15 +18,23 @@ class peepleTests: XCTestCase {
     func textFieldInputConstraints(){
         let emptySearch = main.filteredInputStrings(text: "")
         XCTAssertEqual(emptySearch, "")
-        // 20 + character to empty string
-        let longSearch = main.filteredInputStrings(text: "abcdefghijklmnopqrstuvwrstuvxyz")
-        XCTAssertEqual(longSearch, "")
+        // 20 - 43 character is good string
+        let goodText:String = "abcdefghijklmnopqrstuvwrstuvxyz"
+        XCTAssertEqual(goodText.count, 28)
+        
+        let goodSearch = main.filteredInputStrings(text: goodText )
+        XCTAssertEqual(goodSearch, goodText)
         // good input
-        let goodSearch = main.filteredInputStrings(text: "ruben-99-thgb")
-        XCTAssertEqual(goodSearch, "ruben-99-thgb")
+        let shortSearch = main.filteredInputStrings(text: "ruben-99-thgb")
+        XCTAssertEqual(shortSearch, "")
+        
+        let longText:String = "abcdefghijklmnopqrstuvwrstuvxyzabcdefghijklmnopqrstuvwrstuvxyz"
+        let longSearch = main.filteredInputStrings(text: longText)
+        XCTAssertEqual(longSearch, "")
     }
+    
     func databaseSearchTest(){
-        // will empty string begin a search.
+        // check if empty string begins a database query.
         
         //group query
         let invalidGString = main.findGroups(text: "")
@@ -38,4 +46,5 @@ class peepleTests: XCTestCase {
         XCTAssertEqual(invalidPString, WontBeginAPQuery)
     }
     
+
 }
