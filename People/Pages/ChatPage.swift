@@ -21,20 +21,7 @@ class ChatPage: UIViewController {
         if UserDefaults.standard.bool(forKey: "isLocationEnabled") {
         // show share event location button
         }
-        guard let user = app.currentUser else { return }
-        let configuration1 = user.configuration(partitionValue: "groupMessages=\(Group.ID)")
-    Realm.asyncOpen(configuration: configuration1) { [self] (result) in
-        switch result {
-        case .failure(let error):
-            print("Failed to open realm: \(error.localizedDescription)")
-            // Handle error...
-        case .success(let realm):
-            // Realm opened
-            self.messages = realm.objects(groupMessages.self).sorted(byKeyPath: "timeStamp",ascending: false)
-//            self.stopLoading()
-//            self.collectionView.reloadData()
-        }
-    }
+     
     }
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
         switch sender.direction {

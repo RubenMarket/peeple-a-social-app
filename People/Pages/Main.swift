@@ -20,7 +20,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     private var all_People: Results<allPeople>?
     private var search_People: Results<allPeople>?
     private var my_People: Results<myPeople>?
-    private var messages: Results<groupMessages>?
+    private var messages: Results<groupMessagesV2>?
     fileprivate var locationManager: CLLocationManager?
     lazy var geocoder = CLGeocoder()
     fileprivate var didPass:Bool = false
@@ -45,15 +45,23 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageOptionIndicator: UIImageView!
     // MARK: GroupPage
-    @IBOutlet weak var makeGroupView: UIView!
-    @IBOutlet weak var GroupMakeName: UITextField!
-    @IBOutlet weak var GroupImageButton: UIButton!
-    @IBOutlet weak var GroupMakeButton: UIButton!
-    @IBAction func makeGroup(_ sender: UIButton) {
-        if GroupMakeName.text != "" {
+    @IBOutlet weak var addInfoView: UIView!
+    @IBOutlet weak var infoTextField: UITextField!
+    @IBOutlet weak var infoTextDescription: UITextField!
+    @IBOutlet weak var eventDurationButton: UIButton!
+    @IBOutlet weak var addInfoButton: UIButton!
+    @IBAction func addInfo(_ sender: UIButton) {
+        if Peeple.CurrentPage == .Group {
+            if infoTextField.text != "" { return }
+            
             guard let user = app.currentUser else { return }
             startLoading()
-            guard let GroupName = GroupMakeName.text else { return}
+            guard let GroupName = infoTextField.text else { return }
+            
+            if GroupName.count >= 20 { return }
+            let GroupCode:String = UUID().uuidString
+            // if person is private add to all gorups
+            if Peeple.priv == false {
             let partitionValue = "allGroups=\(Location.city)"
             // Get a sync configuration from the user object.
             let configuration = user.configuration(partitionValue: partitionValue)
@@ -63,11 +71,12 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     print(error.localizedDescription)
                     self.stopLoading()
                 case .success(let realm):
-                    let newGroup = allGroups(name: GroupName, image: "", des: "", userId: ID.my, color: Peeple.myAppColor,priv: Peeple.priv, dateMade: generateCurrentTimeStamp())
+                    let newGroup = allGroups(name: GroupName, image: "", des: infoTextDescription.text ?? "", userId: ID.my, color: Peeple.myAppColor,priv: Peeple.priv, dateMade: generateCurrentTimeStamp(),ID:GroupCode)
                     try! realm.write {
                         realm.add(newGroup,update: .modified)
                     }
                 }
+            }
             }
             let partitionValue2 = "me=\(user.id)"
             // Get a sync configuration from the user object.
@@ -78,14 +87,14 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     print(error)
                     self.stopLoading()
                 case .success(let realm):
-                    let myGroup = myGroups(name: GroupName, image: "", color: Peeple.myAppColor, des: generateCurrentTimeStamp(), userId: user.id, key: UUID().uuidString)
+                    let myGroup = myGroups(name: GroupName, image: "", color: Peeple.myAppColor, des: infoTextDescription.text ?? "", userId: user.id, key: GroupCode)
                     if let me = realm.objects(mePersonV2.self).first {
                     try! realm.write {
                         me.myGroups.append(myGroup)
                     }
                     }
                     self.stopLoading()
-                    self.GroupMakeName.text = ""
+                    self.infoTextField.text = ""
                     Peeple.GroupisSetTo = .my
                     fetchGroupData(user: user)
                 }
@@ -93,6 +102,29 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             }
         
         }
+        
+        if Peeple.CurrentPage == .GroupChat {
+            if infoTextField.text == "" { return }
+            guard let eventName = infoTextField.text else { return }
+            if eventName.count >= 20 { return }
+            let eventCode:String = UUID().uuidString
+            guard let user = app.currentUser else { return }
+            startLoading()
+            let configuration1 = user.configuration(partitionValue: "groupMessages=\(Group.ID)")
+        Realm.asyncOpen(configuration: configuration1) { [self] (result) in
+            switch result {
+            case .failure(let error):
+                print("Failed to open realm: \(error.localizedDescription)")
+                // Handle error...
+            case .success(let realm):
+                // Realm opened
+                let message = groupMessagesV2(color: Peeple.myAppColor, peepOne: Peeple.peepOne, peepTwo: Peeple.peepTwo, peepThree: Peeple.peepThree, lat: Peeple.Eventlatitude, long: Peeple.Eventlongitude, chatMessage: infoTextDescription.text ?? "", date: generateCurrentTimeStamp(), userId: user.id, isBiz: Peeple.biz, _id: eventCode, timeCode: <#T##Double#>)
+                self.stopLoading()
+                self.collectionView.reloadData()
+            }
+        }
+        }
+        
     }
     func generateCurrentTimeStamp () -> String {
         let formatter = DateFormatter()
@@ -113,7 +145,10 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     @IBAction func copyMyCode(_ sender: UIButton) {
         UIPasteboard.general.string = ID.my
         // Copied to Clipboard pop-up
-        sender.isHidden = true
+        sender.isEnabled = false
+        UIView.animate(withDuration: 0.8) {
+            sender.isEnabled = true
+        }
     }
     func setButtonColors(color:UIColor){
         MyCodeButton.setTitleColor(color, for: .normal)
@@ -185,7 +220,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     @IBAction func myRequests(_ sender: UIButton) {
     }
     @IBAction func ToggleLocation(_ sender: UIButton) {
-        
+        myCityPressed()
     }
     @IBAction func PickorPurchasePeeps(_ sender: UIButton) {
         middleLabel.text = "peeple pro - every peep in peeple for only $10. Press and Hold to purchase peeple pro for $10."
@@ -240,18 +275,15 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                             print(error)
                             self.stopLoading()
                         case .success(let realm):
-                            let myGroup = myGroups(name: Group.name, image: Group.pic, color: Group.color, des: generateCurrentTimeStamp(), userId: user.id, key: UUID().uuidString)
+                            let myGroup = myGroups(name: Group.name, image: Group.pic, color: Group.color, des: generateCurrentTimeStamp(), userId: user.id, key: Group.ID)
                             if let me = realm.objects(mePersonV2.self).first {
-                            try! realm.write {
-                                me.myGroups.append(myGroup) }
-                            }
+                            try! realm.write { me.myGroups.append(myGroup) } }
                             self.stopLoading()
-                            let alert = UIAlertController(title: "Group saved and added to clipboard", message: "\(Group.name)", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "\(Group.name) added to my groups", message: "\(Group.name) : copied to clipboard", preferredStyle: .alert)
                             self.myGroupLoaded = false
                             alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
                             self.present(alert, animated: true, completion: nil)
                         }
-                        
                     }
                 }
                 
@@ -285,8 +317,32 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         }
         if Peeple.CurrentPage == .Person {
             if sender.state == .began {
-                let pasteboard = UIPasteboard.general
-                pasteboard.string = Person.ID
+                if Person.ID != "" {
+                    guard let user = app.currentUser else { return }
+                    let partitionValue2 = "me=\(user.id)"
+                    startLoading()
+                    let pasteboard = UIPasteboard.general
+                    pasteboard.string = Person.ID
+                    // Get a sync configuration from the user object.
+                    let configuration2 = user.configuration(partitionValue: partitionValue2)
+                        Realm.asyncOpen(configuration: configuration2) { [self] (result) in
+                        switch result {
+                        case .failure(let error):
+                            print(error)
+                            self.stopLoading()
+                        case .success(let realm):
+                            let myPerson = myPeople(color: Person.color, image: "\(Person.color)", name: Person.name, bio: "", one: Person.peepOne, two: Person.peepTwo, three: Person.peepThree, _id: Person.ID)
+                            if let me = realm.objects(mePersonV2.self).first {
+                            try! realm.write { me.myPeople.append(myPerson) } }
+                            self.stopLoading()
+                            let alert = UIAlertController(title: "\(Person.name) added to my people", message: "\(Person.name) : copied to clipboard", preferredStyle: .alert)
+                            self.myGroupLoaded = false
+                            alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                                    
+                }
             }
             
         }
@@ -479,21 +535,21 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             return
         }
     }
-//    override func becomeFirstResponder() -> Bool {
-//        return true
-//    }
-//
-//    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
-//        if motion == .motionShake {
-//            print("Shake Gesture Detected")
-//            //show some alert here
-//            if Peeple.CurrentPage == .GroupChat {
-//                let pasteboard = UIPasteboard.general
-//                pasteboard.string = Group.ID
-//                let alert = UIAlertController(title: "Group Code saved to clipboard", message: "\(Group.name)", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
-//                self.present(alert, animated: true, completion: nil)
-//            }
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
+        if motion == .motionShake {
+            print("Shake Gesture Detected")
+            //show some alert here
+            if Peeple.CurrentPage == .GroupChat {
+                // open chat field
+                infoTextField.placeholder = "event name"
+                infoTextDescription.placeholder = "event description"
+                addInfoButton.setTitle("share event", for: .normal)
+                addInfoView.isHidden = false
+            }
 //            if Peeple.CurrentPage == .Person {
 //                let pasteboard = UIPasteboard.general
 //                pasteboard.string = Person.ID
@@ -501,8 +557,8 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
 //                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
 //                self.present(alert, animated: true, completion: nil)
 //            }
-//        }
-//    }
+        }
+    }
     func ARSetUp(){
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized: // the user has already authorized to access the camera.
@@ -951,7 +1007,7 @@ extension MainPage {
     func fetchPlanetData(user:User){
         
         Peeple.CurrentPage = .Planet
-        makeGroupView.isHidden = true
+        addInfoView.isHidden = true
         pageTab.image = nil
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
         topRightLabel.image = UIImage(named: Peeple.PlanetLabel)
@@ -1013,7 +1069,7 @@ extension MainPage {
         })
         switch Peeple.GroupisSetTo {
         case .all:
-            makeGroupView.isHidden = true
+            addInfoView.isHidden = true
             if all_Groups == nil {
                 startLoading()
                 self.middleLabel.text = "all groups"
@@ -1036,7 +1092,7 @@ extension MainPage {
             } }
             self.collectionView.reloadData()
         case .my:
-            makeGroupView.isHidden = true
+            addInfoView.isHidden = true
             if self.myGroupLoaded == false {
                 self.middleLabel.text = "my groups"
                 self.middleLabel.isHidden = false
@@ -1072,20 +1128,23 @@ extension MainPage {
             self.collectionView.reloadData()
         case .search:
             pageOptionIndicator.image = nil
-            makeGroupView.isHidden = true
+            addInfoView.isHidden = true
             middleLabel.text = "press and hold screen to search clipboard"
             middleLabel.isHidden = false
             collectionView.reloadData()
         case .make:
-            GroupMakeButton.setTitleColor(Peeple.colors[Peeple.myAppColor], for: .normal)
-            GroupMakeName.textColor = Peeple.colors[Peeple.myAppColor]
+            addInfoButton.setTitleColor(Peeple.colors[Peeple.myAppColor], for: .normal)
+            addInfoButton.setTitle("make group", for: .normal)
+            infoTextField.textColor = Peeple.colors[Peeple.myAppColor]
+            infoTextField.placeholder = "group name"
             pageOptionIndicator.image = nil
-            makeGroupView.isHidden = false
+            addInfoView.isHidden = false
             collectionView.reloadData()
         case .events:
             print("events")
             topRightLabel.image = UIImage(named: Peeple.EventLabel)
-            makeGroupView.isHidden = true
+            middleLabel.text = "events near me"
+            addInfoView.isHidden = true
             pageOptionIndicator.image = nil
         }
         
@@ -1109,7 +1168,7 @@ extension MainPage {
         pageOptionIndicator.isHidden = false
         pageOptionIndicator.image = nil
         // hiding group view
-        makeGroupView.isHidden = true
+        addInfoView.isHidden = true
         // hiding profile page info
         editProfileView.isHidden = true
         middleLabel.isHidden = true
@@ -1342,8 +1401,20 @@ extension MainPage {
         topWordLabel.textColor = Peeple.colors[color]
         topWordLabel.text = name
         Peeple.CurrentPage = .GroupChat
-        collectionView.reloadData()
-        stopLoading()
+        guard let user = app.currentUser else { return }
+        let configuration1 = user.configuration(partitionValue: "groupMessages=\(Group.ID)")
+    Realm.asyncOpen(configuration: configuration1) { [self] (result) in
+        switch result {
+        case .failure(let error):
+            print("Failed to open realm: \(error.localizedDescription)")
+            // Handle error...
+        case .success(let realm):
+            // Realm opened
+            self.messages = realm.objects(groupMessagesV2.self).sorted(byKeyPath: "timeStamp",ascending: false)
+            self.stopLoading()
+            self.collectionView.reloadData()
+        }
+    }
     }
     func findPeople(text: String) -> Bool{
         if text == "" {

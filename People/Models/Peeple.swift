@@ -11,7 +11,7 @@ import UIKit
 import AVFoundation
 
 struct Peeple {
-    static var zoomLevel:zoom = .max
+    static var zoomLevel:zoom = .two
     enum zoom { case one,two, max }
     enum PlanetOptions { case earth, mars, moon,space }
     enum GroupOptions { case all, my, search, make,events }
@@ -33,7 +33,7 @@ struct Peeple {
     static let beta:Bool = false
     static var Pro:Bool = false
     static var priv:Bool = false
-    static var biz:Bool = false
+    static var biz:Bool?
     static var myAppColor:Int = 0
     static var peepOne:Int = 1
     static var peepTwo:Int = 2

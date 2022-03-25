@@ -88,7 +88,7 @@ class charightview : UIView {
                        case .failure(let error):
                            print("Failed to open realm: \(error.localizedDescription)")
                        case .success(let Realm):
-                           let share = earthFeed(text: causes[selectedTags[1]]!, name: Person.name, time: formatter.string(from: time as Date), imgeurl: "charryback", peepone: Person.peepOne, peeptwo: Person.peepTwo, peepthree: Person.peepThree, color: Person.color, biz: false, peep: 1, lotag: "", userID: Person.ID, _id: "\(Int.random(in: 1...30))")
+                           let share = earthFeed(text: causes[selectedTags[1]]!, name: Person.name, time: formatter.string(from: time as Date), imgeurl: "charryMainCell", peepone: Person.peepOne, peeptwo: Person.peepTwo, peepthree: Person.peepThree, color: Person.color, biz: false, peep: 1, lotag: "", userID: Person.ID, _id: "\(Int.random(in: 1...30))")
                            try! Realm.write {
                                Realm.add(share,update: .modified)
                            
@@ -125,7 +125,7 @@ class charightview : UIView {
                        case .failure(let error):
                            print("Failed to open realm: \(error.localizedDescription)")
                        case .success(let Realm):
-                           let share = earthFeed(text: causes[selectedTags[0]]!, name: Person.name, time: formatter.string(from: time as Date), imgeurl: "charryback", peepone: Person.peepOne, peeptwo: Person.peepTwo, peepthree: Person.peepThree, color: Person.color, biz: false, peep: 1, lotag: "", userID: Person.ID, _id: "\(Int.random(in: 1...30))")
+                           let share = earthFeed(text: causes[selectedTags[0]]!, name: Person.name, time: formatter.string(from: time as Date), imgeurl: "charryMainCell", peepone: Person.peepOne, peeptwo: Person.peepTwo, peepthree: Person.peepThree, color: Person.color, biz: false, peep: 1, lotag: "", userID: Person.ID, _id: "\(Int.random(in: 1...30))")
                            try! Realm.write {
                                Realm.add(share,update: .modified)
                            

@@ -18,9 +18,9 @@ class allGroups:Object {
     @Persisted var priv : Bool = false
     // location in storage after the users ID and groupimages
     @Persisted var dateMade : String = ""
-    @Persisted(primaryKey: true) var _id:String = UUID().uuidString
+    @Persisted(primaryKey: true) var _id:String = ""
     
-    convenience init(name: String,image:String, des: String, userId: String,color:Int,priv:Bool,dateMade:String) {
+    convenience init(name: String,image:String, des: String, userId: String,color:Int,priv:Bool,dateMade:String,ID:String) {
         self.init()
         self.name = name
         self.image = image
@@ -29,6 +29,7 @@ class allGroups:Object {
         self.priv = priv
         self.dateMade = dateMade
         self.color = color
+        self._id = ID
          }
     
 }
@@ -37,10 +38,9 @@ class myGroups:EmbeddedObject {
     @Persisted var name: String = ""
     @Persisted var des: String = ""
     @Persisted var image: String = ""
-    @Persisted var color: Int = 4
+    @Persisted var color: Int = 3
     @Persisted var userId:String =  ""
     @Persisted var key:String = ""
-    
     convenience init(name: String,image:String,color:Int, des: String,userId:String,key:String) {
         self.init()
         self.name = name
@@ -49,9 +49,7 @@ class myGroups:EmbeddedObject {
         self.userId = userId
         self.key = key
         self.color = color
-        
     }
-    
 }
 //class topGroups:Object {
 //    @Persisted var name: String = ""
@@ -81,36 +79,30 @@ class myGroups:EmbeddedObject {
 //    
 //}
 
-class groupMessages:Object {
-    @Persisted var username: String = ""
-    @Persisted var image: String = ""
+class groupMessagesV2:Object {
     @Persisted var color: Int = 0
     @Persisted var peepOne: Int = 0
     @Persisted var peepTwo: Int = 0
     @Persisted var peepThree: Int = 0
     @Persisted var lat: Double = 0
     @Persisted var long: Double = 0
-    @Persisted var chatmessage: String = ""
-    @Persisted var timeStamp : String = ""
-    @Persisted var timeCode : TimeInterval = 0.0
-    @Persisted var profPic : String = ""
-    @Persisted var isBiz: Bool = false
+    @Persisted var chatMessage: String = ""
+    @Persisted var chatName: String = ""
+    @Persisted var timeCode : Double = 0.0
+    @Persisted var isBiz: Bool?
     @Persisted var userId : String = ""
     @Persisted(primaryKey: true) var _id : String
     
-    convenience init(username: String,image:String,color:Int,peepOne:Int,peepTwo:Int,peepThree:Int,lat:Double,long:Double, chatmessage: String, timeStamp : String, userId: String,profPic:String,isBiz:Bool,_id:String,timeCode:TimeInterval) {
+    convenience init(chatName:String,color:Int,peepOne:Int,peepTwo:Int,peepThree:Int,lat:Double,long:Double, chatMessage: String, date : Double, userId: String,isBiz:Bool?,_id:String,timeCode:Double) {
     self.init()
-        self.username = username
-        self.image = image
+        self.chatName = chatName
         self.color = color
         self.peepOne = peepOne
         self.peepTwo = peepTwo
         self.peepThree = peepThree
         self.lat = lat
         self.long = long
-        self.chatmessage = chatmessage
-        self.timeStamp = timeStamp
-        self.profPic = profPic
+        self.chatMessage = chatMessage
         self.userId = userId
         self._id = _id
         self.timeCode = timeCode
