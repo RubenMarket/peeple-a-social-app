@@ -8,9 +8,6 @@ target 'People' do
 
 pod 'RealmSwift'
 pod 'SnapKit'
-pod 'SDWebImage', '~> 5.0'
-pod 'Firebase/Storage'
-pod 'FirebaseUI/Storage'
 
 
 end
