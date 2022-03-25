@@ -26,6 +26,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     fileprivate var didPass:Bool = false
     private var myGroupLoaded:Bool = false
     private var myPeopleLoaded:Bool = false
+    private var eventDuration:Int = 1
     // Peep Views
     private weak var peepOneView:UIView?
     private weak var peepTwoView:UIView?
@@ -62,6 +63,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             let GroupCode:String = UUID().uuidString
             // if person is private add to all gorups
             if Peeple.priv == false {
+                let now = Date()
             let partitionValue = "allGroups=\(Location.city)"
             // Get a sync configuration from the user object.
             let configuration = user.configuration(partitionValue: partitionValue)
@@ -71,7 +73,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     print(error.localizedDescription)
                     self.stopLoading()
                 case .success(let realm):
-                    let newGroup = allGroups(name: GroupName, image: "", des: infoTextDescription.text ?? "", userId: ID.my, color: Peeple.myAppColor,priv: Peeple.priv, dateMade: generateCurrentTimeStamp(),ID:GroupCode)
+                    let newGroup = allGroups(name: GroupName, image: "", des: infoTextDescription.text ?? "", userId: ID.my, color: Peeple.myAppColor,priv: Peeple.priv, dateMade: now,ID:GroupCode)
                     try! realm.write {
                         realm.add(newGroup,update: .modified)
                     }
@@ -109,7 +111,10 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             if eventName.count >= 20 { return }
             let eventCode:String = UUID().uuidString
             guard let user = app.currentUser else { return }
+            let now = Date()
             startLoading()
+            print(now)
+            let eventDes:String = infoTextDescription.text ?? ""
             let configuration1 = user.configuration(partitionValue: "groupMessages=\(Group.ID)")
         Realm.asyncOpen(configuration: configuration1) { [self] (result) in
             switch result {
@@ -118,7 +123,10 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 // Handle error...
             case .success(let realm):
                 // Realm opened
-                let message = groupMessagesV2(color: Peeple.myAppColor, peepOne: Peeple.peepOne, peepTwo: Peeple.peepTwo, peepThree: Peeple.peepThree, lat: Peeple.Eventlatitude, long: Peeple.Eventlongitude, chatMessage: infoTextDescription.text ?? "", date: generateCurrentTimeStamp(), userId: user.id, isBiz: Peeple.biz, _id: eventCode, timeCode: <#T##Double#>)
+                let message = groupMessagesV2(chatName: eventName, color: Peeple.myAppColor, peepOne: Peeple.peepOne, peepTwo: Peeple.peepTwo, peepThree: Peeple.peepThree, eventDuration: eventDuration, lat: Peeple.Eventlatitude, long: Peeple.Eventlongitude, chatMessage: eventDes, userId: user.id, isBiz: Peeple.biz, _id: eventCode, timeCode: now)
+                try! realm.write {
+                    realm.add(message)
+                }
                 self.stopLoading()
                 self.collectionView.reloadData()
             }
@@ -126,10 +134,12 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         }
         
     }
-    func generateCurrentTimeStamp () -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy_MM_dd_hh_mm_ss"
-        return (formatter.string(from: Date()) as NSString) as String
+    func getEventDuration (from:Date) -> String {
+        let now = Date()
+        let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: from, to: now)
+        let hours = diffComponents.hour ?? 0
+        let minutes = diffComponents.minute ?? 0
+        return "time elapsed \(hours) and \(minutes) mnutes"
     }
     // MARK: ProfilePage
     @IBOutlet weak var profilePageView: UIView!
@@ -220,7 +230,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     @IBAction func myRequests(_ sender: UIButton) {
     }
     @IBAction func ToggleLocation(_ sender: UIButton) {
-        myCityPressed()
+        locationManager?.requestWhenInUseAuthorization()
     }
     @IBAction func PickorPurchasePeeps(_ sender: UIButton) {
         middleLabel.text = "peeple pro - every peep in peeple for only $10. Press and Hold to purchase peeple pro for $10."
@@ -275,7 +285,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                             print(error)
                             self.stopLoading()
                         case .success(let realm):
-                            let myGroup = myGroups(name: Group.name, image: Group.pic, color: Group.color, des: generateCurrentTimeStamp(), userId: user.id, key: Group.ID)
+                            let myGroup = myGroups(name: Group.name, image: Group.pic, color: Group.color, des: Group.des, userId: user.id, key: Group.ID)
                             if let me = realm.objects(mePersonV2.self).first {
                             try! realm.write { me.myGroups.append(myGroup) } }
                             self.stopLoading()
@@ -545,6 +555,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             //show some alert here
             if Peeple.CurrentPage == .GroupChat {
                 // open chat field
+                locationManager?.startUpdatingLocation()
                 infoTextField.placeholder = "event name"
                 infoTextDescription.placeholder = "event description"
                 addInfoButton.setTitle("share event", for: .normal)
@@ -609,6 +620,8 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         collectionView.delegate = self
         collectionView.dataSource = self
         layoutUI()
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
         ID.my = UserDefaults.standard.string(forKey: "myCode") ?? ""
         Peeple.isARActive = UserDefaults.standard.bool(forKey: "AR")
         collectionView.register(UINib(nibName: "MainCell", bundle: nil), forCellWithReuseIdentifier: "MainCell")
@@ -689,7 +702,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         case .Profile:
             return CGSize(width: 0, height: 0)
         case .GroupChat:
-            return CGSize(width: collectionView.frame.width/2, height: collectionView.frame.height/4)
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/4)
         case .Person:
             return CGSize(width: 0, height: 0)
         }
@@ -811,10 +824,10 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             switch Peeple.GroupisSetTo {
             case .all:
                 guard let group = all_Groups?[indexPath.row] else { return }
-                toGroupChatWith(ID: group._id, name: group.name, pic: group.image, color: group.color)
+                toGroupChatWith(ID: group._id, name: group.name, pic: group.image, color: group.color, des: group.des)
             case .my:
                 guard let group = my_Groups?[indexPath.row] else { return }
-                toGroupChatWith(ID: group.key, name: group.name, pic: group.image, color: group.color)
+                toGroupChatWith(ID: group.key, name: group.name, pic: group.image, color: group.color, des: group.des)
             case .search:
                 return
             case .make:
@@ -839,7 +852,10 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         case .Profile:
             return
         case .GroupChat:
-            // to person profile
+            guard let event = messages?[indexPath.row] else { return }
+            // to event in maps
+            guard let eventTime:Date = event.timeCode else { return }
+            print(getEventDuration(from: eventTime))
             return
         case .Person:
             return
@@ -858,6 +874,8 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             self.stopLoading()
             self.locationManager?.stopUpdatingLocation()
             return }
+        Peeple.Eventlatitude = location.coordinate.latitude
+        Peeple.Eventlongitude = location.coordinate.longitude
         UserDefaults.standard.set(true, forKey: "isLocationEnabled")
         didPass = true
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
@@ -915,6 +933,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     Location.city = City
                     UserDefaults.standard.set(City, forKey: "myCityID")
                     MyLocationButton.isHidden = true
+                    self.locationManager?.stopUpdatingLocation()
                 }
             } else {
                 print("No Matching Addresses Found")
@@ -1388,12 +1407,13 @@ extension MainPage {
         }
 
     }
-    func toGroupChatWith(ID:String,name:String,pic:String,color:Int){
+    func toGroupChatWith(ID:String,name:String,pic:String,color:Int,des:String){
         startLoading()
         Group.ID = ID
         Group.name = name
         Group.color = color
         Group.pic = pic
+        Group.des = des
         topRightLabel.isHidden = true
         pageTab.isHidden = true
         middleLabel.isHidden = true
@@ -1457,7 +1477,7 @@ extension MainPage {
             case .success(let Realm):
                 self.search_Groups = Realm.objects(allGroups.self).filter("_id == '\(text)'")
                 if let group = self.search_Groups?.first {
-                    self.toGroupChatWith(ID: group._id, name: group.name, pic: group.image, color: group.color) }
+                    self.toGroupChatWith(ID: group._id, name: group.name, pic: group.image, color: group.color, des: group.des) }
                 
             }
         }

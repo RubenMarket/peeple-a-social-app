@@ -76,8 +76,8 @@ struct Person {
     static var peepOne:Int = 0
     static var peepTwo:Int = 0
     static var peepThree:Int = 0
-    static var color = 0
-    static var pic = ""
+    static var color:Int = 0
+    static var pic:String = ""
     static var charight:charightChoice?
     static var clenny:cleanergyClenny?
     static var porty:portflioPost?
@@ -92,8 +92,9 @@ struct Peeps {
 struct Group {
     static var ID:String = ""
     static var name:String = ""
-    static var color = 0
-    static var pic = ""
+    static var color:Int = 0
+    static var pic:String = ""
+    static var des:String = ""
 }
 struct ID {
     static var my:String = ""

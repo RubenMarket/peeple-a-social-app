@@ -9,7 +9,6 @@
 import UIKit
 import RealmSwift
 import AVFoundation
-import Firebase
 let app = App(id: "peeple-euckn")
 @main
 @available(iOS 13.0, *)
@@ -18,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
 //let locationManager = CLLocationManager()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        FirebaseApp.configure()
 
         
         

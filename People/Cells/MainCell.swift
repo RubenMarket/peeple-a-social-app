@@ -72,9 +72,10 @@ class MainViewCell: UICollectionViewCell {
                 setPeople(personName: myPeople.name, personColor: myPeople.color, peep1: myPeople.one, peep2: myPeople.two, peep3: myPeople.three, personImage: myPeople.image, isPrivate: false)
             }
         }
-    var groupMessages : groupMessages! {
+    var groupMessages : groupMessagesV2! {
         didSet {
-            mainTextLabel.text = groupMessages.chatmessage
+            mainTextLabel.text = "\(groupMessages.chatName) : \(groupMessages.chatMessage)"
+            mainImageView.image = UIImage(named: "eventsele")
             peepOne.image = UIImage(named: Peeple.peepPics[groupMessages.peepOne])
             peepTwo.image = UIImage(named: Peeple.peepPics[groupMessages.peepTwo])
             peepThree.image = UIImage(named: Peeple.peepPics[groupMessages.peepThree])

@@ -17,10 +17,10 @@ class allGroups:Object {
     @Persisted var color: Int = 0
     @Persisted var priv : Bool = false
     // location in storage after the users ID and groupimages
-    @Persisted var dateMade : String = ""
+    @Persisted var dateMade : Date?
     @Persisted(primaryKey: true) var _id:String = ""
     
-    convenience init(name: String,image:String, des: String, userId: String,color:Int,priv:Bool,dateMade:String,ID:String) {
+    convenience init(name: String,image:String, des: String, userId: String,color:Int,priv:Bool,dateMade:Date,ID:String) {
         self.init()
         self.name = name
         self.image = image
@@ -84,22 +84,24 @@ class groupMessagesV2:Object {
     @Persisted var peepOne: Int = 0
     @Persisted var peepTwo: Int = 0
     @Persisted var peepThree: Int = 0
+    @Persisted var eventDuration: Int = 0
     @Persisted var lat: Double = 0
     @Persisted var long: Double = 0
     @Persisted var chatMessage: String = ""
     @Persisted var chatName: String = ""
-    @Persisted var timeCode : Double = 0.0
+    @Persisted var timeCode : Date?
     @Persisted var isBiz: Bool?
     @Persisted var userId : String = ""
     @Persisted(primaryKey: true) var _id : String
     
-    convenience init(chatName:String,color:Int,peepOne:Int,peepTwo:Int,peepThree:Int,lat:Double,long:Double, chatMessage: String, date : Double, userId: String,isBiz:Bool?,_id:String,timeCode:Double) {
+    convenience init(chatName:String,color:Int,peepOne:Int,peepTwo:Int,peepThree:Int,eventDuration:Int,lat:Double,long:Double, chatMessage: String, userId: String,isBiz:Bool?,_id:String,timeCode:Date) {
     self.init()
         self.chatName = chatName
         self.color = color
         self.peepOne = peepOne
         self.peepTwo = peepTwo
         self.peepThree = peepThree
+        self.eventDuration = eventDuration
         self.lat = lat
         self.long = long
         self.chatMessage = chatMessage
