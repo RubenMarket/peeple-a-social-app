@@ -24,6 +24,7 @@ class charightview : UIView {
     @IBOutlet weak var buttonView: UIView!
     private var editPeep:Bool = true
     private var sharedPeepNum = 0
+    private var didSharepeep:Bool = false
     private var topChar:Bool = true
     private var bottomChar:Bool = true
     private var animate:Bool = false
@@ -73,6 +74,7 @@ class charightview : UIView {
             editPeep(isEditing: editPeep)
         } else {
             if sharedPeepNum == 2 {
+                if didSharepeep { return }
                 let times = NSDate().timeIntervalSince1970
                 let myTimeInterval = TimeInterval(times)
                 let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
@@ -81,7 +83,7 @@ class charightview : UIView {
                 formatter.timeStyle = .short
             guard let user = app.currentUser else { return }
                    // Get a sync configuration from the user object.
-                let config = user.configuration(partitionValue: "earthFeed=\(Location.continent)")
+                let config = user.configuration(partitionValue: "earthFeed=\(Location.country)")
                    // Open the realm asynchronously to ensure backend data is downloaded first.
                 Realm.asyncOpen(configuration: config) { [self] (result) in
                        switch result {
@@ -110,6 +112,7 @@ class charightview : UIView {
             editPeep(isEditing: editPeep)
         } else {
             if sharedPeepNum == 1 {
+                if didSharepeep { return }
                 let times = NSDate().timeIntervalSince1970
                 let myTimeInterval = TimeInterval(times)
                 let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
@@ -118,7 +121,7 @@ class charightview : UIView {
                 formatter.timeStyle = .short
             guard let user = app.currentUser else { return }
                    // Get a sync configuration from the user object.
-                let config = user.configuration(partitionValue: "earthFeed=\(Location.continent)")
+                let config = user.configuration(partitionValue: "earthFeed=\(Location.country)")
                    // Open the realm asynchronously to ensure backend data is downloaded first.
                 Realm.asyncOpen(configuration: config) { [self] (result) in
                        switch result {

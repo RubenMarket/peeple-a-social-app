@@ -26,7 +26,6 @@ struct Peeple {
     static let rarity:Int = 30
     // the views width divided by below number
     static let cornerRadius:CGFloat = 22
-    static let AdminID:String = "60fb4740e78e0a6ebdd077cc"
     static let peepTags: [Int: String] = [1:"charight",2:"cleanergy",3:"Portoflio",4:"Spacechip",5:"Cupidity",6:"Animalife",7:"Comingsoon",8:"Theorize",9:"Clouds",10:"Shelfie",11:"Traveld",12:"Myme",13:"Alexia",14:"Beta Tester",15:"Musicity",16:"Awe Member",17:"blue soon"]
     static let peepPics: [String] = ["emptyRectangle","charight","cleanergy","Portoflio","Spacechip","Cupidity","Animalife","Comingsoon","Theorize","Clouds","Shelfie","Traveld","Myme","Alexia","Beta Tester","Musicity","Awe Member","blue soon"]
     static var isARActive:Bool = false
@@ -38,6 +37,7 @@ struct Peeple {
     static var peepOne:Int = 1
     static var peepTwo:Int = 2
     static var peepThree:Int = 3
+    static var name:String = ""
     static let allImage:String = "all"
     static let topImage:String = "top"
     static let myImage:String = "my"
@@ -100,8 +100,8 @@ struct ID {
     static var my:String = ""
 }
 struct Location {
-    static var continent:String = "earth"
-    static var city:String = "peeple"
+    static var country:String = UserDefaults.standard.string(forKey: "country") ?? "earth"
+    static var city:String = UserDefaults.standard.string(forKey: "city") ?? "peeple"
 }
 struct Errors {
     static var InvalidString:String = "Invalid String"

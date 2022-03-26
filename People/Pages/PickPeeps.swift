@@ -106,7 +106,7 @@ class pickpeeps: UIViewController {
                     // Handle error...
                 case .success(let realm):
                     // Realm opened
-                    if let me = realm.object(ofType: mePersonV2.self, forPrimaryKey: user.id) {
+                    if let me = realm.object(ofType: mePerson.self, forPrimaryKey: user.id) {
                         try! realm.write {
                             me.one = self.peepOne!
                         }
@@ -126,7 +126,7 @@ class pickpeeps: UIViewController {
                     // Handle error...
                 case .success(let realm):
                     // Realm opened
-                    if let me = realm.object(ofType: mePersonV2.self, forPrimaryKey: user.id) {
+                    if let me = realm.object(ofType: mePerson.self, forPrimaryKey: user.id) {
                         try! realm.write {
                             me.one = self.peepTwo!
                         }
@@ -146,7 +146,7 @@ class pickpeeps: UIViewController {
                     // Handle error...
                 case .success(let realm):
                     // Realm opened
-                    if let me = realm.object(ofType: mePersonV2.self, forPrimaryKey: user.id) {
+                    if let me = realm.object(ofType: mePerson.self, forPrimaryKey: user.id) {
                         try! realm.write {
                             me.one = self.peepThree!
                         }

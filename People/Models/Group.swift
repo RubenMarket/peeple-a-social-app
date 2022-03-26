@@ -79,7 +79,7 @@ class myGroups:EmbeddedObject {
 //    
 //}
 
-class groupMessagesV2:Object {
+class groupMessages:Object {
     @Persisted var color: Int = 0
     @Persisted var peepOne: Int = 0
     @Persisted var peepTwo: Int = 0

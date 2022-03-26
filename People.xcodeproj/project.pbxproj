@@ -61,6 +61,7 @@
 		8479FD3827517B7A0074098F /* editProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8479FD3727517B7A0074098F /* editProfile.xib */; };
 		8480F81527E768C7001859DA /* peepsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8480F81427E768C6001859DA /* peepsound.mp3 */; };
 		8481197FD838860A4197252B /* Pods_People.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED383403FC54E35530547268 /* Pods_People.framework */; };
+		84E8094F27EEAFF8004CF23A /* configFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8094E27EEAFF8004CF23A /* configFile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		8479FD35275159C70074098F /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		8479FD3727517B7A0074098F /* editProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = editProfile.xib; sourceTree = "<group>"; };
 		8480F81427E768C6001859DA /* peepsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = peepsound.mp3; sourceTree = SOURCE_ROOT; };
+		84E8094E27EEAFF8004CF23A /* configFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = configFile.swift; sourceTree = "<group>"; };
 		8C10420553EDC8376A10EF1D /* Pods-People.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-People.debug.xcconfig"; path = "Pods/Target Support Files/Pods-People/Pods-People.debug.xcconfig"; sourceTree = "<group>"; };
 		ED383403FC54E35530547268 /* Pods_People.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_People.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -186,6 +188,7 @@
 				821D9FAF20B7A48900CD69D7 /* Main.storyboard */,
 				821D9FB220B7A48900CD69D7 /* Assets.xcassets */,
 				821D9FAB20B7A48900CD69D7 /* AppDelegate.swift */,
+				84E8094E27EEAFF8004CF23A /* configFile.swift */,
 				8480F81427E768C6001859DA /* peepsound.mp3 */,
 				82BC3B0E26B75E5900E4F027 /* peepleSound.wav */,
 				82AEC10F2104E0B400C9B5C7 /* Models */,
@@ -504,6 +507,7 @@
 				8248480F24A80C7600D3C6AE /* myme.swift in Sources */,
 				8479FD36275159C70074098F /* Main.swift in Sources */,
 				821D9FAC20B7A48900CD69D7 /* AppDelegate.swift in Sources */,
+				84E8094F27EEAFF8004CF23A /* configFile.swift in Sources */,
 				82AEC1132104F45A00C9B5C7 /* Planet.swift in Sources */,
 				82DF929C251A41A900537A7B /* Peeps.swift in Sources */,
 				82B3D86D248879BD009CC79A /* PickPeeps.swift in Sources */,

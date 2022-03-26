@@ -138,7 +138,7 @@ class allPeople: Object {
 //        self.myPeople.append(objectsIn: myPeople)
 //    }
 //}
-class mePersonV2: Object {
+class mePerson: Object {
     @Persisted var name: String = ""
     @Persisted var one:Int = 0
     @Persisted var image:String = ""

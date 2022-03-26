@@ -764,7 +764,7 @@
                                         </state>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QiB-JG-uCV">
-                                        <rect key="frame" x="8" y="8" width="278" height="46"/>
+                                        <rect key="frame" x="0.0" y="8" width="294" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="tCa-MQ-u7j"/>
                                         </constraints>
@@ -808,9 +808,9 @@
                                     <constraint firstAttribute="trailing" secondItem="Nre-IP-6Wm" secondAttribute="trailing" constant="12" id="bdk-8l-oAH"/>
                                     <constraint firstItem="aId-XA-s8j" firstAttribute="centerX" secondItem="Nfl-ok-Wzj" secondAttribute="centerX" id="fQn-7N-EPs"/>
                                     <constraint firstItem="aId-XA-s8j" firstAttribute="top" secondItem="sBi-UQ-CyA" secondAttribute="bottom" constant="8" id="jak-BE-bdH"/>
-                                    <constraint firstAttribute="trailing" secondItem="QiB-JG-uCV" secondAttribute="trailing" constant="20" id="m1e-fL-oZm"/>
+                                    <constraint firstAttribute="trailing" secondItem="QiB-JG-uCV" secondAttribute="trailing" constant="12" id="m1e-fL-oZm"/>
                                     <constraint firstItem="Nre-IP-6Wm" firstAttribute="top" secondItem="aId-XA-s8j" secondAttribute="bottom" constant="8" id="wgq-tW-Cb2"/>
-                                    <constraint firstItem="QiB-JG-uCV" firstAttribute="leading" secondItem="Nfl-ok-Wzj" secondAttribute="leading" constant="8" id="wss-Wp-vo3"/>
+                                    <constraint firstItem="QiB-JG-uCV" firstAttribute="leading" secondItem="Nfl-ok-Wzj" secondAttribute="leading" id="wss-Wp-vo3"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOc-nA-boU">
@@ -979,24 +979,6 @@
                                     <constraint firstAttribute="width" constant="106" id="Z7F-A2-CIN"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rjn-uu-aBl">
-                                <rect key="frame" x="307" y="585" width="52" height="62"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="52" id="FJf-lH-po6"/>
-                                    <constraint firstAttribute="height" constant="62" id="Ssc-5Y-rNp"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="pers"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5s3-EP-rE0">
-                                <rect key="frame" x="16" y="585" width="52" height="62"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="62" id="IMd-tX-v5P"/>
-                                    <constraint firstAttribute="width" constant="52" id="OfQ-pv-20c"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="event"/>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fwX-Ov-08Z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1005,7 +987,6 @@
                             <constraint firstItem="ynP-Ee-tUq" firstAttribute="top" secondItem="tLE-QW-wmD" secondAttribute="top" id="3Fi-Qu-tZI"/>
                             <constraint firstItem="dNX-43-S72" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" constant="-16" id="4Nx-eQ-tAe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="d1l-0k-ZxY" secondAttribute="trailing" constant="7" id="8VP-7d-AeF"/>
-                            <constraint firstItem="rjn-uu-aBl" firstAttribute="bottom" secondItem="fwX-Ov-08Z" secondAttribute="bottom" constant="-20" id="AVA-x2-dfR"/>
                             <constraint firstItem="ynP-Ee-tUq" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" id="Bui-k2-5qB"/>
                             <constraint firstItem="Nfl-ok-Wzj" firstAttribute="centerX" secondItem="tLE-QW-wmD" secondAttribute="centerX" id="DQy-xz-4oc"/>
                             <constraint firstItem="q1T-Sa-J9K" firstAttribute="leading" secondItem="Nfl-ok-Wzj" secondAttribute="leading" id="EwZ-Yz-YOy"/>
@@ -1015,7 +996,6 @@
                             <constraint firstItem="jha-lE-QJf" firstAttribute="top" secondItem="tLE-QW-wmD" secondAttribute="top" id="MsX-pY-ovf"/>
                             <constraint firstItem="8a3-87-eQF" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" id="N4a-h7-PBB"/>
                             <constraint firstItem="828-Q2-clc" firstAttribute="top" secondItem="fwX-Ov-08Z" secondAttribute="top" id="R1G-nE-vUg"/>
-                            <constraint firstItem="fwX-Ov-08Z" firstAttribute="bottom" secondItem="5s3-EP-rE0" secondAttribute="bottom" constant="20" id="Ri6-sz-KE4"/>
                             <constraint firstItem="j9a-Lq-dQs" firstAttribute="top" secondItem="tLE-QW-wmD" secondAttribute="topMargin" constant="20" id="RxS-td-7Bw"/>
                             <constraint firstItem="j9a-Lq-dQs" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" id="S3z-vE-VlT"/>
                             <constraint firstItem="8a3-87-eQF" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" id="UBU-bM-poK"/>
@@ -1037,9 +1017,7 @@
                             <constraint firstItem="fwX-Ov-08Z" firstAttribute="trailing" secondItem="828-Q2-clc" secondAttribute="trailing" id="ojT-X0-dWo"/>
                             <constraint firstItem="JEc-hV-xTl" firstAttribute="top" secondItem="fwX-Ov-08Z" secondAttribute="top" constant="20" id="pxz-oY-2ys"/>
                             <constraint firstItem="8a3-87-eQF" firstAttribute="top" secondItem="fwX-Ov-08Z" secondAttribute="top" id="qNJ-fs-MJp"/>
-                            <constraint firstItem="5s3-EP-rE0" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" constant="16" id="sBp-p8-aKk"/>
                             <constraint firstItem="q1T-Sa-J9K" firstAttribute="trailing" secondItem="Nfl-ok-Wzj" secondAttribute="trailing" id="smE-Kt-kFQ"/>
-                            <constraint firstItem="rjn-uu-aBl" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" constant="-16" id="vLr-Up-4rL"/>
                             <constraint firstItem="fwX-Ov-08Z" firstAttribute="bottom" secondItem="j9a-Lq-dQs" secondAttribute="bottom" constant="20" id="yYm-s1-zj9"/>
                         </constraints>
                     </view>
@@ -1119,7 +1097,6 @@
         <image name="clnow" width="1537" height="1647"/>
         <image name="coming soon" width="1537" height="1647"/>
         <image name="cupinge" width="1537" height="1647"/>
-        <image name="event" width="25" height="42"/>
         <image name="lightlogo" width="500" height="500"/>
         <image name="mucity" width="1537" height="1647"/>
         <image name="peepleLoading" width="416" height="416"/>

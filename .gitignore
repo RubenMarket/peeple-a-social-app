@@ -30,7 +30,7 @@ coverage
 
 # nyc test coverage
 .nyc_output
-
+People/configFile.swift
 Pods/
 assets/
 jwt/

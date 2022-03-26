@@ -13,7 +13,7 @@ class myPeeps: Object {
     @Persisted var portflio : portflioPost?
     @Persisted var charight: charightChoice?
     @Persisted var cleanergy: cleanergyClenny?
-    @Persisted var betaTester: betaTester?
+    @Persisted var beta: betaTester?
     @Persisted(primaryKey: true) var _id:String = ""
     convenience init(cleanergy:cleanergyClenny, _id:String) {
         self.init()
@@ -32,10 +32,10 @@ class myPeeps: Object {
         self.portflio = portflio
         self.charight = charight
     }
-    convenience init(betaTester:betaTester, _id:String) {
+    convenience init(beta:betaTester, _id:String) {
         self.init()
         self._id = _id
-        self.betaTester = betaTester
+        self.beta = beta
     }
     convenience init(portflio: portflioPost,_id:String) {
         self.init()

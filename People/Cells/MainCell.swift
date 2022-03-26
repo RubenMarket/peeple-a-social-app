@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class MainViewCell: UICollectionViewCell {
     @IBOutlet weak var mainImageView: UIImageView!
@@ -72,7 +71,7 @@ class MainViewCell: UICollectionViewCell {
                 setPeople(personName: myPeople.name, personColor: myPeople.color, peep1: myPeople.one, peep2: myPeople.two, peep3: myPeople.three, personImage: myPeople.image, isPrivate: false)
             }
         }
-    var groupMessages : groupMessagesV2! {
+    var groupMessages : groupMessages! {
         didSet {
             mainTextLabel.text = "\(groupMessages.chatName) : \(groupMessages.chatMessage)"
             mainImageView.image = UIImage(named: "eventsele")

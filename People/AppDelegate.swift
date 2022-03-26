@@ -9,36 +9,51 @@
 import UIKit
 import RealmSwift
 import AVFoundation
-let app = App(id: "peeple-euckn")
+let app = App(id: admin.appID)
 @main
-@available(iOS 13.0, *)
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate{
    
     var window: UIWindow?
 //let locationManager = CLLocationManager()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         
-        
-//        UserDefaults.standard.set("no", forKey: "made")
-//        let syncManager = app.syncManager
-//        syncManager.logLevel = .debug
-//        UserDefaults.standard.set(nil, forKey: "uid")
-//        app.syncManager.errorHandler = { error, session in
-//            let syncError = error as! SyncError
-//            switch syncError.code {
-//            case .clientResetError:
-//                if let (path, clientResetToken) = syncError.clientResetInfo() {
-////                    closeRealmSafely()
-////                    saveBackupRealmPath(path)
-////                    SyncSession.immediatelyHandleError(clientResetToken)
+//        let config = Realm.Configuration(
+//            // Set the new schema version. This must be greater than the previously used
+//            // version (if you've never set a schema version before, the version is 0).
+//            schemaVersion: 1,
+//
+//            // Set the block which will be called automatically when opening a Realm with
+//            // a schema version lower than the one set above
+//            migrationBlock: { migration, oldSchemaVersion in
+//                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+//                if (oldSchemaVersion < 1) {
+//                    // Nothing to do!
+//                    // Realm will automatically detect new properties and removed properties
+//                    // And will update the schema on disk automatically
 //                }
-//            default:
-//                // Handle other errors...
-//                ()
-//            }
+//            })
+//
+//        // Tell Realm to use this new configuration object for the default Realm
+//        Realm.Configuration.defaultConfiguration = config
+//
+//        func remove(realmURL: URL) {
+//                let realmURLs = [
+//                    realmURL,
+//                    realmURL.appendingPathExtension("lock"),
+//                    realmURL.appendingPathExtension("note"),
+//                    realmURL.appendingPathExtension("management"),
+//                    ]
+//                for URL in realmURLs {
+//                    try? FileManager.default.removeItem(at: URL)
+//                } }
+//        let url = Realm.Configuration.defaultConfiguration.fileURL!
+//        remove(realmURL: url)
+//
+//
+//        try? realm.write {
+//            realm.deleteAll()
 //        }
-        
+//        
 //        window?.tintColor = .systemGray4
         
 //        let now = Date()
@@ -61,15 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //                break
 //            }
 //        }
-        
-        
-//        print(datetime)
-//        let configuration = AIDefaultConfiguration()
-//        configuration.clientAccessToken = "1d2bfe9c66374ec0ac9456290d15d50e"
-//
-//        let apiai = ApiAI.shared()
-//        apiai?.configuration = configuration
-//
         
         // Override point for customization after application launch.
         return true

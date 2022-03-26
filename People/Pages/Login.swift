@@ -157,15 +157,18 @@ print(userIdentifier)
                 self.present(alert, animated: true, completion: nil)
             case .success(let realm):
                 // Realm opened
-                if realm.objects(mePersonV2.self).first != nil {
+                if let me = realm.objects(mePerson.self).first {
                     print("returning user : mePerson found")
+                    if me.priv == false {
+                        self.addAllPerson(user: user, name: me.name)
+                    }
                     self.stopLoading()
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "tohome", sender: nil)
                     }
                 } else {
                     print("non returning user : mePerson not found")
-                    let mePeep = mePersonV2(image:"", name: self.name ?? "", biz: false, one: 1, two: 2, three: 3, priv: false, beta: false,_id: user.id)
+                    let mePeep = mePerson(image:"", name: self.name ?? "", biz: false, one: 1, two: 2, three: 3, priv: false, beta: false,_id: user.id)
                     try! realm.write {
                         realm.add(mePeep, update: .all)
                     }
@@ -181,7 +184,30 @@ print(userIdentifier)
         }
         
     }
-  
+    func addAllPerson(user:User,name:String) {
+        let configuration2 = user.configuration(partitionValue: "allPeople=\(Location.country)")
+      
+        Realm.asyncOpen(configuration: configuration2) { (result) in
+            switch result {
+            case .failure(let error):
+                print("Failed to open realm: \(error.localizedDescription)")
+                // Handle error...
+                let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
+//                    self.stopLoading(loadingView: self.loadingIndicator)
+                }))
+                self.stopLoading()
+                self.present(alert, animated: true, completion: nil)
+            case .success(let realm):
+                // Realm opened
+                let task = allPeople(color: 0, image: "", name: name, biz: false, bio: "",one : 1,two: 2,three: 3,priv:false, ID: user.id)
+                try! realm.write { realm.add(task,update: .modified) }
+            
+                print("Successfully logged in as user \(user)")
+            }
+        }
+    }
     func stopLoading() {
         
         timer?.invalidate()

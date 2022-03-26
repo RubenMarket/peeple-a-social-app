@@ -32,7 +32,7 @@ class betatester: UIView {
             case .success(let realm):
                 // Realm opened
                 if let me = realm.objects(myPeeps.self).first {
-                    if let beta = me.betaTester {
+                    if let beta = me.beta {
                         self.betalabel.text = "\(Person.ID) downloaded peeple a social app beta on \(beta.dateDownloaded)"
                     } else {
                         let times = NSDate().timeIntervalSince1970
@@ -44,7 +44,7 @@ class betatester: UIView {
                         let currentDateTime:String = formatter.string(from: time as Date)
                         let beta = betaTester(dateDownloaded: currentDateTime)
                         try! realm.write{
-                            me.betaTester = beta
+                            me.beta = beta
                         }
                         
                         self.betalabel.text = "\(Person.ID) downloaded peeple a social app beta on \(currentDateTime)"
