@@ -64,7 +64,7 @@ class MainViewCell: UICollectionViewCell {
             timeLeftText = "\(timeLeft)"
         }
         mainTextLabel.textColor = Peeple.colors[eventColor]
-        mainTextLabel.text = "\(groupName) - \(groupDes). time remaining : \(timeLeftText) minutes"
+        mainTextLabel.text = "\(groupName) - \(groupDes).       time remaining : \(timeLeftText) minutes"
         mainTextLabel.isHidden = false
     }
     var peeplePeeps : earthFeed! {

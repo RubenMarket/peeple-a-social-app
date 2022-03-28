@@ -66,26 +66,26 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             // if person is private add to all gorups
             if currentUser.priv == false {
                 let now = Date()
-            let partitionValue = "allGroups=\(Location.city)"
-            // Get a sync configuration from the user object.
-            let configuration = user.configuration(partitionValue: partitionValue)
+                let partitionValue = "allGroups=\(Location.city)"
+                // Get a sync configuration from the user object.
+                let configuration = user.configuration(partitionValue: partitionValue)
                 Realm.asyncOpen(configuration: configuration) { [self] (result) in
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self.stopLoading()
-                case .success(let realm):
-                    let newGroup = allGroups(name: GroupName, image: "", des: groupDes, userId: ID.my, color: currentUser.myAppColor,priv: currentUser.priv, dateMade: now,ID:GroupCode)
-                    try! realm.write {
-                        realm.add(newGroup,update: .modified)
+                    switch result {
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                        self.stopLoading()
+                    case .success(let realm):
+                        let newGroup = allGroups(name: GroupName, image: "", des: groupDes, userId: ID.my, color: currentUser.myAppColor,priv: currentUser.priv, dateMade: now,ID:GroupCode)
+                        try! realm.write {
+                            realm.add(newGroup,update: .modified)
+                        }
                     }
                 }
-            }
             }
             let partitionValue2 = "me=\(user.id)"
             // Get a sync configuration from the user object.
             let configuration2 = user.configuration(partitionValue: partitionValue2)
-                Realm.asyncOpen(configuration: configuration2) { [self] (result) in
+            Realm.asyncOpen(configuration: configuration2) { [self] (result) in
                 switch result {
                 case .failure(let error):
                     print(error)
@@ -93,9 +93,9 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 case .success(let realm):
                     let myGroup = myGroups(name: GroupName, image: "", color: currentUser.myAppColor, des: infoTextDescription.text ?? "", userId: user.id, key: GroupCode)
                     if let me = realm.objects(mePerson.self).first {
-                    try! realm.write {
-                        me.myGroups.append(myGroup)
-                    }
+                        try! realm.write {
+                            me.myGroups.append(myGroup)
+                        }
                     }
                     self.stopLoading()
                     self.infoTextField.text = ""
@@ -106,7 +106,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 }
                 
             }
-        
+            
         }
         
         if Peeple.CurrentPage == .GroupChat {
@@ -114,7 +114,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 locationManager?.requestWhenInUseAuthorization()
                 return
             }
-                
+            
             locationManager?.startUpdatingLocation()
             addInfoView.isHidden = false
             if infoTextField.text == "" { return }
@@ -128,29 +128,6 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             let eventDes:String = infoTextDescription.text ?? ""
             let configuration1 = user.configuration(partitionValue: "groupMessages=\(Group.ID)")
             Realm.asyncOpen(configuration: configuration1) { [self] (result) in
-            switch result {
-            case .failure(let error):
-                print("Failed to open realm: \(error.localizedDescription)")
-                // Handle error...
-                self.stopLoading()
-            case .success(let realm):
-                // Realm opened
-                let message = groupMessages(chatName: eventName, color: currentUser.myAppColor, peepOne: currentUser.peepOne, peepTwo: currentUser.peepTwo, peepThree: currentUser.peepThree, eventDuration: eventDuration, lat: Event.latitude, long: Event.longitude, chatMessage: eventDes, userId: user.id, isBiz: currentUser.biz, _id: eventCode, timeCode: now)
-                try! realm.write {
-                    realm.add(message)
-                }
-                self.infoTextField.text = ""
-                self.infoTextDescription.text = ""
-                self.addInfoView.isHidden = true
-                self.eventDurationButton.isHidden = true
-                self.stopLoading()
-                self.collectionView.reloadData()
-            }
-        }
-            if currentUser.priv == false {
-                // write event to group page feed
-                let configuration1 = user.configuration(partitionValue: "allEvents=\(Location.city)")
-                Realm.asyncOpen(configuration: configuration1) { [self] (result) in
                 switch result {
                 case .failure(let error):
                     print("Failed to open realm: \(error.localizedDescription)")
@@ -162,8 +139,31 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     try! realm.write {
                         realm.add(message)
                     }
+                    self.infoTextField.text = ""
+                    self.infoTextDescription.text = ""
+                    self.addInfoView.isHidden = true
+                    self.eventDurationButton.isHidden = true
+                    self.stopLoading()
+                    self.collectionView.reloadData()
                 }
             }
+            if currentUser.priv == false {
+                // write event to group page feed
+                let configuration1 = user.configuration(partitionValue: "allEvents=\(Location.city)")
+                Realm.asyncOpen(configuration: configuration1) { [self] (result) in
+                    switch result {
+                    case .failure(let error):
+                        print("Failed to open realm: \(error.localizedDescription)")
+                        // Handle error...
+                        self.stopLoading()
+                    case .success(let realm):
+                        // Realm opened
+                        let message = groupMessages(chatName: eventName, color: currentUser.myAppColor, peepOne: currentUser.peepOne, peepTwo: currentUser.peepTwo, peepThree: currentUser.peepThree, eventDuration: eventDuration, lat: Event.latitude, long: Event.longitude, chatMessage: eventDes, userId: user.id, isBiz: currentUser.biz, _id: eventCode, timeCode: now)
+                        try! realm.write {
+                            realm.add(message)
+                        }
+                    }
+                }
             }
             
         }
@@ -254,17 +254,17 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     
     @IBAction func TogglePrivate(_ sender: UIButton) {
         if currentUser.priv {
-                sender.setTitle("enter private", for: .normal)
+            sender.setTitle("enter private", for: .normal)
             currentUser.priv = false
-            } else {
-                currentUser.priv = true
-                sender.setTitle("exit private", for: .normal)
-            }
+        } else {
+            currentUser.priv = true
+            sender.setTitle("exit private", for: .normal)
+        }
     }
     @IBAction func myRequests(_ sender: UIButton) {
     }
     @IBAction func ToggleLocation(_ sender: UIButton) {
-       myCityPressed()
+        myCityPressed()
     }
     @IBAction func PickorPurchasePeeps(_ sender: UIButton) {
         middleLabel.text = "peeple pro - every peep in peeple for only $10. Press and Hold to purchase peeple pro for $10."
@@ -301,7 +301,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         }
         collectionView.reloadData()
     }
-   
+    
     @objc func handleHold(_ sender:UILongPressGestureRecognizer) {
         if Peeple.CurrentPage == .GroupChat {
             if sender.state == .began {
@@ -313,7 +313,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     pasteboard.string = Group.ID
                     // Get a sync configuration from the user object.
                     let configuration2 = user.configuration(partitionValue: partitionValue2)
-                        Realm.asyncOpen(configuration: configuration2) { [self] (result) in
+                    Realm.asyncOpen(configuration: configuration2) { [self] (result) in
                         switch result {
                         case .failure(let error):
                             print(error)
@@ -321,7 +321,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                         case .success(let realm):
                             let myGroup = myGroups(name: Group.name, image: Group.pic, color: Group.color, des: Group.des, userId: user.id, key: Group.ID)
                             if let me = realm.objects(mePerson.self).first {
-                            try! realm.write { me.myGroups.append(myGroup) } }
+                                try! realm.write { me.myGroups.append(myGroup) } }
                             self.stopLoading()
                             let alert = UIAlertController(title: "\(Group.name) added to my groups", message: "\(Group.name) : copied to clipboard", preferredStyle: .alert)
                             self.myGroupLoaded = false
@@ -335,21 +335,21 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         }
         if Peeple.CurrentPage == .Group {
             if Peeple.GroupisSetTo == .search {
-            if sender.state == .began {
-            guard let text = UIPasteboard.general.string else { return }
-                var didQuery:Bool = false
-               didQuery = findGroups(text: filterSearchString(text: text))
-                print("search success and did query is: \(didQuery)")
-            }
+                if sender.state == .began {
+                    guard let text = UIPasteboard.general.string else { return }
+                    var didQuery:Bool = false
+                    didQuery = findGroups(text: filterSearchString(text: text))
+                    print("search success and did query is: \(didQuery)")
+                }
             }
         }
         if Peeple.CurrentPage == .People {
             if sender.state == .began {
-            guard let text = UIPasteboard.general.string else { return }
+                guard let text = UIPasteboard.general.string else { return }
                 var didQuery:Bool = false
-               didQuery = findPeople(text: filterSearchString(text: text))
+                didQuery = findPeople(text: filterSearchString(text: text))
                 print("search success and did query is: \(didQuery)")
-            
+                
             }
         }
         if Peeple.CurrentPage == .Profile {
@@ -369,7 +369,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     pasteboard.string = Person.ID
                     // Get a sync configuration from the user object.
                     let configuration2 = user.configuration(partitionValue: partitionValue2)
-                        Realm.asyncOpen(configuration: configuration2) { [self] (result) in
+                    Realm.asyncOpen(configuration: configuration2) { [self] (result) in
                         switch result {
                         case .failure(let error):
                             print(error)
@@ -377,7 +377,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                         case .success(let realm):
                             let myPerson = myPeople(color: Person.color, image: "\(Person.color)", name: Person.name, bio: "", one: Person.peepOne, two: Person.peepTwo, three: Person.peepThree, _id: Person.ID)
                             if let me = realm.objects(mePerson.self).first {
-                            try! realm.write { me.myPeople.append(myPerson) } }
+                                try! realm.write { me.myPeople.append(myPerson) } }
                             self.stopLoading()
                             let alert = UIAlertController(title: "\(Person.name) added to my people", message: "\(Person.name) : copied to clipboard", preferredStyle: .alert)
                             self.myGroupLoaded = false
@@ -385,7 +385,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                             self.present(alert, animated: true, completion: nil)
                         }
                     }
-                                    
+                    
                 }
             }
             
@@ -425,7 +425,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             case .Group:
                 fetchPlanetData(user: user)
             case .People:
-               fetchGroupData(user: user)
+                fetchGroupData(user: user)
             case .Profile:
                 fetchPeopleData(user: user)
             case .GroupChat:
@@ -460,7 +460,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 case .my:
                     Peeple.GroupisSetTo = .search
                 case .search:
-                        Peeple.GroupisSetTo = .make
+                    Peeple.GroupisSetTo = .make
                 case .make:
                     Peeple.GroupisSetTo = .events
                     
@@ -477,7 +477,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 case .search:
                     Peeple.PeopleisSetTo = .all
                 }
-               fetchPeopleData(user: user)
+                fetchPeopleData(user: user)
             case .Profile:
                 switch Peeple.ProfileisSetTo {
                 case .peepOne:
@@ -525,7 +525,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             case .Group:
                 switch Peeple.GroupisSetTo {
                 case .all:
-                        Peeple.GroupisSetTo = .events
+                    Peeple.GroupisSetTo = .events
                 case .my:
                     Peeple.GroupisSetTo = .all
                 case .search:
@@ -546,7 +546,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 case .search:
                     Peeple.PeopleisSetTo = .my
                 }
-               fetchPeopleData(user: user)
+                fetchPeopleData(user: user)
             case .Profile:
                 switch Peeple.ProfileisSetTo {
                 case .peepOne:
@@ -574,7 +574,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 }
                 peepSwitch(peepImage: pageOptionIndicator, peepOneView: personPeepOne, peepTwoView: personPeepTwo, peepThreeView: personPeepThree, optionsView: editProfileView, allPeepView: personPeepView, currentOption: Person.currentOption,peepOne: Person.peepOne,peepTwo: Person.peepTwo,peepThree: Person.peepThree)
             }
-        
+            
         default:
             return
         }
@@ -601,8 +601,8 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     
                 } else {
                     DispatchQueue.main.async {
-                    print("the user has not granted to access the camera")
-                    stopLoading()
+                        print("the user has not granted to access the camera")
+                        stopLoading()
                     }
                 }
             }
@@ -613,13 +613,13 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     }
     func layoutUI(){
         DispatchQueue.main.async { [self] in
-        pageOptionIndicator.addShadow()
-        pageTab.addShadow()
-        topRightLabel.addShadow()
-        pageOptionIndicator.layer.cornerRadius = Peeple.cornerRadius / 3
-        pageOptionIndicator.tintColor = Peeple.colors[currentUser.myAppColor]
-        pageTab.tintColor = Peeple.colors[currentUser.myAppColor]
-        setButtonColors(color: Peeple.colors[currentUser.myAppColor])
+            pageOptionIndicator.addShadow()
+            pageTab.addShadow()
+            topRightLabel.addShadow()
+            pageOptionIndicator.layer.cornerRadius = Peeple.cornerRadius / 3
+            pageOptionIndicator.tintColor = Peeple.colors[currentUser.myAppColor]
+            pageTab.tintColor = Peeple.colors[currentUser.myAppColor]
+            setButtonColors(color: Peeple.colors[currentUser.myAppColor])
             infoTextField.textColor = Peeple.colors[currentUser.myAppColor]
             addInfoButton.setTitleColor(Peeple.colors[currentUser.myAppColor], for: .normal)
             addInfoButton.buttonify(color: Peeple.colors[currentUser.myAppColor])
@@ -814,7 +814,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         case .Profile:
             return cell
         case .GroupChat:
-             cell.groupEvents = group_Events?[indexPath.row]
+            cell.groupEvents = group_Events?[indexPath.row]
             return cell
         case .Person:
             return cell
@@ -854,17 +854,17 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 // to event in maps
                 print(getEventDuration(from: event.timeCode))
                 let coordinates = CLLocationCoordinate2DMake(event.lat,event.long)
-
+                
                 let regionSpan =   MKCoordinateRegion(center: coordinates, latitudinalMeters: 1000, longitudinalMeters: 1000)
-
+                
                 let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-
+                
                 let mapItem = MKMapItem(placemark: placemark)
-
+                
                 mapItem.name = "\(event.chatName) : \(event.chatMessage)"
-
+                
                 mapItem.openInMaps(launchOptions:[
-                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
+                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
                 ] as [String : Any])
             }
             
@@ -888,17 +888,17 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             // to event in maps
             print(getEventDuration(from: event.timeCode))
             let coordinates = CLLocationCoordinate2DMake(event.lat,event.long)
-
+            
             let regionSpan =   MKCoordinateRegion(center: coordinates, latitudinalMeters: 1000, longitudinalMeters: 1000)
-
+            
             let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-
+            
             let mapItem = MKMapItem(placemark: placemark)
-
+            
             mapItem.name = "\(event.chatName) : \(event.chatMessage)"
-
+            
             mapItem.openInMaps(launchOptions:[
-            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
+                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
             ] as [String : Any])
             
             
@@ -944,6 +944,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         switch status {
         case .notDetermined:
             print(".NotDetermined")
+            Peeple.isLocationEnabled = false
             break
             
         case .authorizedAlways:
@@ -951,6 +952,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             startLoading()
         case .denied:
             print(".Denied")
+            Peeple.isLocationEnabled = false
             break
             
         case .authorizedWhenInUse:
@@ -959,10 +961,12 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             startLoading()
         case .restricted:
             print(".Restricted")
+            Peeple.isLocationEnabled = false
             break
             
         default:
             print("Unhandled authorization status")
+            Peeple.isLocationEnabled = false
             break
             
         }
@@ -998,7 +1002,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             }
         }
     }
-   
+    
     // MARK: loadingIndicator
     func stopLoading() {
         loadingIndicator.isHidden = true
@@ -1053,32 +1057,32 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
 extension MainPage {
     // MARK: Functions
     func myCityPressed(){
-               let status = locationManager?.authorizationStatus
-               switch status {
-               case .notDetermined:
-                   locationManager?.requestWhenInUseAuthorization()
-                   locationManager?.startUpdatingLocation()
-               case .authorizedAlways:
-                   print(".AuthorizedAlways")
-                   break
-               case .denied:
-                   let alert = UIAlertController(title: "enable location in settings", message: "Settings -> peeple -> location", preferredStyle: .alert)
-                   //2. Add the text field. You can configure it however you need.
-                   alert.addAction(UIAlertAction(title: "NOPE", style: .cancel, handler: { (_) in
-                   }))
-                   alert.addAction(UIAlertAction(title: "SURE", style: .default, handler: { (_) in
-                   }))
-                   present(alert, animated: true, completion: nil)
-               case .authorizedWhenInUse:
-                   locationManager?.startUpdatingLocation()
-                   startLoading()
-               case .restricted:
-                   print(".Restricted")
-                   break
-               default:
-                   locationManager?.requestWhenInUseAuthorization()
-                   locationManager?.startUpdatingLocation()
-            }
+        let status = locationManager?.authorizationStatus
+        switch status {
+        case .notDetermined:
+            locationManager?.requestWhenInUseAuthorization()
+            locationManager?.startUpdatingLocation()
+        case .authorizedAlways:
+            print(".AuthorizedAlways")
+            break
+        case .denied:
+            let alert = UIAlertController(title: "enable location in settings", message: "Settings -> peeple -> location", preferredStyle: .alert)
+            //2. Add the text field. You can configure it however you need.
+            alert.addAction(UIAlertAction(title: "NOPE", style: .cancel, handler: { (_) in
+            }))
+            alert.addAction(UIAlertAction(title: "SURE", style: .default, handler: { (_) in
+            }))
+            present(alert, animated: true, completion: nil)
+        case .authorizedWhenInUse:
+            locationManager?.startUpdatingLocation()
+            startLoading()
+        case .restricted:
+            print(".Restricted")
+            break
+        default:
+            locationManager?.requestWhenInUseAuthorization()
+            locationManager?.startUpdatingLocation()
+        }
         
     }
     func fetchPlanetData(user:User){
@@ -1087,36 +1091,36 @@ extension MainPage {
         addInfoView.isHidden = true
         pageTab.image = nil
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
-        topRightLabel.image = UIImage(named: Peeple.PlanetLabel)
-        profilePageView.isHidden = true
-        pageTab.isHidden = false
+            topRightLabel.image = UIImage(named: Peeple.PlanetLabel)
+            profilePageView.isHidden = true
+            pageTab.isHidden = false
             self.addInfoButton.isHidden = true
-        middleLabel.isHidden = true
-        collectionView.reloadData()
-        pageOptionIndicator.image = nil
+            middleLabel.isHidden = true
+            collectionView.reloadData()
+            pageOptionIndicator.image = nil
         })
         switch Peeple.PlanetisSetTo {
         case .earth:
-        if self.stories == nil {
-        guard let user = app.currentUser else { return }
-               startLoading()
-               // Get a sync configuration from the user object.
-            let config = user.configuration(partitionValue: "earthFeed=\(Location.country)")
-               // Open the realm asynchronously to ensure backend data is downloaded first.
-               Realm.asyncOpen(configuration: config) { (result) in
-                   switch result {
-                   case .failure(let error):
-                       print("Failed to open realm: \(error.localizedDescription)")
-                       self.stopLoading()
-                   case .success(let Realm):
-                    self.stories = Realm.objects(earthFeed.self).sorted(byKeyPath: "_id")
-                       
-                       print("stories filled")
-                       self.stopLoading()
-                   }
-                   self.collectionView.reloadData()
-               }
-        }
+            if self.stories == nil {
+                guard let user = app.currentUser else { return }
+                startLoading()
+                // Get a sync configuration from the user object.
+                let config = user.configuration(partitionValue: "earthFeed=\(Location.country)")
+                // Open the realm asynchronously to ensure backend data is downloaded first.
+                Realm.asyncOpen(configuration: config) { (result) in
+                    switch result {
+                    case .failure(let error):
+                        print("Failed to open realm: \(error.localizedDescription)")
+                        self.stopLoading()
+                    case .success(let Realm):
+                        self.stories = Realm.objects(earthFeed.self).sorted(byKeyPath: "_id")
+                        
+                        print("stories filled")
+                        self.stopLoading()
+                    }
+                    self.collectionView.reloadData()
+                }
+            }
             if self.stories?.count == 0 {
                 self.middleLabel.text = "nothing shared here yet : \(Location.country)"
                 self.middleLabel.isHidden = false
@@ -1135,16 +1139,16 @@ extension MainPage {
         Peeple.CurrentPage = .Group
         pageTab.image = nil
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
-        topRightLabel.image = UIImage(named: Peeple.GroupLabel)
-        topRightLabel.isHidden = false
-        profilePageView.isHidden = true
-        pageTab.isHidden = false
-        topWordLabel.text = ""
-        addInfoButton.isHidden = true
-        middleLabel.isHidden = true
-        pageOptionIndicator.isHidden = false
-        pageOptionIndicator.image = nil
-        collectionView.reloadData()
+            topRightLabel.image = UIImage(named: Peeple.GroupLabel)
+            topRightLabel.isHidden = false
+            profilePageView.isHidden = true
+            pageTab.isHidden = false
+            topWordLabel.text = ""
+            addInfoButton.isHidden = true
+            middleLabel.isHidden = true
+            pageOptionIndicator.isHidden = false
+            pageOptionIndicator.image = nil
+            collectionView.reloadData()
         })
         switch Peeple.GroupisSetTo {
         case .all:
@@ -1153,22 +1157,22 @@ extension MainPage {
                 startLoading()
                 self.middleLabel.text = "all groups"
                 self.middleLabel.isHidden = false
-            // The partition determines which subset of data to access.
-            let partitionValue = "allGroups=\(Location.city)"
-            // Get a sync configuration from the user object.
-            let configuration = user.configuration(partitionValue: partitionValue)
-            Realm.asyncOpen(configuration: configuration) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Failed to open realm: \(error.localizedDescription)")
-                    self.stopLoading()
-                case .success(let Realm):
-                    self.all_Groups = Realm.objects(allGroups.self).sorted(byKeyPath: "_id")
-//                    self.middleLabel.isHidden = true
-                    self.stopLoading()
-                    self.collectionView.reloadData()
-                }
-            } }
+                // The partition determines which subset of data to access.
+                let partitionValue = "allGroups=\(Location.city)"
+                // Get a sync configuration from the user object.
+                let configuration = user.configuration(partitionValue: partitionValue)
+                Realm.asyncOpen(configuration: configuration) { (result) in
+                    switch result {
+                    case .failure(let error):
+                        print("Failed to open realm: \(error.localizedDescription)")
+                        self.stopLoading()
+                    case .success(let Realm):
+                        self.all_Groups = Realm.objects(allGroups.self).sorted(byKeyPath: "_id")
+                        //                    self.middleLabel.isHidden = true
+                        self.stopLoading()
+                        self.collectionView.reloadData()
+                    }
+                } }
             if all_Groups?.count == 0 {
                 self.middleLabel.text = "all groups"
                 self.middleLabel.isHidden = false
@@ -1182,31 +1186,31 @@ extension MainPage {
                 print("pre load check")
                 startLoading()
                 print("in loading")
-            // The partition determines which subset of data to access.
-            let partitionValue = "me=\(user.id)"
-            // Get a sync configuration from the user object.
-            let configuration = user.configuration(partitionValue: partitionValue)
-            Realm.asyncOpen(configuration: configuration) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Failed to open realm: \(error.localizedDescription)")
-                    self.myGroupLoaded = true
-                    self.stopLoading()
-                case .success(let Realm):
-                    if let me = Realm.objects(mePerson.self).first {
-                        print("mePerson found")
-                        self.my_Groups = me.myGroups.sorted(byKeyPath: "des", ascending: false)
-//                        self.middleLabel.isHidden = true
-                        self.collectionView.reloadData()
+                // The partition determines which subset of data to access.
+                let partitionValue = "me=\(user.id)"
+                // Get a sync configuration from the user object.
+                let configuration = user.configuration(partitionValue: partitionValue)
+                Realm.asyncOpen(configuration: configuration) { (result) in
+                    switch result {
+                    case .failure(let error):
+                        print("Failed to open realm: \(error.localizedDescription)")
                         self.myGroupLoaded = true
-                        print("loaded from realm")
-                    } else {
-                        print("mePerson not found")
+                        self.stopLoading()
+                    case .success(let Realm):
+                        if let me = Realm.objects(mePerson.self).first {
+                            print("mePerson found")
+                            self.my_Groups = me.myGroups.sorted(byKeyPath: "des", ascending: false)
+                            //                        self.middleLabel.isHidden = true
+                            self.collectionView.reloadData()
+                            self.myGroupLoaded = true
+                            print("loaded from realm")
+                        } else {
+                            print("mePerson not found")
+                        }
+                        
+                        self.stopLoading()
                     }
-                    
-                    self.stopLoading()
-                }
-            }  }
+                }  }
             if my_Groups?.count == 0 {
                 self.middleLabel.text = "my groups"
                 self.middleLabel.isHidden = false
@@ -1242,57 +1246,58 @@ extension MainPage {
             if all_Events == nil {
                 startLoading()
                 let configuration1 = user.configuration(partitionValue: "allEvents=\(Location.city)")
-            Realm.asyncOpen(configuration: configuration1) { [self] (result) in
-                switch result {
-                case .failure(let error):
-                    print("Failed to open realm: \(error.localizedDescription)")
-                    // Handle error...
-                    self.stopLoading()
-                case .success(let realm):
-                    // Realm opened
-                    self.all_Events = realm.objects(groupMessages.self)
-        //                .sorted(byKeyPath: "timeCode" ,ascending: false)
-                    self.stopLoading()
-                    self.collectionView.reloadData()
+                Realm.asyncOpen(configuration: configuration1) { [self] (result) in
+                    switch result {
+                    case .failure(let error):
+                        print("Failed to open realm: \(error.localizedDescription)")
+                        // Handle error...
+                        self.stopLoading()
+                    case .success(let realm):
+                        // Realm opened
+                        let unfiltered_Events = realm.objects(groupMessages.self)
+                        self.all_Events = filterLiveEvents(realm: realm, unfilteredArray: unfiltered_Events)
+                        stopLoading()
+                        collectionView.reloadData()
+                        
+                    }
+                    
                 }
                 
             }
-                
-            }
             if all_Events?.count == 0 {
-            middleLabel.text = "no live events near me : \(Location.city)"
-            middleLabel.isHidden = false
+                middleLabel.text = "no live events near me : \(Location.city)"
+                middleLabel.isHidden = false
             }
             pageOptionIndicator.image = nil
             self.collectionView.reloadData()
         }
         
     }
-
+    
     func fetchPeopleData(user:User){
         Peeple.CurrentPage = .People
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
-        collectionView.reloadData()
-        collectionView.isHidden = false
-        // accessing all views relevant to peoplePage
-        // hide all at first
-        personPeepView.isHidden = true
-        pageTab.image = nil
+            collectionView.reloadData()
+            collectionView.isHidden = false
+            // accessing all views relevant to peoplePage
+            // hide all at first
+            personPeepView.isHidden = true
+            pageTab.image = nil
             self.addInfoButton.isHidden = true
-        // setting pageLabel image
-        topRightLabel.image = UIImage(named: Peeple.PeopleLabel)
-        // unhiding label when from a persons profile
-        topRightLabel.isHidden = false
-        pageTab.isHidden = false
-//        middleLabel.isHidden = true
-        pageOptionIndicator.isHidden = false
-        pageOptionIndicator.image = nil
-        // hiding group view
-        addInfoView.isHidden = true
-        // hiding profile page info
-        editProfileView.isHidden = true
-//        middleLabel.isHidden = false
-        profilePageView.isHidden = true
+            // setting pageLabel image
+            topRightLabel.image = UIImage(named: Peeple.PeopleLabel)
+            // unhiding label when from a persons profile
+            topRightLabel.isHidden = false
+            pageTab.isHidden = false
+            //        middleLabel.isHidden = true
+            pageOptionIndicator.isHidden = false
+            pageOptionIndicator.image = nil
+            // hiding group view
+            addInfoView.isHidden = true
+            // hiding profile page info
+            editProfileView.isHidden = true
+            //        middleLabel.isHidden = false
+            profilePageView.isHidden = true
         })
         switch Peeple.PeopleisSetTo {
         case .all:
@@ -1300,22 +1305,22 @@ extension MainPage {
                 startLoading()
                 self.middleLabel.text = "all people"
                 self.middleLabel.isHidden = false
-            // The partition determines which subset of data to access.
+                // The partition determines which subset of data to access.
                 let partitionValue = "allPeople=\(Location.country)"
-            // Get a sync configuration from the user object.
-            let configuration = user.configuration(partitionValue: partitionValue)
-            Realm.asyncOpen(configuration: configuration) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Failed to open realm: \(error.localizedDescription)")
-                    self.stopLoading()
-                case .success(let Realm):
-                    self.all_People = Realm.objects(allPeople.self).sorted(byKeyPath: "_id")
-                    self.middleLabel.isHidden = false
-                    self.stopLoading()
-                    self.collectionView.reloadData()
-                }
-            } }
+                // Get a sync configuration from the user object.
+                let configuration = user.configuration(partitionValue: partitionValue)
+                Realm.asyncOpen(configuration: configuration) { (result) in
+                    switch result {
+                    case .failure(let error):
+                        print("Failed to open realm: \(error.localizedDescription)")
+                        self.stopLoading()
+                    case .success(let Realm):
+                        self.all_People = Realm.objects(allPeople.self).sorted(byKeyPath: "_id")
+                        self.middleLabel.isHidden = false
+                        self.stopLoading()
+                        self.collectionView.reloadData()
+                    }
+                } }
             if self.all_People?.count == 0 {
                 self.middleLabel.text = "no people in this area : \(Location.country)"
                 self.middleLabel.isHidden = false
@@ -1327,35 +1332,35 @@ extension MainPage {
                 self.middleLabel.isHidden = false
                 if self.myPeopleLoaded { return }
                 startLoading()
-            // The partition determines which subset of data to access.
-            let partitionValue = "me=\(user.id)"
-            // Get a sync configuration from the user object.
-            let configuration = user.configuration(partitionValue: partitionValue)
-            Realm.asyncOpen(configuration: configuration) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Failed to open realm: \(error.localizedDescription)")
-                    self.myPeopleLoaded = true
-                    self.stopLoading()
-                case .success(let Realm):
-                    // fill my_people array
-                    if let me = Realm.objects(mePerson.self).first {
-                        self.my_People = me.myPeople.sorted(byKeyPath: "_id")
+                // The partition determines which subset of data to access.
+                let partitionValue = "me=\(user.id)"
+                // Get a sync configuration from the user object.
+                let configuration = user.configuration(partitionValue: partitionValue)
+                Realm.asyncOpen(configuration: configuration) { (result) in
+                    switch result {
+                    case .failure(let error):
+                        print("Failed to open realm: \(error.localizedDescription)")
                         self.myPeopleLoaded = true
+                        self.stopLoading()
+                    case .success(let Realm):
+                        // fill my_people array
+                        if let me = Realm.objects(mePerson.self).first {
+                            self.my_People = me.myPeople.sorted(byKeyPath: "_id")
+                            self.myPeopleLoaded = true
+                        }
+                        self.stopLoading()
+                        self.collectionView.reloadData()
+                        
                     }
-                    self.stopLoading()
-                    self.collectionView.reloadData()
-                   
+                    
                 }
-               
-            }
-             
+                
             }
             if self.my_People?.count == 0 {
                 self.middleLabel.text = "my people"
                 self.middleLabel.isHidden = false
             }
-            self.collectionView.reloadData()
+            collectionView.reloadData()
         case .search:
             pageOptionIndicator.image = nil
             middleLabel.text = "hold screen to search clipboard"
@@ -1367,14 +1372,13 @@ extension MainPage {
         Peeple.CurrentPage = .Profile
         Person.ID = currentUser.ID
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
-        pageOptionIndicator.image = UIImage(named: Peeple.peepPics[currentUser.peepOne])
-        pageTab.image = nil
-        topRightLabel.image = UIImage(named: Peeple.ProfileLabel)
-        collectionView.reloadData()
-        profilePageView.isHidden = false
-        collectionView.isHidden = true
-        middleLabel.isHidden = true
-        })
+            pageOptionIndicator.image = UIImage(named: Peeple.peepPics[currentUser.peepOne])
+            pageTab.image = nil
+            topRightLabel.image = UIImage(named: Peeple.ProfileLabel)
+            collectionView.reloadData()
+            profilePageView.isHidden = false
+            collectionView.isHidden = true
+            middleLabel.isHidden = true })
         if peepOneView == nil {
             self.peepOneView = loadPeep(num: currentUser.peepOne)
             self.peepTwoView = loadPeep(num: currentUser.peepTwo)
@@ -1385,24 +1389,22 @@ extension MainPage {
                 view.isHidden = true
                 profilePageView.addSubview(view)
                 profilePageView.sendSubviewToBack(view)
-                view.snp.makeConstraints { (make) in
-                        make.edges.equalTo(profilePageView) }
-                }
+                view.snp.makeConstraints { (make) in make.edges.equalTo(profilePageView) }  }
             peepOneView?.isHidden = false
             editProfileView.isHidden = true
             profilePageView.isHidden = false
-                self.stopLoading()
+            stopLoading()
         } else {
             //                peepOneView?.layoutSubviews()
-                            peepOneView?.isHidden = false
-                            peepTwoView?.isHidden = true
-                            peepThreeView?.isHidden = true
-                            editProfileView.isHidden = true
-                            profilePageView.isHidden = false
-                            self.stopLoading()
+            peepOneView?.isHidden = false
+            peepTwoView?.isHidden = true
+            peepThreeView?.isHidden = true
+            editProfileView.isHidden = true
+            profilePageView.isHidden = false
+            stopLoading()
         }
         
-           
+        
         
     }
     
@@ -1424,7 +1426,7 @@ extension MainPage {
         collectionView.isHidden = true
         middleLabel.isHidden = true
         pageOptionIndicator.image = UIImage(named: Peeple.peepPics[one])
-//        loadPersonPeepData(one: one, two: two, three: three, id: ID)
+        //        loadPersonPeepData(one: one, two: two, three: three, id: ID)
         personPeepOne = loadPeep(num: one)
         personPeepTwo = loadPeep(num: two)
         personPeepThree = loadPeep(num: three)
@@ -1437,8 +1439,8 @@ extension MainPage {
             personPeepView.addSubview(view)
             personPeepView.sendSubviewToBack(view)
             view.snp.makeConstraints { (make) in
-                    make.edges.equalTo(personPeepView) }
-            }
+                make.edges.equalTo(personPeepView) }
+        }
         personPeepOne?.isHidden = false
         personPeepOne?.layoutSubviews()
         stopLoading()
@@ -1477,7 +1479,7 @@ extension MainPage {
                 optionsView.isHidden = true
                 allPeepView.isHidden = false
             }
-            case .settings:
+        case .settings:
             peepImage.image = UIImage(named: "pers")
             optionsView.isHidden = false
             allPeepView.isHidden = true
@@ -1485,16 +1487,16 @@ extension MainPage {
             
         }
         UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseIn) {
-            allPeepView.alpha = 1.0
+            allPeepView.alpha = 0.9
         } completion: { (true) in
             print("done")
         }
-
+        
     }
     func toGroupChatWith(ID:String,name:String,pic:String,color:Int,des:String){
         Peeple.CurrentPage = .GroupChat
         startLoading()
-        self.collectionView.reloadData()
+        collectionView.reloadData()
         Group.ID = ID
         Group.name = name
         Group.color = color
@@ -1502,7 +1504,7 @@ extension MainPage {
         Group.des = des
         topRightLabel.isHidden = true
         pageTab.isHidden = true
-        self.addInfoButton.isHidden = false
+        addInfoButton.isHidden = false
         addInfoButton.setTitle("Add Event", for: .normal)
         infoTextField.placeholder = "Event Name"
         infoTextDescription.placeholder = "description"
@@ -1510,35 +1512,55 @@ extension MainPage {
         pageOptionIndicator.image = UIImage(named: Peeple.GroupBoxImage)
         topWordLabel.textColor = Peeple.colors[color]
         topWordLabel.text = name
-        
         guard let user = app.currentUser else {
             self.stopLoading()
             return }
         let configuration1 = user.configuration(partitionValue: "groupMessages=\(Group.ID)")
-    Realm.asyncOpen(configuration: configuration1) { [self] (result) in
-        switch result {
-        case .failure(let error):
-            print("Failed to open realm: \(error.localizedDescription)")
-            // Handle error...
-            self.stopLoading()
-        case .success(let realm):
-            // Realm opened
-            self.group_Events = realm.objects(groupMessages.self)
-//                .sorted(byKeyPath: "timeCode" ,ascending: false)
-            self.stopLoading()
-            self.collectionView.reloadData()
+        Realm.asyncOpen(configuration: configuration1) { [self] (result) in
+            switch result {
+            case .failure(let error):
+                print("Failed to open realm: \(error.localizedDescription)")
+                // Handle error...
+                self.stopLoading()
+            case .success(let realm):
+                // Realm opened
+                let unfiltered_Events = realm.objects(groupMessages.self)
+                self.group_Events = filterLiveEvents(realm: realm, unfilteredArray: unfiltered_Events)
+                collectionView.reloadData()
+                self.stopLoading()
+            }
+            if group_Events?.count == 0 {
+                middleLabel.text = "no live events in this group"
+                middleLabel.isHidden = false
+            }
         }
         
     }
-        if group_Events?.count == 0 {
-            middleLabel.text = "no events in this group"
-            middleLabel.isHidden = false
+    func filterLiveEvents(realm:Realm,unfilteredArray:Results<groupMessages>?) -> Results<groupMessages>?{
+        guard let events = unfilteredArray else {
+            self.stopLoading()
+            print("no events here")
+            return nil}
+        let now = Date()
+        for event in events {
+            let timePosted = event.timeCode
+            let duration = event.eventDuration
+            var timeLeft:Int = 0
+            let diffComponents = Calendar.current.dateComponents([.minute], from: timePosted, to: now)
+            let minutes = diffComponents.minute ?? 0
+            //1 hr long
+            if duration == 1 { timeLeft = 60 - minutes
+            } else { timeLeft = 120 - minutes }
+            if timeLeft <= 0 { try! realm.write { realm.delete(event) }  }
+            
         }
+        return events
+        
     }
     func addAllPerson() {
         guard let user = app.currentUser else { return }
         let configuration2 = user.configuration(partitionValue: "allPeople=\(Location.country)")
-      
+        
         Realm.asyncOpen(configuration: configuration2) { (result) in
             switch result {
             case .failure(let error):
@@ -1547,7 +1569,7 @@ extension MainPage {
                 let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
                 alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
-//                    self.stopLoading(loadingView: self.loadingIndicator)
+                    //                    self.stopLoading(loadingView: self.loadingIndicator)
                 }))
                 self.stopLoading()
                 self.present(alert, animated: true, completion: nil)
@@ -1555,7 +1577,7 @@ extension MainPage {
                 // Realm opened
                 let task = allPeople(color: currentUser.myAppColor, image: "", name: currentUser.name, biz: false, bio: "",one : currentUser.peepOne,two: currentUser.peepTwo,three: currentUser.peepThree,priv:false, ID: user.id)
                 try! realm.write { realm.add(task,update: .modified) }
-            
+                
                 print("Successfully logged in as user \(user)")
             }
         }
@@ -1652,49 +1674,49 @@ extension MainPage {
                             if let porty = peeps.portflio {  Peeps.porty = porty }
                         default:
                             print("no peep")
-
+                            
                         }
                     }
-
+                    
                 }
-
-
+                
+                
             }
         }
     }
-//    func loadPersonPeepData(one:Int,two:Int,three:Int,id:String){
-//        guard let user = app.currentUser else { return }
-//        let thePeeps:[Int] = [one,two,three]
-//        let partitionValue = "peeps=\(id)"
-//        let configuration = user.configuration(partitionValue: partitionValue)
-//        Realm.asyncOpen(configuration: configuration) { (result) in
-//            switch result {
-//            case .failure(let error):
-//                print("Failed to open realm: \(error.localizedDescription)")
-//                // Handle error...
-//            case .success(let realm):
-//                // Realm opened
-//                if let peeps = realm.objects(myPeeps.self).first {
-//                    for Peep in thePeeps {
-//                        switch Peep {
-//                        case 1:
-//                            if let charight = peeps.charight {  Person.charight = charight }
-//                        case 2:
-//                            if let cleanergy = peeps.cleanergy {  Person.cleanergy = cleanergy }
-//                        case 3:
-//                            if let cleanergy = peeps.cleanergy {  Person.cleanergy = cleanergy }
-//                        default:
-//                            print("no peep")
-//
-//                        }
-//                    }
-//
-//                }
-//
-//
-//            }
-//        }
-//    }
-   
+    //    func loadPersonPeepData(one:Int,two:Int,three:Int,id:String){
+    //        guard let user = app.currentUser else { return }
+    //        let thePeeps:[Int] = [one,two,three]
+    //        let partitionValue = "peeps=\(id)"
+    //        let configuration = user.configuration(partitionValue: partitionValue)
+    //        Realm.asyncOpen(configuration: configuration) { (result) in
+    //            switch result {
+    //            case .failure(let error):
+    //                print("Failed to open realm: \(error.localizedDescription)")
+    //                // Handle error...
+    //            case .success(let realm):
+    //                // Realm opened
+    //                if let peeps = realm.objects(myPeeps.self).first {
+    //                    for Peep in thePeeps {
+    //                        switch Peep {
+    //                        case 1:
+    //                            if let charight = peeps.charight {  Person.charight = charight }
+    //                        case 2:
+    //                            if let cleanergy = peeps.cleanergy {  Person.cleanergy = cleanergy }
+    //                        case 3:
+    //                            if let cleanergy = peeps.cleanergy {  Person.cleanergy = cleanergy }
+    //                        default:
+    //                            print("no peep")
+    //
+    //                        }
+    //                    }
+    //
+    //                }
+    //
+    //
+    //            }
+    //        }
+    //    }
+    
 }
 
