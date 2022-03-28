@@ -188,7 +188,6 @@
 				821D9FAF20B7A48900CD69D7 /* Main.storyboard */,
 				821D9FB220B7A48900CD69D7 /* Assets.xcassets */,
 				821D9FAB20B7A48900CD69D7 /* AppDelegate.swift */,
-				84E8094E27EEAFF8004CF23A /* configFile.swift */,
 				8480F81427E768C6001859DA /* peepsound.mp3 */,
 				82BC3B0E26B75E5900E4F027 /* peepleSound.wav */,
 				82AEC10F2104E0B400C9B5C7 /* Models */,
@@ -196,6 +195,7 @@
 				82AEC1112104E0D400C9B5C7 /* Pages */,
 				84796676274F33A800FBA6B7 /* Peeps */,
 				828A2A5624147CA800822CBB /* Utils.swift */,
+				84E8094E27EEAFF8004CF23A /* configFile.swift */,
 				821D9FB720B7A48900CD69D7 /* Info.plist */,
 				82F4027A26A9CF6F0039B005 /* GoogleService-Info.plist */,
 			);

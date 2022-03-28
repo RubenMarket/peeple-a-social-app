@@ -70,11 +70,11 @@ class charightview : UIView {
     
     
     @IBAction func firstchar(_ sender: UIButton) {
-        if Person.ID == "" {
+        if Person.ID == currentUser.ID {
             editPeep(isEditing: editPeep)
         } else {
-            if sharedPeepNum == 2 {
                 if didSharepeep { return }
+            didSharepeep = true
                 let times = NSDate().timeIntervalSince1970
                 let myTimeInterval = TimeInterval(times)
                 let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
@@ -95,10 +95,11 @@ class charightview : UIView {
                                Realm.add(share,update: .modified)
                            
                        }
+                          
                            print("stories filled")
                        }
                    }
-        }
+        
         }
         
         print("char 1")
@@ -108,11 +109,11 @@ class charightview : UIView {
     @IBOutlet weak var secondcharimage: UIImageView!
     
     @IBAction func secondchar(_ sender: UIButton) {
-        if Person.ID == "" {
+        if Person.ID == currentUser.ID {
             editPeep(isEditing: editPeep)
         } else {
-            if sharedPeepNum == 1 {
                 if didSharepeep { return }
+            didSharepeep = true
                 let times = NSDate().timeIntervalSince1970
                 let myTimeInterval = TimeInterval(times)
                 let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
@@ -136,7 +137,7 @@ class charightview : UIView {
                            print("stories filled")
                        }
                    }
-        }
+        
         }
         
         print("char 2")
@@ -285,7 +286,8 @@ class charightview : UIView {
         default:
             addPersonData()
         }
-        self.sharedPeepNum = Int.random(in: 1...Peeple.rarity)
+        
+//        self.sharedPeepNum = Int.random(in: 1...Peeple.rarity)
         self.centerxp = self.firstcharview.center.x
         
         

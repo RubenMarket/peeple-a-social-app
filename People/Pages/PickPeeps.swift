@@ -50,7 +50,7 @@ class pickpeeps: UIViewController {
         return true
     }
     override func viewWillAppear(_ animated: Bool) {
-        if Peeple.isARActive {
+        if currentUser.isARActive {
             view.backgroundColor = .black
         }
         
@@ -81,11 +81,11 @@ class pickpeeps: UIViewController {
         default:
             return
         }
-        if Peeple.isARActive {
+        if currentUser.isARActive {
             view.backgroundColor = .black
             ARModeActivate()
         }
-        donebut.setTitleColor(Peeple.colors[Peeple.myAppColor], for: .normal)
+        donebut.setTitleColor(Peeple.colors[currentUser.myAppColor], for: .normal)
         
     }
     override func viewDidLayoutSubviews() {

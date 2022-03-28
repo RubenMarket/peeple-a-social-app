@@ -76,6 +76,7 @@ class LoginPage: UIViewController,ASAuthorizationControllerDelegate,ASAuthorizat
             let fullName = appleIDCredential.fullName
             let email = appleIDCredential.email
 print(userIdentifier)
+            startLoading()
             print(fullName as Any)
             print(email as Any)
             self.name = fullName?.givenName
@@ -89,14 +90,16 @@ print(userIdentifier)
                     print("Login failed: \(error.localizedDescription)")
                     let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
+                    DispatchQueue.main.async {
+                        self.stopLoading()
+                    }
                     alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
 //                        self.stopLoading(loadingView: self.loadingIndicator)
-                             
+                        
                     }))
                     self.present(alert, animated: true, completion: nil)
                 case .success(let user):
                     print("Successfully logged in as user \(user)")
-                    self.startLoading()
                     ID.my = user.id
                     UserDefaults.standard.set(user.id, forKey: "myCode")
                     self.returningPersonCheck(user: user)
@@ -162,8 +165,9 @@ print(userIdentifier)
                     if me.priv == false {
                         self.addAllPerson(user: user, name: me.name)
                     }
-                    self.stopLoading()
+                    
                     DispatchQueue.main.async {
+                        self.stopLoading()
                         self.performSegue(withIdentifier: "tohome", sender: nil)
                     }
                 } else {

@@ -21,6 +21,7 @@ class MainViewCell: UICollectionViewCell {
     
     func setEarthFeed(peep:Int,image:String,text:String){
         topLeftImageView.isHidden = false
+        mainImageView.buttonify(color: .white)
         mainImageView.image = UIImage(named: image)
         peepTwo.image = UIImage(named: Peeple.peepPics[peep])
     }
@@ -29,10 +30,12 @@ class MainViewCell: UICollectionViewCell {
         mainTextLabel.isHidden = false
         topLeftImageView.isHidden = true
         mainTextLabel.text = groupName
+        mainImageView.buttonify(color: Peeple.colors[groupColor])
         mainTextLabel.textColor = Peeple.colors[groupColor]
         mainImageView.tintColor = Peeple.colors[groupColor]
     }
     func setPeople(personName:String,personColor:Int,peep1:Int,peep2:Int,peep3:Int,personImage:String,isPrivate:Bool){
+        mainImageView.buttonify(color: Peeple.colors[personColor])
         mainImageView.image = UIImage(named: Peeple.PeoplecellImage)
             mainTextLabel.text = personName
         mainTextLabel.isHidden = true
@@ -42,6 +45,27 @@ class MainViewCell: UICollectionViewCell {
         peepTwo.image = UIImage(named: Peeple.peepPics[peep2])
         peepThree.image = UIImage(named: Peeple.peepPics[peep3])
         mainImageView.tintColor = Peeple.colors[personColor]
+    }
+    func setGroupEvent(groupName:String,groupDes:String,peep1:Int,peep2:Int,peep3:Int,eventColor:Int,timePosted:Date,eventDuration:Int){
+            mainImageView.buttonify(color: Peeple.colors[eventColor])
+        topLeftImageView.isHidden = false
+        lockImageView.image = UIImage(named: "eventsele")
+        lockImageView.isHidden = false
+        let now = Date()
+        var timeLeftText:String = ""
+        let diffComponents = Calendar.current.dateComponents([.minute], from: timePosted, to: now)
+        let minutes = diffComponents.minute ?? 0
+        //1 hr long
+        if eventDuration == 1 {
+            let timeLeft = 60 - minutes
+            timeLeftText = "\(timeLeft)"
+        } else {
+            let timeLeft = 120 - minutes
+            timeLeftText = "\(timeLeft)"
+        }
+        mainTextLabel.textColor = Peeple.colors[eventColor]
+        mainTextLabel.text = "\(groupName) - \(groupDes). time remaining : \(timeLeftText) minutes"
+        mainTextLabel.isHidden = false
     }
     var peeplePeeps : earthFeed! {
             didSet {
@@ -71,14 +95,14 @@ class MainViewCell: UICollectionViewCell {
                 setPeople(personName: myPeople.name, personColor: myPeople.color, peep1: myPeople.one, peep2: myPeople.two, peep3: myPeople.three, personImage: myPeople.image, isPrivate: false)
             }
         }
-    var groupMessages : groupMessages! {
+    var groupEvents : groupMessages! {
         didSet {
-            mainTextLabel.text = "\(groupMessages.chatName) : \(groupMessages.chatMessage)"
-            mainImageView.image = UIImage(named: "eventsele")
-            peepOne.image = UIImage(named: Peeple.peepPics[groupMessages.peepOne])
-            peepTwo.image = UIImage(named: Peeple.peepPics[groupMessages.peepTwo])
-            peepThree.image = UIImage(named: Peeple.peepPics[groupMessages.peepThree])
-            mainTextLabel.textColor = Peeple.colors[groupMessages.color]
+            setGroupEvent(groupName: groupEvents.chatName, groupDes: groupEvents.chatMessage, peep1: groupEvents.peepOne, peep2: groupEvents.peepTwo, peep3: groupEvents.peepThree, eventColor: groupEvents.color, timePosted: groupEvents.timeCode,eventDuration: groupEvents.eventDuration)
+        }
+    }
+    var allEvents : groupMessages! {
+        didSet {
+            setGroupEvent(groupName: allEvents.chatName, groupDes: allEvents.chatMessage, peep1: allEvents.peepOne, peep2: allEvents.peepTwo, peep3: allEvents.peepThree, eventColor: allEvents.color, timePosted: allEvents.timeCode,eventDuration: allEvents.eventDuration)
         }
     }
         var allPeople : allPeople! {

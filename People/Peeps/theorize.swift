@@ -41,8 +41,8 @@ class theorize: UIView {
         self.newquotebut.layer.cornerRadius = self.newquotebut.frame.height / 2
         self.newquotebut.layer.masksToBounds = true
         self.quoteround.layer.cornerRadius = self.newquotebut.frame.height / 2
-        textlabel.textColor = Peeple.isARActive ? .white : .systemGray
-        newquotebut.setTitleColor(Peeple.isARActive ? .white : .systemGray, for: .normal)
+        textlabel.textColor = currentUser.isARActive ? .white : .systemGray
+        newquotebut.setTitleColor(currentUser.isARActive ? .white : .systemGray, for: .normal)
         self.quoteround.layer.masksToBounds = true
     }
     @objc func centercontent(_ sender: UISwipeGestureRecognizer) {

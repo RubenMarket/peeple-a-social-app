@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="charryback" translatesAutoresizingMaskIntoConstraints="NO" id="jec-Ie-Jwv">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="charryback" translatesAutoresizingMaskIntoConstraints="NO" id="jec-Ie-Jwv">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                 </imageView>
                 <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KCm-jy-bUV">

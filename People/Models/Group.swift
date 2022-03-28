@@ -89,7 +89,7 @@ class groupMessages:Object {
     @Persisted var long: Double = 0
     @Persisted var chatMessage: String = ""
     @Persisted var chatName: String = ""
-    @Persisted var timeCode : Date?
+    @Persisted var timeCode : Date = Date()
     @Persisted var isBiz: Bool?
     @Persisted var userId : String = ""
     @Persisted(primaryKey: true) var _id : String
