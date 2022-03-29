@@ -188,7 +188,7 @@ extension UIViewController {
             labelImage.alpha = 0.9
             collection.alpha = 0.9
             topRightBut.alpha = 0.9
-            middleLabel.alpha = 0.85
+            middleLabel.alpha = 0.5
             peepView?.alpha = 0.9
         } 
         completionHandler(true)

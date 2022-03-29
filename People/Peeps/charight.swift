@@ -15,7 +15,6 @@ class charightview : UIView {
     @IBOutlet weak var firstcharview: UIView!
     @IBOutlet weak var secondViewY: NSLayoutConstraint!
     @IBOutlet weak var firstViewY: NSLayoutConstraint!
-    @IBOutlet weak var backImage: UIImageView!
     private var centerxp:CGFloat = 0.0
     private var startBack:CGFloat = 0.0
     private var fullname: String = ""
@@ -185,7 +184,6 @@ class charightview : UIView {
             UIView.animate(withDuration: 1.0) {
                 self.buttonView.isHidden = false
                 self.buttonView.alpha = 1
-                self.backImage.alpha = 0
                 self.firstViewY.constant = self.firstY - 50
                 self.secondViewY.constant = self.secondY + 50
                 self.layoutSubviews()
@@ -196,7 +194,6 @@ class charightview : UIView {
             UIView.animate(withDuration: 1.0) {
                 self.buttonView.isHidden = true
                 self.buttonView.alpha = 0
-                self.backImage.alpha = 1
                 self.firstViewY.constant = self.firstY
                 self.secondViewY.constant = self.secondY
                 self.layoutSubviews()

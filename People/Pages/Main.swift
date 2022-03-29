@@ -29,6 +29,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     private var myGroupLoaded:Bool = false
     private var myPeopleLoaded:Bool = false
     private var eventDuration:Int = 1
+    private var endBackAni:Bool = false
     // Peep Views
     private weak var peepOneView:UIView?
     private weak var peepTwoView:UIView?
@@ -43,6 +44,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     @IBOutlet weak var middleLabel: UILabel!
     @IBOutlet weak var PickPurchaseButton: UIButton!
     @IBOutlet weak var ARView: ARView!
+    @IBOutlet weak var backImage: UIImageView!
     @IBOutlet weak var topWordLabel: UILabel!
     @IBOutlet weak var topRightLabel: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -184,7 +186,6 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     @IBOutlet weak var PrivateToggleButton: UIButton!
     @IBOutlet weak var MyRequestsButton: UIButton!
     @IBOutlet weak var MyLocationButton: UIButton!
-    @IBOutlet weak var pageTab: UIImageView!
     
     @IBAction func copyMyCode(_ sender: UIButton) {
         UIPasteboard.general.string = ID.my
@@ -247,7 +248,6 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         currentUser.myAppColor += 1
         UserDefaults.standard.set(currentUser.myAppColor, forKey: "appColor")
         pageOptionIndicator.tintColor = Peeple.colors[currentUser.myAppColor]
-        pageTab.tintColor = Peeple.colors[currentUser.myAppColor]
         setButtonColors(color: Peeple.colors[currentUser.myAppColor])
         
     }
@@ -614,15 +614,22 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     func layoutUI(){
         DispatchQueue.main.async { [self] in
             pageOptionIndicator.addShadow()
-            pageTab.addShadow()
             topRightLabel.addShadow()
             pageOptionIndicator.layer.cornerRadius = Peeple.cornerRadius / 3
-            pageOptionIndicator.tintColor = Peeple.colors[currentUser.myAppColor]
-            pageTab.tintColor = Peeple.colors[currentUser.myAppColor]
+            pageOptionIndicator.tintColor = .white
             setButtonColors(color: Peeple.colors[currentUser.myAppColor])
-            infoTextField.textColor = Peeple.colors[currentUser.myAppColor]
-            addInfoButton.setTitleColor(Peeple.colors[currentUser.myAppColor], for: .normal)
-            addInfoButton.buttonify(color: Peeple.colors[currentUser.myAppColor])
+            infoTextField.textColor = .white
+            addInfoButton.setTitleColor(.white, for: .normal)
+            addInfoButton.buttonify(color: .white)
+        }
+    }
+    func setUpBackAni(){
+        if endBackAni { return }
+        let distance = self.view.frame.width
+            UIView.animate(withDuration: 120, delay: 0.0, options: .autoreverse) {
+                self.backImage.frame.origin.x = self.backImage.frame.origin.x + distance
+            } completion: { (true) in
+                self.setUpBackAni()
         }
     }
     override var prefersStatusBarHidden: Bool {
@@ -681,8 +688,13 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     }
     // MARK: ViewDidAppear
     override func viewDidAppear(_ animated: Bool) {
+        
         locationManager?.delegate = self
     }
+    override func viewDidLayoutSubviews() {
+        setUpBackAni()
+    }
+    
     // MARK: ItemsHeightandWidth
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch Peeple.CurrentPage {
@@ -696,7 +708,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/4)
             }
         case .Group:
-            if Peeple.GroupisSetTo == .events { return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3) }
+            if Peeple.GroupisSetTo == .events { return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/4) }
             switch Peeple.zoomLevel{
             case .one:
                 return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/2)
@@ -719,7 +731,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         case .Profile:
             return CGSize(width: 0, height: 0)
         case .GroupChat:
-            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3)
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/4)
         case .Person:
             return CGSize(width: 0, height: 0)
         }
@@ -733,11 +745,11 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             case .earth:
                 return count(count: stories?.count ?? 0)
             case .mars:
-                return 1
+                return 0
             case .moon:
-                return 1
+                return 0
             case .space:
-                return 1
+                return 0
                 
             }
         case .Group:
@@ -781,11 +793,11 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             case .earth:
                 cell.peeplePeeps = stories?[indexPath.row]
             case .mars:
-                cell.mainImageView.image = UIImage(named: "mars")
+                return cell
             case .moon:
-                cell.mainImageView.image = UIImage(named: "moon")
+                return cell
             case .space:
-                cell.mainImageView.image = UIImage(named: "logopng")
+                return cell
             }
             return cell
         case .Group:
@@ -1089,11 +1101,9 @@ extension MainPage {
         
         Peeple.CurrentPage = .Planet
         addInfoView.isHidden = true
-        pageTab.image = nil
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
             topRightLabel.image = UIImage(named: Peeple.PlanetLabel)
             profilePageView.isHidden = true
-            pageTab.isHidden = false
             self.addInfoButton.isHidden = true
             middleLabel.isHidden = true
             collectionView.reloadData()
@@ -1101,6 +1111,8 @@ extension MainPage {
         })
         switch Peeple.PlanetisSetTo {
         case .earth:
+            pageOptionIndicator.image = UIImage(named: "earth")
+            
             if self.stories == nil {
                 guard let user = app.currentUser else { return }
                 startLoading()
@@ -1128,21 +1140,22 @@ extension MainPage {
             collectionView.reloadData()
             
         case .mars:
+            pageOptionIndicator.image = UIImage(named: "mars")
             collectionView.reloadData()
         case .moon:
+            pageOptionIndicator.image = UIImage(named: "moon")
             collectionView.reloadData()
         case .space:
+            pageOptionIndicator.image = UIImage(named: "star")
             collectionView.reloadData()
         }
     }
     func fetchGroupData(user:User){
         Peeple.CurrentPage = .Group
-        pageTab.image = nil
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
             topRightLabel.image = UIImage(named: Peeple.GroupLabel)
             topRightLabel.isHidden = false
             profilePageView.isHidden = true
-            pageTab.isHidden = false
             topWordLabel.text = ""
             addInfoButton.isHidden = true
             middleLabel.isHidden = true
@@ -1282,13 +1295,11 @@ extension MainPage {
             // accessing all views relevant to peoplePage
             // hide all at first
             personPeepView.isHidden = true
-            pageTab.image = nil
             self.addInfoButton.isHidden = true
             // setting pageLabel image
             topRightLabel.image = UIImage(named: Peeple.PeopleLabel)
             // unhiding label when from a persons profile
             topRightLabel.isHidden = false
-            pageTab.isHidden = false
             //        middleLabel.isHidden = true
             pageOptionIndicator.isHidden = false
             pageOptionIndicator.image = nil
@@ -1373,7 +1384,6 @@ extension MainPage {
         Person.ID = currentUser.ID
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, peepView: profilePageView, completionHandler: { (true) in
             pageOptionIndicator.image = UIImage(named: Peeple.peepPics[currentUser.peepOne])
-            pageTab.image = nil
             topRightLabel.image = UIImage(named: Peeple.ProfileLabel)
             collectionView.reloadData()
             profilePageView.isHidden = false
@@ -1420,7 +1430,6 @@ extension MainPage {
         Person.color = color
         Person.pic = pic
         topRightLabel.isHidden = true
-        pageTab.isHidden = true
         personPeepView.isHidden = false
         profilePageView.isHidden = true
         collectionView.isHidden = true
@@ -1450,6 +1459,7 @@ extension MainPage {
         switch currentOption {
         case .peepOne:
             peepImage.image = UIImage(named: Peeple.peepPics[peepOne])
+            backImage.image = UIImage(named: Peeple.peepBacks[peepOne])
             if peepOneView != nil {
                 peepOneView?.isHidden = false
                 peepOneView?.layoutSubviews()
@@ -1461,6 +1471,7 @@ extension MainPage {
             }
         case .peepTwo:
             peepImage.image = UIImage(named: Peeple.peepPics[peepTwo])
+            backImage.image = UIImage(named: Peeple.peepBacks[peepTwo])
             if peepTwoView != nil {
                 peepOneView?.isHidden = true
                 peepTwoView?.layoutSubviews()
@@ -1471,6 +1482,7 @@ extension MainPage {
             }
         case .peepThree:
             peepImage.image = UIImage(named: Peeple.peepPics[peepThree])
+            backImage.image = UIImage(named: Peeple.peepBacks[peepThree])
             if peepThreeView != nil {
                 peepOneView?.isHidden = true
                 peepTwoView?.isHidden = true
@@ -1481,6 +1493,7 @@ extension MainPage {
             }
         case .settings:
             peepImage.image = UIImage(named: "pers")
+            backImage.image = UIImage(named: "earthBack")
             optionsView.isHidden = false
             allPeepView.isHidden = true
             collectionView.reloadData()
@@ -1503,7 +1516,6 @@ extension MainPage {
         Group.pic = pic
         Group.des = des
         topRightLabel.isHidden = true
-        pageTab.isHidden = true
         addInfoButton.isHidden = false
         addInfoButton.setTitle("Add Event", for: .normal)
         infoTextField.placeholder = "Event Name"

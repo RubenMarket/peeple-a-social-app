@@ -640,6 +640,9 @@
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynP-Ee-tUq" customClass="ARView" customModule="People" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="earthBack" translatesAutoresizingMaskIntoConstraints="NO" id="1Vt-8C-s62">
+                                <rect key="frame" x="-61" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <view alpha="0.90000000000000002" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8a3-87-eQF">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </view>
@@ -859,13 +862,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TabPlanet" translatesAutoresizingMaskIntoConstraints="NO" id="dNX-43-S72">
-                                <rect key="frame" x="16" y="637" width="343" height="30"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="x6h-K2-W87"/>
-                                </constraints>
-                            </imageView>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="peepleLoading" translatesAutoresizingMaskIntoConstraints="NO" id="d1l-0k-ZxY">
                                 <rect key="frame" x="322" y="20" width="30" height="30"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -908,15 +904,17 @@
                         <constraints>
                             <constraint firstItem="JEc-hV-xTl" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" constant="16" id="0kk-k7-GkR"/>
                             <constraint firstItem="ynP-Ee-tUq" firstAttribute="top" secondItem="tLE-QW-wmD" secondAttribute="top" id="3Fi-Qu-tZI"/>
-                            <constraint firstItem="dNX-43-S72" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" constant="-16" id="4Nx-eQ-tAe"/>
                             <constraint firstItem="fwX-Ov-08Z" firstAttribute="bottom" secondItem="z1x-1s-PPJ" secondAttribute="bottom" constant="20" id="8RN-tC-uQU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="d1l-0k-ZxY" secondAttribute="trailing" constant="7" id="8VP-7d-AeF"/>
                             <constraint firstItem="ynP-Ee-tUq" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" id="Bui-k2-5qB"/>
+                            <constraint firstItem="1Vt-8C-s62" firstAttribute="top" secondItem="tLE-QW-wmD" secondAttribute="top" id="CuK-zY-PNS"/>
                             <constraint firstItem="Nfl-ok-Wzj" firstAttribute="centerX" secondItem="tLE-QW-wmD" secondAttribute="centerX" id="DQy-xz-4oc"/>
+                            <constraint firstItem="1Vt-8C-s62" firstAttribute="leading" secondItem="tLE-QW-wmD" secondAttribute="leading" constant="-61" id="Erk-2v-QPp"/>
                             <constraint firstItem="q1T-Sa-J9K" firstAttribute="leading" secondItem="Nfl-ok-Wzj" secondAttribute="leading" id="EwZ-Yz-YOy"/>
                             <constraint firstItem="Nfl-ok-Wzj" firstAttribute="centerY" secondItem="tLE-QW-wmD" secondAttribute="centerY" constant="-45" id="FSW-QZ-UnK"/>
                             <constraint firstAttribute="bottom" secondItem="ynP-Ee-tUq" secondAttribute="bottom" id="Fhn-M5-pC3"/>
                             <constraint firstItem="gOc-nA-boU" firstAttribute="centerY" secondItem="tLE-QW-wmD" secondAttribute="centerY" id="G4v-nH-3db"/>
+                            <constraint firstAttribute="bottom" secondItem="1Vt-8C-s62" secondAttribute="bottom" id="Ig6-Yb-NWZ"/>
                             <constraint firstItem="jha-lE-QJf" firstAttribute="top" secondItem="tLE-QW-wmD" secondAttribute="top" id="MsX-pY-ovf"/>
                             <constraint firstItem="8a3-87-eQF" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" id="N4a-h7-PBB"/>
                             <constraint firstItem="828-Q2-clc" firstAttribute="top" secondItem="fwX-Ov-08Z" secondAttribute="top" id="R1G-nE-vUg"/>
@@ -924,13 +922,12 @@
                             <constraint firstItem="j9a-Lq-dQs" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" id="S3z-vE-VlT"/>
                             <constraint firstItem="8a3-87-eQF" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" id="UBU-bM-poK"/>
                             <constraint firstItem="z1x-1s-PPJ" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" constant="16" id="URM-FQ-ZSG"/>
+                            <constraint firstAttribute="trailing" secondItem="1Vt-8C-s62" secondAttribute="trailing" constant="61" id="Whu-Ag-mk3"/>
                             <constraint firstItem="jha-lE-QJf" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" id="YBx-RJ-Gfy"/>
                             <constraint firstItem="fwX-Ov-08Z" firstAttribute="trailing" secondItem="j9a-Lq-dQs" secondAttribute="trailing" id="Yfw-k7-gPb"/>
                             <constraint firstItem="gOc-nA-boU" firstAttribute="centerX" secondItem="tLE-QW-wmD" secondAttribute="centerX" id="Zqc-hK-lXT"/>
                             <constraint firstItem="q1T-Sa-J9K" firstAttribute="bottom" secondItem="Nfl-ok-Wzj" secondAttribute="bottom" constant="-78.5" id="a6o-vo-ewb"/>
-                            <constraint firstItem="dNX-43-S72" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" constant="16" id="cfj-gl-yvu"/>
                             <constraint firstItem="q1T-Sa-J9K" firstAttribute="top" secondItem="Nfl-ok-Wzj" secondAttribute="top" constant="45" id="dEt-6n-hwI"/>
-                            <constraint firstItem="fwX-Ov-08Z" firstAttribute="bottom" secondItem="dNX-43-S72" secondAttribute="bottom" id="eyb-Aa-QDf"/>
                             <constraint firstItem="ynP-Ee-tUq" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" id="g1b-US-M2t"/>
                             <constraint firstItem="jha-lE-QJf" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" id="hCH-0Z-xg3"/>
                             <constraint firstItem="828-Q2-clc" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" id="i7A-y5-0EK"/>
@@ -958,6 +955,7 @@
                         <outlet property="PrivateToggleButton" destination="4L0-Rt-3sq" id="6xC-Bd-Z7N"/>
                         <outlet property="addInfoButton" destination="z1x-1s-PPJ" id="kzo-g5-nIt"/>
                         <outlet property="addInfoView" destination="Nfl-ok-Wzj" id="oJe-j2-akt"/>
+                        <outlet property="backImage" destination="1Vt-8C-s62" id="aBs-nj-S6d"/>
                         <outlet property="collectionView" destination="j9a-Lq-dQs" id="0OQ-Zd-0gY"/>
                         <outlet property="editProfileView" destination="gOc-nA-boU" id="pWh-VB-gWh"/>
                         <outlet property="eventDurationButton" destination="aId-XA-s8j" id="6pd-ze-xdq"/>
@@ -966,7 +964,6 @@
                         <outlet property="loadingIndicator" destination="d1l-0k-ZxY" id="Hsf-JL-A28"/>
                         <outlet property="middleLabel" destination="q1T-Sa-J9K" id="b5R-cX-dxY"/>
                         <outlet property="pageOptionIndicator" destination="r1V-Tc-25v" id="wig-uk-RPi"/>
-                        <outlet property="pageTab" destination="dNX-43-S72" id="FCh-pT-5hZ"/>
                         <outlet property="personPeepView" destination="jha-lE-QJf" id="kAi-NU-5tK"/>
                         <outlet property="profilePageView" destination="8a3-87-eQF" id="y9y-1N-afV"/>
                         <outlet property="topRightLabel" destination="JEc-hV-xTl" id="La8-EQ-Wcm"/>
@@ -1012,7 +1009,6 @@
     <resources>
         <image name="Portoflio" width="1537" height="1647"/>
         <image name="Spachip" width="1537" height="1647"/>
-        <image name="TabPlanet" width="240" height="16"/>
         <image name="alli" width="1537" height="1647"/>
         <image name="animlyfe" width="1537" height="1647"/>
         <image name="awemember" width="1537" height="1647"/>
@@ -1023,6 +1019,7 @@
         <image name="clnow" width="1537" height="1647"/>
         <image name="coming soon" width="1537" height="1647"/>
         <image name="cupinge" width="1537" height="1647"/>
+        <image name="earthBack" width="1369" height="736"/>
         <image name="lightlogo" width="500" height="500"/>
         <image name="mucity" width="1537" height="1647"/>
         <image name="peepleLoading" width="416" height="416"/>

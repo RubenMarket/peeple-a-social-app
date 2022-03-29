@@ -30,7 +30,7 @@
                             </constraints>
                         </imageView>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pers" translatesAutoresizingMaskIntoConstraints="NO" id="pED-a0-4Zp">
-                            <rect key="frame" x="13" y="22" width="60" height="70"/>
+                            <rect key="frame" x="13" y="14" width="60" height="70"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="60" id="Avg-KA-WZD"/>
                                 <constraint firstAttribute="height" constant="70" id="sxZ-g9-uIF"/>
@@ -59,7 +59,7 @@
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4x2-hx-W6R">
                             <rect key="frame" x="13" y="18" width="223" height="215"/>
-                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="19"/>
+                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
                             <color key="textColor" systemColor="systemGrayColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -70,7 +70,7 @@
                         <constraint firstItem="4x2-hx-W6R" firstAttribute="trailing" secondItem="QW2-bU-YwT" secondAttribute="trailing" constant="-6" id="KU4-Ju-zyT"/>
                         <constraint firstItem="4x2-hx-W6R" firstAttribute="bottom" secondItem="QW2-bU-YwT" secondAttribute="bottom" constant="-9" id="Ka4-sv-VS4"/>
                         <constraint firstItem="Nga-dC-S8P" firstAttribute="trailing" secondItem="QW2-bU-YwT" secondAttribute="trailing" constant="-6" id="Lrk-VW-UGW"/>
-                        <constraint firstItem="QW2-bU-YwT" firstAttribute="top" secondItem="pED-a0-4Zp" secondAttribute="top" constant="-14" id="Mlk-rL-WvB"/>
+                        <constraint firstItem="QW2-bU-YwT" firstAttribute="top" secondItem="pED-a0-4Zp" secondAttribute="top" constant="-6" id="Mlk-rL-WvB"/>
                         <constraint firstItem="QW2-bU-YwT" firstAttribute="top" secondItem="gob-kP-Y76" secondAttribute="top" constant="8" id="Tr3-4o-1Mb"/>
                         <constraint firstAttribute="trailing" secondItem="QW2-bU-YwT" secondAttribute="trailing" constant="8" id="Wvm-GZ-gr5"/>
                         <constraint firstItem="4x2-hx-W6R" firstAttribute="top" secondItem="QW2-bU-YwT" secondAttribute="top" constant="10" id="bWH-Ve-sgx"/>

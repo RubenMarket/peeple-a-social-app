@@ -13,9 +13,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="charryback" translatesAutoresizingMaskIntoConstraints="NO" id="jec-Ie-Jwv">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
-                </imageView>
                 <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KCm-jy-bUV">
                     <rect key="frame" x="17" y="107" width="301" height="286"/>
                     <subviews>
@@ -208,7 +205,7 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="190" id="TsF-gI-Tgv"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="13"/>
+                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
                             <state key="normal">
                                 <color key="titleColor" red="0.23921568627450979" green="0.67450980392156867" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -249,7 +246,7 @@
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFK-oD-UFF">
                             <rect key="frame" x="91" y="7" width="201" height="77"/>
-                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="13"/>
+                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
                             <state key="normal">
                                 <color key="titleColor" red="0.23921568627450979" green="0.67450980392156867" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -283,8 +280,6 @@
                 </imageView>
             </subviews>
             <constraints>
-                <constraint firstItem="jec-Ie-Jwv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4a2-ei-Lhj"/>
-                <constraint firstAttribute="trailing" secondItem="jec-Ie-Jwv" secondAttribute="trailing" id="FDQ-AV-U1k"/>
                 <constraint firstItem="KCm-jy-bUV" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-21" id="IiO-WF-WvG"/>
                 <constraint firstItem="AYw-ra-PQ1" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-141" id="P3J-mv-nry"/>
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="93" id="RwC-n0-70h"/>
@@ -293,14 +288,11 @@
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="height" secondItem="AYw-ra-PQ1" secondAttribute="height" id="jJm-ah-OJg"/>
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="2.5" id="leJ-4f-vni"/>
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="centerX" secondItem="AYw-ra-PQ1" secondAttribute="centerX" constant="4" id="mgp-44-yqI"/>
-                <constraint firstAttribute="bottom" secondItem="jec-Ie-Jwv" secondAttribute="bottom" id="rF2-rj-kYB"/>
                 <constraint firstAttribute="trailing" secondItem="APx-uy-tbp" secondAttribute="trailing" constant="18" id="tgH-kj-4Mf"/>
-                <constraint firstItem="jec-Ie-Jwv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vXY-hR-bG9"/>
                 <constraint firstItem="APx-uy-tbp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="xZM-ig-TGY"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="backImage" destination="jec-Ie-Jwv" id="k98-CM-PbB"/>
                 <outlet property="buttonView" destination="KCm-jy-bUV" id="KA1-Px-W7P"/>
                 <outlet property="firstViewY" destination="P3J-mv-nry" id="QXi-fM-ndE"/>
                 <outlet property="firstcharbut" destination="EFK-oD-UFF" id="2aJ-T5-W47"/>
@@ -331,7 +323,6 @@
         <image name="awareness" width="500" height="500"/>
         <image name="bcancer" width="500" height="500"/>
         <image name="charight" width="1773" height="1884"/>
-        <image name="charryback" width="1208" height="710"/>
         <image name="charryclud" width="585" height="178"/>
         <image name="climate" width="500" height="500"/>
         <image name="infoknowledge" width="500" height="500"/>

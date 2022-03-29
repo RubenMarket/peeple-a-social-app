@@ -28,10 +28,11 @@ struct Peeple {
     // the views width divided by below number
     static let cornerRadius:CGFloat = 22
     static let Thickness:CGFloat = 2
+    static let earthBackImg:String = "earthBack"
     static var isLocationEnabled:Bool = UserDefaults.standard.bool(forKey: "isLocationEnabled")
     static let peepTags: [Int: String] = [1:"charight",2:"cleanergy",3:"Portoflio",4:"Spacechip",5:"Cupidity",6:"Animalife",7:"Comingsoon",8:"Theorize",9:"Clouds",10:"Shelfie",11:"Traveld",12:"Myme",13:"Alexia",14:"Beta Tester",15:"Musicity",16:"Awe Member",17:"blue soon"]
     static let peepPics: [String] = ["emptyRectangle","charight","cleanergy","Portoflio","Spacechip","Cupidity","Animalife","Comingsoon","Theorize","Clouds","Shelfie","Traveld","Myme","Alexia","Beta Tester","Musicity","Awe Member","blue soon"]
-   
+    static let peepBacks: [String] = ["earthBack","charBack","earthBack","portBack","Spacechip","Cupidity","Animalife","Comingsoon","Theorize","Clouds","Shelfie","Traveld","Myme","Alexia","Beta Tester","Musicity","Awe Member","blue soon"]
     static let allImage:String = "all"
     static let topImage:String = "top"
     static let myImage:String = "my"
