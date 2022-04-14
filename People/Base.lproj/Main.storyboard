@@ -641,7 +641,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </view>
                             <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="earthBack" translatesAutoresizingMaskIntoConstraints="NO" id="1Vt-8C-s62">
-                                <rect key="frame" x="-61" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <view alpha="0.90000000000000002" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8a3-87-eQF">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -909,7 +909,7 @@
                             <constraint firstItem="ynP-Ee-tUq" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" id="Bui-k2-5qB"/>
                             <constraint firstItem="1Vt-8C-s62" firstAttribute="top" secondItem="tLE-QW-wmD" secondAttribute="top" id="CuK-zY-PNS"/>
                             <constraint firstItem="Nfl-ok-Wzj" firstAttribute="centerX" secondItem="tLE-QW-wmD" secondAttribute="centerX" id="DQy-xz-4oc"/>
-                            <constraint firstItem="1Vt-8C-s62" firstAttribute="leading" secondItem="tLE-QW-wmD" secondAttribute="leading" constant="-61" id="Erk-2v-QPp"/>
+                            <constraint firstItem="1Vt-8C-s62" firstAttribute="leading" secondItem="tLE-QW-wmD" secondAttribute="leading" id="Erk-2v-QPp"/>
                             <constraint firstItem="q1T-Sa-J9K" firstAttribute="leading" secondItem="Nfl-ok-Wzj" secondAttribute="leading" id="EwZ-Yz-YOy"/>
                             <constraint firstItem="Nfl-ok-Wzj" firstAttribute="centerY" secondItem="tLE-QW-wmD" secondAttribute="centerY" constant="-45" id="FSW-QZ-UnK"/>
                             <constraint firstAttribute="bottom" secondItem="ynP-Ee-tUq" secondAttribute="bottom" id="Fhn-M5-pC3"/>
@@ -922,7 +922,7 @@
                             <constraint firstItem="j9a-Lq-dQs" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" id="S3z-vE-VlT"/>
                             <constraint firstItem="8a3-87-eQF" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" id="UBU-bM-poK"/>
                             <constraint firstItem="z1x-1s-PPJ" firstAttribute="leading" secondItem="fwX-Ov-08Z" secondAttribute="leading" constant="16" id="URM-FQ-ZSG"/>
-                            <constraint firstAttribute="trailing" secondItem="1Vt-8C-s62" secondAttribute="trailing" constant="61" id="Whu-Ag-mk3"/>
+                            <constraint firstAttribute="trailing" secondItem="1Vt-8C-s62" secondAttribute="trailing" id="Whu-Ag-mk3"/>
                             <constraint firstItem="jha-lE-QJf" firstAttribute="trailing" secondItem="fwX-Ov-08Z" secondAttribute="trailing" id="YBx-RJ-Gfy"/>
                             <constraint firstItem="fwX-Ov-08Z" firstAttribute="trailing" secondItem="j9a-Lq-dQs" secondAttribute="trailing" id="Yfw-k7-gPb"/>
                             <constraint firstItem="gOc-nA-boU" firstAttribute="centerX" secondItem="tLE-QW-wmD" secondAttribute="centerX" id="Zqc-hK-lXT"/>

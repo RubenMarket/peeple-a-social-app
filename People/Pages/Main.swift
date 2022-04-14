@@ -119,6 +119,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             
             locationManager?.startUpdatingLocation()
             addInfoView.isHidden = false
+            middleLabel.isHidden = true
             if infoTextField.text == "" { return }
             guard let eventName = infoTextField.text else { return }
             if eventName.count >= 30 { return }
@@ -144,6 +145,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     self.infoTextField.text = ""
                     self.infoTextDescription.text = ""
                     self.addInfoView.isHidden = true
+                    self.middleLabel.isHidden = false
                     self.eventDurationButton.isHidden = true
                     self.stopLoading()
                     self.collectionView.reloadData()
