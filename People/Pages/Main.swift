@@ -60,8 +60,9 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             if infoTextField.text == "" { return }
             
             guard let user = app.currentUser else { return }
-            startLoading()
             guard let GroupName = infoTextField.text else { return }
+            startLoading()
+            addInfoButton.isEnabled = false
             let groupDes:String = infoTextDescription.text ?? ""
             if GroupName.count >= 20 { return }
             let GroupCode:String = UUID().uuidString
@@ -103,6 +104,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     self.infoTextField.text = ""
                     self.infoTextDescription.text = ""
                     self.addInfoView.isHidden = true
+                    addInfoButton.isEnabled = true
                     Peeple.GroupisSetTo = .my
                     fetchGroupData(user: user)
                 }
@@ -127,6 +129,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             guard let user = app.currentUser else { return }
             let now = Date()
             startLoading()
+            addInfoButton.isEnabled = false
             print(now)
             let eventDes:String = infoTextDescription.text ?? ""
             let configuration1 = user.configuration(partitionValue: "groupMessages=\(Group.ID)")
@@ -147,6 +150,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     self.addInfoView.isHidden = true
                     self.middleLabel.isHidden = false
                     self.eventDurationButton.isHidden = true
+                    self.addInfoButton.isEnabled = true
                     self.stopLoading()
                     self.collectionView.reloadData()
                 }
