@@ -12,21 +12,22 @@ import AVFoundation
 import CoreLocation
 
 struct Peeple {
-    static var zoomLevel:zoom = .two
+    static var zoomLevel:zoom = .max
     enum zoom { case one,two, max }
-    enum PlanetOptions { case earth, mars, moon,space }
-    enum GroupOptions { case all, my, search, make,events }
+    enum EventOptions { case all, twentyfive,five }
+    enum GroupOptions { case all, my, search }
     enum PeopleOptions { case all, my, search }
-    enum ProfileOptions { case peepOne, peepTwo, peepThree, settings }
-    enum Page { case Planet, Group, People, Profile, GroupChat, Person }
+    enum ProfileOptions { case peepOne, peepTwo, peepThree }
+    enum Page { case Event, Group, People, Profile, GroupChat, Person }
     enum prevPage { case Group, People }
-    static var CurrentPage:Page = Page.Planet
+    static var CurrentPage:Page = Page.Event
     static var fromPage:prevPage = prevPage.Group
-    static let colors:[UIColor] = [.white,#colorLiteral(red: 1, green: 0.3019607843, blue: 0.2549019608, alpha: 1),#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1),#colorLiteral(red: 1, green: 0.9568627451, blue: 0.4862745098, alpha: 1),#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1),#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 1, green: 0.7137254902, blue: 0.7568627451, alpha: 1),.systemGray6]
+    static let colors:[UIColor] = [.systemGray6,#colorLiteral(red: 1, green: 0.3019607843, blue: 0.2549019608, alpha: 1),#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1),#colorLiteral(red: 1, green: 0.9568627451, blue: 0.4862745098, alpha: 1),#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1),#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 1, green: 0.7137254902, blue: 0.7568627451, alpha: 1),.white]
     // 1 out of below chance to post on click
     static let rarity:Int = 30
     // the views width divided by below number
-    static let cornerRadius:CGFloat = 22
+    static let cornerRadius:CGFloat = 17
+    static var Plus:Bool = false
     static let Thickness:CGFloat = 2
     static let earthBackImg:String = "earthBack"
     static var isLocationEnabled:Bool = UserDefaults.standard.bool(forKey: "isLocationEnabled")
@@ -53,8 +54,9 @@ struct Peeple {
     static let ProfileTabImage:String = "TabProfile"
     static let ProfileLabel:String = "profilelabel"
     //planet
-    static var PlanetisSetTo:PlanetOptions = .earth
-    static let PlanetTabImage:String = "TabPlanet"
+    static var EventisSetTo:EventOptions = .all
+    static let EventTabImage:String = "TabPlanet"
+    // has event image set as planetlabel
     static let PlanetLabel:String = "planetlabel"
     //event
     static let EventLabel:String = "eventslabel"
@@ -131,7 +133,7 @@ class MusicPlayer {
                 audioPlayer = try AVAudioPlayer(contentsOf:backgroundMusic as URL)
                 guard let audioPlayer = audioPlayer else { return }
                 audioPlayer.numberOfLoops = -1
-                audioPlayer.volume = 0.3
+                audioPlayer.volume = 0.5
                 audioPlayer.prepareToPlay()
                 audioPlayer.play()
             } catch {

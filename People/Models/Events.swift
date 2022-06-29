@@ -9,6 +9,41 @@
 import Foundation
 import RealmSwift
 
+class Events:Object {
+    @Persisted var color: Int = 0
+    @Persisted var peepOne: Int = 0
+    @Persisted var peepTwo: Int = 0
+    @Persisted var peepThree: Int = 0
+    @Persisted var eventDuration: Int = 0
+    @Persisted var lat: Double = 0
+    @Persisted var long: Double = 0
+    @Persisted var eventDes: String = ""
+    @Persisted var eventName: String = ""
+    @Persisted var timeCode : Date = Date()
+    @Persisted var isBiz: Bool?
+    @Persisted var userId : String = ""
+    @Persisted(primaryKey: true) var _id : String
+    
+    convenience init(eventName:String,color:Int,peepOne:Int,peepTwo:Int,peepThree:Int,eventDuration:Int,lat:Double,long:Double, eventDes: String, userId: String,isBiz:Bool?,_id:String,timeCode:Date) {
+    self.init()
+        self.eventName = eventName
+        self.color = color
+        self.peepOne = peepOne
+        self.peepTwo = peepTwo
+        self.peepThree = peepThree
+        self.eventDuration = eventDuration
+        self.lat = lat
+        self.long = long
+        self.eventDes = eventDes
+        self.userId = userId
+        self._id = _id
+        self.timeCode = timeCode
+        self.isBiz = isBiz
+    }
+    
+    
+}
+
 class earthFeed: Object {
     @Persisted var text: String = ""
     @Persisted var name: String = ""

@@ -25,7 +25,7 @@
 		828E81622695632F0068C778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 821D9FAF20B7A48900CD69D7 /* Main.storyboard */; };
 		829CE9B222822FFE002F238C /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CE9B122822FFE002F238C /* Requests.swift */; };
 		82AA68B12353DB50000B54DE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82AA68B02353DB50000B54DE /* MapKit.framework */; };
-		82AEC1132104F45A00C9B5C7 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AEC1122104F45A00C9B5C7 /* Planet.swift */; };
+		82AEC1132104F45A00C9B5C7 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AEC1122104F45A00C9B5C7 /* Events.swift */; };
 		82B1310824A502080048814F /* awemember.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82B1310724A502080048814F /* awemember.xib */; };
 		82B1310A24A5036D0048814F /* awemember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B1310924A5036D0048814F /* awemember.swift */; };
 		82B1310C24A5057E0048814F /* betatester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B1310B24A5057E0048814F /* betatester.swift */; };
@@ -50,15 +50,16 @@
 		82E876372489CDB00029C722 /* spacechip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E876362489CDB00029C722 /* spacechip.swift */; };
 		82E87639248A04CB0029C722 /* theorize.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E87638248A04CB0029C722 /* theorize.xib */; };
 		82E8763B248A056B0029C722 /* theorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E8763A248A056B0029C722 /* theorize.swift */; };
-		82F4027B26A9CF6F0039B005 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82F4027A26A9CF6F0039B005 /* GoogleService-Info.plist */; };
+		840A9147286C7F7B0048681B /* ProgressCircleClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A9146286C7F7B0048681B /* ProgressCircleClass.swift */; };
 		841BF5412786464000350C27 /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841BF5402786464000350C27 /* ChatPage.swift */; };
-		841BF5432786762500350C27 /* PeeplePro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841BF5422786762500350C27 /* PeeplePro.swift */; };
+		842007472868CACA00EBD87A /* peeplePlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842007462868CACA00EBD87A /* peeplePlus.swift */; };
+		842007492868E03E00EBD87A /* allPeeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842007482868E03E00EBD87A /* allPeeps.swift */; };
 		842D64A727E18B0800D199C1 /* peepleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842D64A627E18B0800D199C1 /* peepleTests.swift */; };
 		8479FD302751511D0074098F /* MainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8479FD2F2751511D0074098F /* MainCell.xib */; };
 		8479FD322751516B0074098F /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479FD312751516B0074098F /* MainCell.swift */; };
-		8479FD34275154480074098F /* makeGroup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8479FD33275154480074098F /* makeGroup.xib */; };
+		8479FD34275154480074098F /* allPeeps.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8479FD33275154480074098F /* allPeeps.xib */; };
 		8479FD36275159C70074098F /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479FD35275159C70074098F /* Main.swift */; };
-		8479FD3827517B7A0074098F /* editProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8479FD3727517B7A0074098F /* editProfile.xib */; };
+		8479FD3827517B7A0074098F /* PeeplePlus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8479FD3727517B7A0074098F /* PeeplePlus.xib */; };
 		8480F81527E768C7001859DA /* peepsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8480F81427E768C6001859DA /* peepsound.mp3 */; };
 		8481197FD838860A4197252B /* Pods_People.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED383403FC54E35530547268 /* Pods_People.framework */; };
 		84E8094F27EEAFF8004CF23A /* configFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8094E27EEAFF8004CF23A /* configFile.swift */; };
@@ -97,7 +98,7 @@
 		828A706C2649C54900913063 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		829CE9B122822FFE002F238C /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
 		82AA68B02353DB50000B54DE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		82AEC1122104F45A00C9B5C7 /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
+		82AEC1122104F45A00C9B5C7 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		82B1310724A502080048814F /* awemember.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = awemember.xib; sourceTree = "<group>"; };
 		82B1310924A5036D0048814F /* awemember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = awemember.swift; sourceTree = "<group>"; };
 		82B1310B24A5057E0048814F /* betatester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = betatester.swift; sourceTree = "<group>"; };
@@ -123,16 +124,17 @@
 		82E87638248A04CB0029C722 /* theorize.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = theorize.xib; sourceTree = "<group>"; };
 		82E8763A248A056B0029C722 /* theorize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = theorize.swift; sourceTree = "<group>"; };
 		82EC3D8E234F801700968D54 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		82F4027A26A9CF6F0039B005 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		840A9146286C7F7B0048681B /* ProgressCircleClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleClass.swift; sourceTree = "<group>"; };
 		841BF5402786464000350C27 /* ChatPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPage.swift; sourceTree = "<group>"; };
-		841BF5422786762500350C27 /* PeeplePro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeeplePro.swift; sourceTree = "<group>"; };
+		842007462868CACA00EBD87A /* peeplePlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peeplePlus.swift; sourceTree = "<group>"; };
+		842007482868E03E00EBD87A /* allPeeps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = allPeeps.swift; sourceTree = "<group>"; };
 		842D64A427E18B0800D199C1 /* peepleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = peepleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		842D64A627E18B0800D199C1 /* peepleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peepleTests.swift; sourceTree = "<group>"; };
 		8479FD2F2751511D0074098F /* MainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainCell.xib; sourceTree = "<group>"; };
 		8479FD312751516B0074098F /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
-		8479FD33275154480074098F /* makeGroup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = makeGroup.xib; sourceTree = "<group>"; };
+		8479FD33275154480074098F /* allPeeps.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = allPeeps.xib; sourceTree = "<group>"; };
 		8479FD35275159C70074098F /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
-		8479FD3727517B7A0074098F /* editProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = editProfile.xib; sourceTree = "<group>"; };
+		8479FD3727517B7A0074098F /* PeeplePlus.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeeplePlus.xib; sourceTree = "<group>"; };
 		8480F81427E768C6001859DA /* peepsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = peepsound.mp3; sourceTree = SOURCE_ROOT; };
 		84E8094E27EEAFF8004CF23A /* configFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = configFile.swift; sourceTree = "<group>"; };
 		8C10420553EDC8376A10EF1D /* Pods-People.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-People.debug.xcconfig"; path = "Pods/Target Support Files/Pods-People/Pods-People.debug.xcconfig"; sourceTree = "<group>"; };
@@ -195,9 +197,9 @@
 				82AEC1112104E0D400C9B5C7 /* Pages */,
 				84796676274F33A800FBA6B7 /* Peeps */,
 				828A2A5624147CA800822CBB /* Utils.swift */,
+				840A9146286C7F7B0048681B /* ProgressCircleClass.swift */,
 				84E8094E27EEAFF8004CF23A /* configFile.swift */,
 				821D9FB720B7A48900CD69D7 /* Info.plist */,
-				82F4027A26A9CF6F0039B005 /* GoogleService-Info.plist */,
 			);
 			path = People;
 			sourceTree = "<group>";
@@ -206,7 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				8234A94A220DC18D000DFDDC /* Peeple.swift */,
-				82AEC1122104F45A00C9B5C7 /* Planet.swift */,
+				82AEC1122104F45A00C9B5C7 /* Events.swift */,
 				826B117421DBCB4700321A46 /* Group.swift */,
 				82BC756C23FB8449009072A8 /* People.swift */,
 				82DF929B251A41A900537A7B /* Peeps.swift */,
@@ -222,8 +224,10 @@
 				8479FD2F2751511D0074098F /* MainCell.xib */,
 				827D582623042AAC0039B256 /* postcell.xib */,
 				82098487263339EA00F9B4E3 /* requestCell.xib */,
-				8479FD33275154480074098F /* makeGroup.xib */,
-				8479FD3727517B7A0074098F /* editProfile.xib */,
+				8479FD33275154480074098F /* allPeeps.xib */,
+				842007482868E03E00EBD87A /* allPeeps.swift */,
+				8479FD3727517B7A0074098F /* PeeplePlus.xib */,
+				842007462868CACA00EBD87A /* peeplePlus.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -237,7 +241,6 @@
 				841BF5402786464000350C27 /* ChatPage.swift */,
 				8272B199250D61DA0048A366 /* Admin.swift */,
 				82B3D86C248879BD009CC79A /* PickPeeps.swift */,
-				841BF5422786762500350C27 /* PeeplePro.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -410,7 +413,7 @@
 				82B1310824A502080048814F /* awemember.xib in Resources */,
 				82B1311924A6EB9C0048814F /* myme.xib in Resources */,
 				82098488263339EA00F9B4E3 /* requestCell.xib in Resources */,
-				8479FD34275154480074098F /* makeGroup.xib in Resources */,
+				8479FD34275154480074098F /* allPeeps.xib in Resources */,
 				82E876352489CD220029C722 /* spacechip.xib in Resources */,
 				82B3D86524880E4E009CC79A /* Cleanergy.xib in Resources */,
 				82B1311024A50A3E0048814F /* comingsoon.xib in Resources */,
@@ -419,12 +422,11 @@
 				82B3D86724880F33009CC79A /* Portfolio.xib in Resources */,
 				82B1310E24A505910048814F /* betatester.xib in Resources */,
 				821D9FB320B7A48900CD69D7 /* Assets.xcassets in Resources */,
-				82F4027B26A9CF6F0039B005 /* GoogleService-Info.plist in Resources */,
 				827D582723042AAC0039B256 /* postcell.xib in Resources */,
 				8479FD302751511D0074098F /* MainCell.xib in Resources */,
 				8248481124A8124600D3C6AE /* shelfie.xib in Resources */,
 				828E81622695632F0068C778 /* Main.storyboard in Resources */,
-				8479FD3827517B7A0074098F /* editProfile.xib in Resources */,
+				8479FD3827517B7A0074098F /* PeeplePlus.xib in Resources */,
 				82B3D8612487EDF3009CC79A /* Charight.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,12 +466,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-People/Pods-People-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Qonversion/Qonversion.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qonversion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
@@ -495,7 +499,7 @@
 				82B1310A24A5036D0048814F /* awemember.swift in Sources */,
 				8234A94B220DC18D000DFDDC /* Peeple.swift in Sources */,
 				82B1310C24A5057E0048814F /* betatester.swift in Sources */,
-				841BF5432786762500350C27 /* PeeplePro.swift in Sources */,
+				842007472868CACA00EBD87A /* peeplePlus.swift in Sources */,
 				829CE9B222822FFE002F238C /* Requests.swift in Sources */,
 				82BA735E26D82B4400AF0771 /* cupidity.swift in Sources */,
 				826B117521DBCB4700321A46 /* Group.swift in Sources */,
@@ -505,10 +509,12 @@
 				821D9FAE20B7A48900CD69D7 /* Login.swift in Sources */,
 				82E876372489CDB00029C722 /* spacechip.swift in Sources */,
 				8248480F24A80C7600D3C6AE /* myme.swift in Sources */,
+				840A9147286C7F7B0048681B /* ProgressCircleClass.swift in Sources */,
 				8479FD36275159C70074098F /* Main.swift in Sources */,
 				821D9FAC20B7A48900CD69D7 /* AppDelegate.swift in Sources */,
 				84E8094F27EEAFF8004CF23A /* configFile.swift in Sources */,
-				82AEC1132104F45A00C9B5C7 /* Planet.swift in Sources */,
+				82AEC1132104F45A00C9B5C7 /* Events.swift in Sources */,
+				842007492868E03E00EBD87A /* allPeeps.swift in Sources */,
 				82DF929C251A41A900537A7B /* Peeps.swift in Sources */,
 				82B3D86D248879BD009CC79A /* PickPeeps.swift in Sources */,
 				82B1311224A50AD40048814F /* comingsoon.swift in Sources */,
@@ -678,13 +684,13 @@
 				CODE_SIGN_ENTITLEMENTS = People/People.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = 7XSDB3X9U5;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = QBHCCHZVVS;
 				INFOPLIST_FILE = People/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 22;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rubenmarket.peeple;
+				MARKETING_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rubenmarket7.peeple;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -701,13 +707,13 @@
 				CODE_SIGN_ENTITLEMENTS = People/People.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = 7XSDB3X9U5;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = QBHCCHZVVS;
 				INFOPLIST_FILE = People/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 22;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rubenmarket.peeple;
+				MARKETING_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rubenmarket7.peeple;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +13,16 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" image="charybackicons" translatesAutoresizingMaskIntoConstraints="NO" id="piQ-mF-NfM">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
+                </imageView>
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="charight" translatesAutoresizingMaskIntoConstraints="NO" id="APx-uy-tbp">
+                    <rect key="frame" x="307" y="18" width="50" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="4r3-yv-rDN"/>
+                        <constraint firstAttribute="width" constant="50" id="UJk-NO-sFB"/>
+                    </constraints>
+                </imageView>
                 <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KCm-jy-bUV">
                     <rect key="frame" x="17" y="107" width="301" height="286"/>
                     <subviews>
@@ -271,19 +281,16 @@
                         <constraint firstItem="ywH-Xr-Xaj" firstAttribute="leading" secondItem="AYw-ra-PQ1" secondAttribute="leading" id="tMj-ML-JpQ"/>
                     </constraints>
                 </view>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="charight" translatesAutoresizingMaskIntoConstraints="NO" id="APx-uy-tbp">
-                    <rect key="frame" x="307" y="18" width="50" height="55"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="55" id="4r3-yv-rDN"/>
-                        <constraint firstAttribute="width" constant="50" id="UJk-NO-sFB"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <constraints>
+                <constraint firstItem="piQ-mF-NfM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="AiL-RT-Wyx"/>
+                <constraint firstAttribute="bottom" secondItem="piQ-mF-NfM" secondAttribute="bottom" id="EwZ-Ni-Yz8"/>
                 <constraint firstItem="KCm-jy-bUV" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-21" id="IiO-WF-WvG"/>
                 <constraint firstItem="AYw-ra-PQ1" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-141" id="P3J-mv-nry"/>
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="93" id="RwC-n0-70h"/>
+                <constraint firstItem="piQ-mF-NfM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cRV-Pw-hMv"/>
                 <constraint firstItem="KCm-jy-bUV" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-20" id="cot-ZQ-WgG"/>
+                <constraint firstAttribute="trailing" secondItem="piQ-mF-NfM" secondAttribute="trailing" id="ede-Wq-P29"/>
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="width" secondItem="AYw-ra-PQ1" secondAttribute="width" id="gZc-JZ-7Ij"/>
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="height" secondItem="AYw-ra-PQ1" secondAttribute="height" id="jJm-ah-OJg"/>
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="2.5" id="leJ-4f-vni"/>
@@ -324,6 +331,7 @@
         <image name="bcancer" width="500" height="500"/>
         <image name="charight" width="1773" height="1884"/>
         <image name="charryclud" width="585" height="178"/>
+        <image name="charybackicons" width="1208" height="710"/>
         <image name="climate" width="500" height="500"/>
         <image name="infoknowledge" width="500" height="500"/>
         <image name="lgbtqe" width="500" height="500"/>

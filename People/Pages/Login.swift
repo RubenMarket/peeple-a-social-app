@@ -88,16 +88,17 @@ print(userIdentifier)
                 switch result {
                 case .failure(let error):
                     print("Login failed: \(error.localizedDescription)")
-                    let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
                     DispatchQueue.main.async {
                         self.stopLoading()
                     }
-                    alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
-//                        self.stopLoading(loadingView: self.loadingIndicator)
-                        
-                    }))
-                    self.present(alert, animated: true, completion: nil)
+//                    let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
+//
+//                    alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
+////                        self.stopLoading(loadingView: self.loadingIndicator)
+//
+//                    }))
+//                    self.present(alert, animated: true, completion: nil)
                 case .success(let user):
                     print("Successfully logged in as user \(user)")
                     ID.my = user.id
@@ -132,14 +133,14 @@ print(userIdentifier)
     // Handle error.
         stopLoading()
         print(error.localizedDescription)
-        let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
-//            self.stopLoading(loadingView: self.loadingIndicator)
-            
-
-        }))
-        self.present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: "error", message: error.localizedDescription, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "what", style: .cancel, handler: nil))
+//        alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { action in
+////            self.stopLoading(loadingView: self.loadingIndicator)
+//
+//
+//        }))
+//        self.present(alert, animated: true, completion: nil)
     }
     func returningPersonCheck(user:User){
         let partitionValue = "me=\(user.id)"
@@ -235,7 +236,7 @@ print(userIdentifier)
         })
     }
     override var prefersStatusBarHidden: Bool {
-        return false }
+        return true }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,6 +8,6 @@ target 'People' do
 
 pod 'RealmSwift'
 pod 'SnapKit'
-
+pod 'Qonversion'
 
 end

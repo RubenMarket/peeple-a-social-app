@@ -47,12 +47,11 @@ class ARView: UIView {
 extension UIView {
     func borderColor(color:UIColor){
         self.layer.borderColor = color.cgColor
-        self.layer.borderWidth = 1.0
+        self.layer.borderWidth = 1.5
     }
     func backColor(color:UIColor){
         self.backgroundColor = color
     }
-    
     func circle() {
         self.layer.cornerRadius = self.frame.height / 4
         self.layer.masksToBounds = true  }
@@ -66,20 +65,10 @@ extension UIView {
         layer.shadowOpacity = 0.5
         layer.shadowOffset = CGSize(width: 1, height: -1)
         layer.shadowRadius = 2
-        
-        
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
         layer.shouldRasterize = true
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
 }
-    func buttonbordercolor(color:UIColor) {
-        
-        
-        self.layer.borderColor = color.cgColor
-        
-        
-        
-    }
     func addShadow() {
         layer.shadowOffset = CGSize(width: 0.3, height: 0.3)
         layer.shadowRadius = 0.3
@@ -91,7 +80,6 @@ extension UIView {
     func addBorderr(side: UIButtonBorderSide, color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
-        
         switch side {
         case .Top:
             border.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: width)
@@ -104,10 +92,6 @@ extension UIView {
         }
         self.layer.masksToBounds = true
         self.layer.addSublayer(border)
-        
-    }
-    func removeBorderr() {
-       
         
     }
 }
@@ -140,13 +124,17 @@ extension UIView {
 public enum UIButtonBorderSide {
     case Top, Bottom, Left, Right
 }
-
 extension UIButton {
-    
+    func addTextShadow(){
+        titleLabel!.layer.shadowColor = UIColor.darkGray.cgColor
+           titleLabel!.layer.shadowOffset = CGSize(width: -0.5, height: 0.5)
+           titleLabel!.layer.shadowOpacity = 1.0
+           titleLabel!.layer.shadowRadius = 0
+           titleLabel!.layer.masksToBounds = false
+    }
     public func addBorder(side: UIButtonBorderSide, color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
-        
         switch side {
         case .Top:
             border.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: width)
@@ -159,6 +147,15 @@ extension UIButton {
         }
         self.layer.masksToBounds = true
         self.layer.addSublayer(border)
+    }
+}
+extension UILabel {
+    func addTextShadow(){
+        layer.shadowColor = UIColor.darkGray.cgColor
+           layer.shadowOffset = CGSize(width: -0.5, height: 0.5)
+           layer.shadowOpacity = 1.0
+           layer.shadowRadius = 0
+           layer.masksToBounds = false
     }
 }
 extension UIViewController {
@@ -178,15 +175,17 @@ extension UIViewController {
         Person.color = 0
         Person.pic = ""
     }
-    func animateViews(labelImage:UIImageView,collection:UICollectionView,topRightBut:UIImageView,middleLabel:UILabel,peepView:UIView?,completionHandler:(Bool) -> Void) {
+    func animateViews(labelImage:UIImageView,collection:UICollectionView,topRightBut:UIImageView,middleLabel:UILabel,topLeftOpts:UIButton,peepView:UIView?,completionHandler:(Bool) -> Void) {
         labelImage.alpha = 0
         middleLabel.alpha = 0
+        topLeftOpts.alpha = 0
         collection.alpha = 0
         topRightBut.alpha = 0
         peepView?.alpha = 0
         UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseIn) {
             labelImage.alpha = 0.9
             collection.alpha = 0.9
+            topLeftOpts.alpha = 0.9
             topRightBut.alpha = 0.9
             middleLabel.alpha = 0.5
             peepView?.alpha = 0.9
@@ -287,11 +286,7 @@ extension UIViewController {
     }
 }
 
-
-
 extension UIImage {
-    
-    
     func rotate(_ radians: CGFloat) -> UIImage {
         let cgImage = self.cgImage!
         let LARGEST_SIZE = CGFloat(max(self.size.width, self.size.height))
@@ -361,8 +356,6 @@ extension UIView {
           self.layer.add(transformAnim, forKey: "transform")
       }
 }
-
-
 extension String
 {
     func replace(target: String, withString: String) -> String
@@ -370,7 +363,6 @@ extension String
         return self.replacingOccurrences(of: target, with: withString, options: NSString.CompareOptions.literal, range: nil)
     }
 }
-
 extension UIImage {
     func inverseImage(cgResult: Bool) -> UIImage? {
         let coreImage = UIKit.CIImage(image: self)
@@ -383,8 +375,6 @@ extension UIImage {
         return UIImage(ciImage: result)
     }
 }
-
-
 extension UIView{
     func animShow(){
         UIView.animate(withDuration: 1.0,
@@ -422,8 +412,6 @@ extension UIView{
         self.isHidden = true
             })
     }
-    
-    
     func setGradientBackground(colorTop: UIColor, colorBottom: UIColor) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [colorBottom.cgColor, colorTop.cgColor]
@@ -434,9 +422,6 @@ extension UIView{
         
         layer.insertSublayer(gradientLayer, at: 0)
     }
-    
-    
-    
     func setGradient(colorTop: UIColor, colorBottom: UIColor) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [colorBottom.cgColor, colorTop.cgColor]
@@ -447,10 +432,6 @@ extension UIView{
         
         layer.insertSublayer(gradientLayer, at: 0)
     }
-    
-    
-
-
     func shake(duration: CFTimeInterval) {
         let translation = CAKeyframeAnimation(keyPath: "transform.translation.x");
         translation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
@@ -511,26 +492,19 @@ extension UIView{
                 layer.cornerRadius = x
             }
         }
-
-        
-        
     }
 }
 
 
 extension UIViewController {
-    
     func createDate(day: Int, month : Int, hour: Int, minute: Int, year: Int)->Date{
-
     var components = DateComponents()
     components.hour = hour
     components.minute = minute
     components.year = year
     components.day = day
     components.month = month
-
     components.timeZone = .current
-
     let calendar = Calendar(identifier: .gregorian)
     return calendar.date(from: components)!
     }
@@ -563,13 +537,17 @@ extension UIViewController {
    
 //    scheduleNotification(at: createDate(day : 11, month : 2, hour: 15, minute: 5, year: 2018), identifierUnic: "unic1", body: "Notification day", titles: "Notification titles1")
     
-    
-    
-    
 }
 extension UIView {
     func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+        layer.masksToBounds = true
+    }
+    func setPageButtons(corners: UIRectCorner,radi:CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radi, height: radi))
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
@@ -587,10 +565,8 @@ extension UILabel {
 }
 var aView: UIView?
 extension UIView {
-    
     func showthaspinner() {
          aView = UIView(frame: self.bounds)
-        
         let ai = UIActivityIndicatorView()
         ai.center = aView!.center
         ai.style = .large
@@ -598,45 +574,30 @@ extension UIView {
         ai.startAnimating()
         aView?.addSubview(ai)
         self.addSubview(aView!)
-        
     }
     func startLoading() {
         aView = UIView(frame: self.bounds)
-        
         let ai = UIImageView()
         ai.image = UIImage(named: "peepleLoad")
         ai.center = aView!.center
         aView?.addSubview(ai)
         self.addSubview(aView!)
-        
     }
     func removethaspinner() {
-        
         aView?.removeFromSuperview()
         aView = nil
-        
-        
-        
-        
     }
-    
-    
 }
-
 extension UIScrollView {
-
     var scrolledToTop: Bool {
         let topEdge = 0 - contentInset.top
         return contentOffset.y <= topEdge
     }
-
     var scrolledToBottom: Bool {
         let bottomEdge = contentSize.height + contentInset.bottom - bounds.height
         return contentOffset.y >= bottomEdge
     }
-
 }
-
 extension UIImageView {
     public func maskCircle(anyImage: UIImage) {
         self.contentMode = UIView.ContentMode.scaleAspectFill
@@ -650,37 +611,30 @@ extension UIImageView {
         self.image = anyImage
     }
 }
-
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
-        
-        
     }
-    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-
-
-
 }
-
-
 extension UIImageView {
-    
     func circleimage() {
-        
         self.layer.cornerRadius = self.frame.height / 2
         self.layer.masksToBounds = true
-        
     }
-    
 }
 extension UITextField {
+    func addTextShadow(){
+        layer.shadowColor = UIColor.darkGray.cgColor
+           layer.shadowOffset = CGSize(width: -0.5, height: 0.5)
+           layer.shadowOpacity = 1.0
+           layer.shadowRadius = 0
+           layer.masksToBounds = false
+    }
     func setLeftPaddingPoints(_ amount:CGFloat){
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
         self.leftView = paddingView
@@ -700,44 +654,31 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
 }
-
-
-
 extension Date {
     func dayNumberOfWeek() -> Int? {
         return Calendar.current.dateComponents([.weekday], from: self).weekday
     }
 }
-
-
-
 extension UIView {
     func shakecell(duration: CFTimeInterval){
         let translation = CAKeyframeAnimation(keyPath: "transform.translation.x");
         translation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         translation.values = [-3, 3, -3, 3, -2, 2, -1, 1, 0]
-        
         let rotation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
         rotation.values = [-3, 3, -3, 3, -2, 2, -1, 1, 0].map {
             ( degrees: Double) -> Double in
             let radians: Double = (.pi * degrees) / 180.0
             return radians
         }
-        
         let shakeGroup: CAAnimationGroup = CAAnimationGroup()
         shakeGroup.animations = [translation, rotation]
         shakeGroup.duration = duration
         self.layer.add(shakeGroup, forKey: "shakeIt")
     }
-    
     func homecell(){
-        
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 0.37
         layer.masksToBounds = true
-        
-        
-        
     }
     func buttonify(color:UIColor){
         layer.borderWidth = Peeple.Thickness
@@ -746,13 +687,10 @@ extension UIView {
         layer.masksToBounds = true
     }
     func takeScreenshot() -> UIImage {
-
         // Begin context
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
-
         // Draw view in that context
         drawHierarchy(in: self.bounds, afterScreenUpdates: true)
-
         // And finally, get image
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -763,23 +701,13 @@ extension UIView {
         }
         return UIImage()
     }
-    
     func standardStuff() {
-        
-        
         layer.cornerRadius = 9
         layer.borderColor = UIColor.systemGray.cgColor
         layer.borderWidth = 1.5
         layer.masksToBounds = true
-        
-        
-        
     }
-    
-    
-    
     func iscircle (){
-        
         layer.cornerRadius = frame.height / 2
         layer.masksToBounds = true
     }
@@ -788,199 +716,42 @@ extension UIView {
         layer.masksToBounds = true
     }
     func iscube (){
-        
         layer.cornerRadius = frame.height / 3
         layer.masksToBounds = true
     }
     func ispeep() {
-        
         layer.cornerRadius = frame.height / 2
         layer.masksToBounds = true
     }
-    
-    func allgru() {
-          
-          
-         
-          layer.borderColor = UIColor.systemGray.cgColor
-          layer.borderWidth = 1.5
-          
-          
-          
-          
-      }
-    
-    
-    func standardStuff1() {
-        
-        
-        layer.cornerRadius = 3
-        layer.borderColor = UIColor.systemGray.cgColor
-        layer.borderWidth = 0.7
-        layer.masksToBounds = true
-        
-        
-        
-    }
-    
-    func standardStuff11() {
-           
-           
-           layer.cornerRadius = 3
-           layer.borderColor = UIColor.lightGray.cgColor
-           layer.borderWidth = 0.4
-           layer.masksToBounds = true
-           
-           
-           
-       }
-    func standardStuff111() {
-             
-             
-             layer.cornerRadius = 15
-             layer.borderColor = UIColor.lightGray.cgColor
-             layer.borderWidth = 0.4
-             layer.masksToBounds = true
-             
-             
-             
-         }
-    func newsbc(bc: CGColor) {
-                
-                layer.borderColor = bc
-                
-                
-                
-                
-            }
-    func bg(color: CGColor) {
-                layer.backgroundColor = color
-            }
     func newsbutlay11() {
-            
     backgroundColor = .white
             layer.cornerRadius = 7
             layer.borderWidth = 0.7
             layer.masksToBounds = true
-            
-            
-            
         }
-    
     func open() {
-                
-                
         layer.cornerRadius = frame.height / 3
                 layer.borderColor = UIColor.darkGray.cgColor
                 layer.borderWidth = 0.1
                 layer.masksToBounds = true
-                
-                
-                
             }
-    func standardStuff1111() {
-        
-        
-        layer.cornerRadius = frame.height / 7
-        layer.masksToBounds = true
-        
-        
-        
-    }
-    func standardStuff2() {
-        
-        
-        layer.cornerRadius = frame.height / 3.5
-        layer.borderWidth = 0.7
-        layer.masksToBounds = true
-        
-        
-        
-    }
     func createPage() {
-           
          layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 0.2
            layer.masksToBounds = true
-           
-           
-           
        }
     func photoview() {
         layer.cornerRadius = frame.width / 11
          layer.borderColor = UIColor.white.cgColor
            layer.borderWidth = 1
            layer.masksToBounds = true
-           
-           
-           
        }
     func peepviewstuff() {
-        
-        
      layer.cornerRadius = frame.height / 9
       layer.borderColor = UIColor.darkGray.cgColor
         layer.borderWidth = 0.0
         layer.masksToBounds = true
-        
-        
-        
     }
-    func circlecorners() {
-              
-              
-           layer.cornerRadius = frame.height / 2
-            layer.borderColor = UIColor.lightGray.cgColor
-              layer.borderWidth = 1
-              layer.masksToBounds = true
-              
-              
-              
-          }
-    func logfields() {
-             
-             
-             layer.borderColor = UIColor.systemGray3.cgColor
-        layer.borderWidth = 0.2
-             
-             
-             
-         }
-    func loginbut() {
-               
-               layer.borderColor = UIColor.lightGray.cgColor
-        layer.borderWidth = 0.2
-               
-               
-               
-           }
-    
-    func emaiview() {
-               
-               
-               layer.cornerRadius = 9
-               layer.borderColor = UIColor.clear.cgColor
-               layer.borderWidth = 0.5
-               layer.masksToBounds = true
-               
-               
-               
-           }
-    
-    func standardStuff3() {
-          
-          
-          layer.cornerRadius = 2
-          layer.borderColor = UIColor.systemGray.cgColor
-          layer.borderWidth = 0.3
-          layer.masksToBounds = true
-          
-        layer.backgroundColor = UIColor.white.cgColor
-          
-      }
-    
-    
-    
 }
 
 class SegueFromRight: UIStoryboardSegue {

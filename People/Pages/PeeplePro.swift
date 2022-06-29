@@ -7,55 +7,33 @@
 //
 
 import UIKit
-
+import Qonversion
 class PurchasePeeplePro: UIViewController {
-    @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
-        switch sender.direction {
-        case .left:
-            // page to the right
-            print("page to the right | direction right")
-            self.dismiss(animated: false, completion: nil)
-        case .right:
-            // page to the left
-            print("page to the left | direction left")
-            self.dismiss(animated: false, completion: nil)
-        case .up:
-            //option UP
-            // setting next option + refresh data
-            print("option UP")
-        case .down:
-            //option down
-            // setting next option + refresh data
-            print("option DOWN")
+    @IBOutlet weak var peeplePlusLabel: UILabel!
+    @IBOutlet weak var peeplePlusButton: UIButton!
+//    var permissions: [String: Qonversion.Permission] = [:]
+      
+    
+    @IBAction func purchasePlus(_ sender: Any) {
         
-        default:
-            return
+    }
+    func restore(){
+        Qonversion.restore { [weak self] (permissions, error) in
+          if let error = error {
+            // Handle error
+              print(error)
+          }
+          
+          if let permission: Qonversion.Permission = permissions["Peeple Plus"], permission.isActive {
+            // Restored and permission is active
+          }
         }
-       
-    }
-    @objc func handleHold(_ sender:UILongPressGestureRecognizer) {
-       return
-    }
-    func addGestures(){
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        let downSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        let hold = UILongPressGestureRecognizer(target: self, action: #selector(handleHold(_:)))
-        leftSwipe.direction = .left
-        rightSwipe.direction = .right
-        upSwipe.direction = .up
-        downSwipe.direction = .down
-        hold.minimumPressDuration = 1
-        view.addGestureRecognizer(hold)
-        view.addGestureRecognizer(leftSwipe)
-        view.addGestureRecognizer(rightSwipe)
-        view.addGestureRecognizer(upSwipe)
-        view.addGestureRecognizer(downSwipe)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-addGestures()
+        peeplePlusLabel.text = """
+                               """
+        
         // Do any additional setup after loading the view.
     }
     

@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import AVFoundation
+import Qonversion
 let app = App(id: admin.appID)
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate{
@@ -16,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
 //let locationManager = CLLocationManager()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        Qonversion.launch(withKey: "4SdDVGR96ApNUJBmNbvxY_h2rTST9cpv")
 //        let config = Realm.Configuration(
 //            // Set the new schema version. This must be greater than the previously used
 //            // version (if you've never set a schema version before, the version is 0).

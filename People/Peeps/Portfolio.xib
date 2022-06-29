@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +13,9 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" image="porftlioback" translatesAutoresizingMaskIntoConstraints="NO" id="mvI-Ud-0tP">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="loM-GT-rWs">
                     <rect key="frame" x="70" y="60" width="235" height="60"/>
                     <subviews>
@@ -133,13 +136,17 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="mvI-Ud-0tP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2w8-GY-hdZ"/>
                 <constraint firstItem="q79-fJ-cJs" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-7.5" id="KKr-it-G9B"/>
                 <constraint firstItem="u2Y-Ft-rbt" firstAttribute="top" secondItem="q79-fJ-cJs" secondAttribute="bottom" constant="125.5" id="NHG-yP-rqd"/>
+                <constraint firstItem="mvI-Ud-0tP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="S7u-Qw-clq"/>
                 <constraint firstItem="eBP-tL-ujq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="SmP-uo-83a"/>
+                <constraint firstAttribute="trailing" secondItem="mvI-Ud-0tP" secondAttribute="trailing" id="V6g-fa-D2g"/>
                 <constraint firstItem="u2Y-Ft-rbt" firstAttribute="trailing" secondItem="loM-GT-rWs" secondAttribute="trailing" id="ZhV-wt-mAH"/>
                 <constraint firstItem="q79-fJ-cJs" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="g8g-fK-Z9k"/>
                 <constraint firstItem="q79-fJ-cJs" firstAttribute="leading" secondItem="loM-GT-rWs" secondAttribute="leading" id="mQK-nf-Gbn"/>
                 <constraint firstItem="q79-fJ-cJs" firstAttribute="trailing" secondItem="loM-GT-rWs" secondAttribute="trailing" id="mzk-xf-qwZ"/>
+                <constraint firstAttribute="bottom" secondItem="mvI-Ud-0tP" secondAttribute="bottom" id="opA-xr-s25"/>
                 <constraint firstItem="u2Y-Ft-rbt" firstAttribute="leading" secondItem="loM-GT-rWs" secondAttribute="leading" id="q9l-lb-QsF"/>
                 <constraint firstAttribute="trailing" secondItem="eBP-tL-ujq" secondAttribute="trailing" constant="18" id="rhD-db-mMm"/>
                 <constraint firstItem="q79-fJ-cJs" firstAttribute="top" secondItem="loM-GT-rWs" secondAttribute="bottom" constant="113" id="w40-ee-Pn8"/>
@@ -161,5 +168,6 @@
     </objects>
     <resources>
         <image name="Portoflio" width="1537" height="1647"/>
+        <image name="porftlioback" width="1244" height="710"/>
     </resources>
 </document>
