@@ -49,7 +49,7 @@ class portoflio : UIView{
         }
         if isEditing == false {
             let user = app.currentUser!
-            let partitionValue = "peeps=\(ID.my)"
+            let partitionValue = "peeps=\(Person.Current.ID)"
             let configuration = user.configuration(partitionValue: partitionValue)
             Realm.asyncOpen(configuration: configuration) { [self] (result) in
                 switch result {
@@ -64,7 +64,7 @@ class portoflio : UIView{
                             me.portflio = games
                         })
                     } else {
-                        let myPeeps = myPeeps(portflio: games, _id: ID.my)
+                        let myPeeps = myPeeps(portflio: games, _id: Person.Current.ID)
                         try! realm.write({
                             realm.add(myPeeps)
                         })
@@ -94,8 +94,8 @@ class portoflio : UIView{
         self.usernameOrIDBut3.addShadow()
         
     }
-    func updateMyData(){
-        if let Porty = Peeps.porty {
+    func updateData(){
+        if let Porty = Peeps.Current.porty {
         let topic1 = Porty.topic1
         let topic2 = Porty.topic2
         let topic3 = Porty.topic3
@@ -107,16 +107,16 @@ class portoflio : UIView{
         }
         
     }
-    func addPersonData(){
-        if let Porty = Person.porty {
-        let topic1 = Porty.topic1
-        let topic2 = Porty.topic2
-        let topic3 = Porty.topic3
-        self.gameNameLabel1.text = topic1
-        self.gameNameLabel2.text = topic2
-        self.gameNameLabel3.text = topic3
-        } else { defaultViews()}
-    }
+//    func addPersonData(){
+//        if let Porty = Person.porty {
+//        let topic1 = Porty.topic1
+//        let topic2 = Porty.topic2
+//        let topic3 = Porty.topic3
+//        self.gameNameLabel1.text = topic1
+//        self.gameNameLabel2.text = topic2
+//        self.gameNameLabel3.text = topic3
+//        } else { defaultViews()}
+//    }
     func defaultViews(){
         self.gameNameLabel1.text = topics[0]
         self.gameNameLabel2.text = topics[1]
@@ -124,13 +124,8 @@ class portoflio : UIView{
     }
     override func layoutSubviews() {
         roundCornersP()
-        self.sharedPeepNum = Int.random(in: 1...Peeple.rarity)
-        switch Person.ID {
-        case "":
-            updateMyData()
-        default:
-            addPersonData()
-        }
+        self.sharedPeepNum = Int.random(in: 1...Peeple.Settings.Rarity)
+            updateData()
     }
     deinit {
         print("denitittittted portfolio")

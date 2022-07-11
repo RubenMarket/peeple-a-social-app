@@ -10,17 +10,31 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="allPeeps" customModule="People" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="294" height="434"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEX-Sb-2Am">
+                <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjx-f1-zyw">
+                    <rect key="frame" x="219" y="20" width="55" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="4kA-0v-ugT"/>
+                        <constraint firstAttribute="width" constant="55" id="Tht-a6-1WM"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="charyy"/>
+                    <connections>
+                        <action selector="Charight:" destination="iN0-l3-epB" eventType="touchUpInside" id="UUG-Ih-bPR"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEX-Sb-2Am">
                     <rect key="frame" x="20" y="20" width="55" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="bcJ-xP-wxO"/>
                         <constraint firstAttribute="height" constant="60" id="nfB-78-ZLe"/>
                     </constraints>
                     <state key="normal" backgroundImage="cleanergy"/>
+                    <connections>
+                        <action selector="Cleanergy2:" destination="iN0-l3-epB" eventType="touchUpInside" id="DA3-m6-cqJ"/>
+                    </connections>
                 </button>
                 <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugt-cf-gAs">
                     <rect key="frame" x="119.5" y="20" width="55" height="60"/>
@@ -29,110 +43,138 @@
                         <constraint firstAttribute="width" constant="55" id="itX-AL-pnD"/>
                     </constraints>
                     <state key="normal" backgroundImage="Portoflio"/>
+                    <connections>
+                        <action selector="portflio3:" destination="iN0-l3-epB" eventType="touchUpInside" id="iTJ-vC-cyY"/>
+                    </connections>
                 </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjx-f1-zyw">
-                    <rect key="frame" x="219" y="20" width="55" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="4kA-0v-ugT"/>
-                        <constraint firstAttribute="width" constant="55" id="Tht-a6-1WM"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="charyy"/>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ia-c2-JLQ">
-                    <rect key="frame" x="20" y="97" width="55" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="vPx-Hd-Nbl"/>
-                        <constraint firstAttribute="width" constant="55" id="zjO-nC-giA"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="cupinge"/>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h40-hN-wDv">
-                    <rect key="frame" x="119.5" y="97" width="55" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="55" id="I7A-QG-ciG"/>
-                        <constraint firstAttribute="height" constant="60" id="s5x-La-TG4"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="theroy"/>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vK-Y1-WEx">
-                    <rect key="frame" x="219" y="97" width="55" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="55" id="BzH-Td-uEB"/>
-                        <constraint firstAttribute="height" constant="60" id="gVx-nB-X25"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="myme"/>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YK5-Qg-c9h">
-                    <rect key="frame" x="20" y="187" width="55" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="g6Q-0d-Opn"/>
-                        <constraint firstAttribute="width" constant="55" id="xd0-FG-qV1"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="alli"/>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBQ-PT-ZvR">
-                    <rect key="frame" x="119.5" y="187" width="55" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="U2S-xE-hdo"/>
-                        <constraint firstAttribute="width" constant="55" id="aa6-0S-QF8"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="animlyfe"/>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hl0-3C-EVw">
-                    <rect key="frame" x="219" y="187" width="55" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="bAE-bP-Q7U"/>
-                        <constraint firstAttribute="width" constant="55" id="kFZ-ZN-e1b"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="mucity"/>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JUk-Qd-MWi">
-                    <rect key="frame" x="20" y="354" width="55" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="55" id="EJz-qj-WL1"/>
-                        <constraint firstAttribute="height" constant="60" id="iqD-Y4-idg"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="wefie"/>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xbj-jr-nHI">
-                    <rect key="frame" x="119.5" y="354" width="55" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="55" id="88q-tn-HwH"/>
-                        <constraint firstAttribute="height" constant="60" id="Cuw-Qz-PsX"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="trevlly"/>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cg-0m-sln">
+                <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cg-0m-sln">
                     <rect key="frame" x="119.5" y="270" width="55" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="hoj-ot-iEX"/>
                         <constraint firstAttribute="width" constant="55" id="u1o-c1-4ko"/>
                     </constraints>
                     <state key="normal" backgroundImage="Spachip"/>
+                    <connections>
+                        <action selector="spachip4:" destination="iN0-l3-epB" eventType="touchUpInside" id="wQ3-es-rj4"/>
+                    </connections>
                 </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Igh-jY-B3h">
+                <button opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ia-c2-JLQ">
+                    <rect key="frame" x="20" y="97" width="55" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="vPx-Hd-Nbl"/>
+                        <constraint firstAttribute="width" constant="55" id="zjO-nC-giA"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="cupinge"/>
+                    <connections>
+                        <action selector="cupidity5:" destination="iN0-l3-epB" eventType="touchUpInside" id="ZB6-e5-Uhk"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBQ-PT-ZvR">
+                    <rect key="frame" x="119.5" y="187" width="55" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="U2S-xE-hdo"/>
+                        <constraint firstAttribute="width" constant="55" id="aa6-0S-QF8"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="animlyfe"/>
+                    <connections>
+                        <action selector="animalife6:" destination="iN0-l3-epB" eventType="touchUpInside" id="Yzs-gH-5VM"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Igh-jY-B3h">
                     <rect key="frame" x="219" y="270" width="55" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="Qm5-cj-lZu"/>
                         <constraint firstAttribute="height" constant="60" id="XGL-eY-2yK"/>
                     </constraints>
-                    <state key="normal" backgroundImage="blue soon"/>
+                    <state key="normal" backgroundImage="clnow"/>
                 </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pT8-zK-bXe">
-                    <rect key="frame" x="219" y="354" width="55" height="60"/>
+                <button opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h40-hN-wDv">
+                    <rect key="frame" x="119.5" y="97" width="55" height="60"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="3Bq-J9-qJl"/>
-                        <constraint firstAttribute="width" constant="55" id="TDz-ha-1Fa"/>
+                        <constraint firstAttribute="width" constant="55" id="I7A-QG-ciG"/>
+                        <constraint firstAttribute="height" constant="60" id="s5x-La-TG4"/>
                     </constraints>
-                    <state key="normal" backgroundImage="coming soon"/>
+                    <state key="normal" backgroundImage="theroy"/>
+                    <connections>
+                        <action selector="theorize8:" destination="iN0-l3-epB" eventType="touchUpInside" id="ohB-VL-xtE"/>
+                    </connections>
                 </button>
-                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvK-Hy-NKb">
+                <button opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JUk-Qd-MWi">
+                    <rect key="frame" x="20" y="354" width="55" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="55" id="EJz-qj-WL1"/>
+                        <constraint firstAttribute="height" constant="60" id="iqD-Y4-idg"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="wefie"/>
+                    <connections>
+                        <action selector="shelfie10:" destination="iN0-l3-epB" eventType="touchUpInside" id="jwC-eV-dWI"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xbj-jr-nHI">
+                    <rect key="frame" x="119.5" y="354" width="55" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="55" id="88q-tn-HwH"/>
+                        <constraint firstAttribute="height" constant="60" id="Cuw-Qz-PsX"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="trevlly"/>
+                    <connections>
+                        <action selector="travled11:" destination="iN0-l3-epB" eventType="touchUpInside" id="0p4-Rn-4rp"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" tag="12" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vK-Y1-WEx">
+                    <rect key="frame" x="219" y="97" width="55" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="55" id="BzH-Td-uEB"/>
+                        <constraint firstAttribute="height" constant="60" id="gVx-nB-X25"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="myme"/>
+                    <connections>
+                        <action selector="myme12:" destination="iN0-l3-epB" eventType="touchUpInside" id="IJ3-AH-nYI"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" tag="13" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YK5-Qg-c9h">
+                    <rect key="frame" x="20" y="187" width="55" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="g6Q-0d-Opn"/>
+                        <constraint firstAttribute="width" constant="55" id="xd0-FG-qV1"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="alli"/>
+                    <connections>
+                        <action selector="alexie:" destination="iN0-l3-epB" eventType="touchUpInside" id="sAD-5u-ao7"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" tag="15" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hl0-3C-EVw">
+                    <rect key="frame" x="219" y="187" width="55" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="bAE-bP-Q7U"/>
+                        <constraint firstAttribute="width" constant="55" id="kFZ-ZN-e1b"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="mucity"/>
+                    <connections>
+                        <action selector="mucity15:" destination="iN0-l3-epB" eventType="touchUpInside" id="gYL-Wv-jiZ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" tag="16" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvK-Hy-NKb">
                     <rect key="frame" x="20" y="270" width="55" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="FPw-Jm-7mD"/>
                         <constraint firstAttribute="height" constant="60" id="YZL-GW-c0Z"/>
                     </constraints>
                     <state key="normal" backgroundImage="awemember"/>
+                    <connections>
+                        <action selector="awemem16:" destination="iN0-l3-epB" eventType="touchUpInside" id="06w-L1-lxd"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pT8-zK-bXe">
+                    <rect key="frame" x="219" y="354" width="55" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="3Bq-J9-qJl"/>
+                        <constraint firstAttribute="width" constant="55" id="TDz-ha-1Fa"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="clnow"/>
+                    <connections>
+                        <action selector="clouds9:" destination="iN0-l3-epB" eventType="touchUpInside" id="6TM-WM-tn5"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -170,6 +212,23 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Hl0-3C-EVw" secondAttribute="trailing" constant="20" id="zSu-xV-3IR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="peepEight" destination="h40-hN-wDv" id="xsW-qt-9h4"/>
+                <outlet property="peepEleven" destination="Xbj-jr-nHI" id="H0N-EM-7YH"/>
+                <outlet property="peepFifteen" destination="Hl0-3C-EVw" id="KG2-Qn-x8H"/>
+                <outlet property="peepFive" destination="9ia-c2-JLQ" id="fED-WS-PeK"/>
+                <outlet property="peepFour" destination="4cg-0m-sln" id="CuO-3U-JWe"/>
+                <outlet property="peepNine" destination="pT8-zK-bXe" id="TwN-QZ-U9b"/>
+                <outlet property="peepOne" destination="hjx-f1-zyw" id="w98-uq-ty1"/>
+                <outlet property="peepSeven" destination="Igh-jY-B3h" id="cf2-0o-VuY"/>
+                <outlet property="peepSix" destination="iBQ-PT-ZvR" id="UIW-Tp-yPY"/>
+                <outlet property="peepSixteen" destination="jvK-Hy-NKb" id="xpV-lD-Oef"/>
+                <outlet property="peepTen" destination="JUk-Qd-MWi" id="csD-6t-IJy"/>
+                <outlet property="peepThirtheen" destination="YK5-Qg-c9h" id="YM8-97-aBk"/>
+                <outlet property="peepThree" destination="ugt-cf-gAs" id="LLz-WE-ffc"/>
+                <outlet property="peepTwelve" destination="8vK-Y1-WEx" id="OAe-OM-PTp"/>
+                <outlet property="peepTwo" destination="iEX-Sb-2Am" id="ifg-K0-dXN"/>
+            </connections>
             <point key="canvasLocation" x="50.724637681159422" y="-93.080357142857139"/>
         </view>
     </objects>
@@ -179,10 +238,9 @@
         <image name="alli" width="1537" height="1647"/>
         <image name="animlyfe" width="1537" height="1647"/>
         <image name="awemember" width="1537" height="1647"/>
-        <image name="blue soon" width="1537" height="1647"/>
         <image name="charyy" width="1537" height="1647"/>
         <image name="cleanergy" width="1537" height="1647"/>
-        <image name="coming soon" width="1537" height="1647"/>
+        <image name="clnow" width="1537" height="1647"/>
         <image name="cupinge" width="1537" height="1647"/>
         <image name="mucity" width="1537" height="1647"/>
         <image name="myme" width="1499" height="1614"/>

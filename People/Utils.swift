@@ -47,7 +47,7 @@ class ARView: UIView {
 extension UIView {
     func borderColor(color:UIColor){
         self.layer.borderColor = color.cgColor
-        self.layer.borderWidth = 1.5
+        self.layer.borderWidth = Peeple.Settings.Thickness
     }
     func backColor(color:UIColor){
         self.backgroundColor = color
@@ -151,7 +151,7 @@ extension UIButton {
 }
 extension UILabel {
     func addTextShadow(){
-        layer.shadowColor = UIColor.darkGray.cgColor
+        layer.shadowColor = UIColor.black.cgColor
            layer.shadowOffset = CGSize(width: -0.5, height: 0.5)
            layer.shadowOpacity = 1.0
            layer.shadowRadius = 0
@@ -166,14 +166,13 @@ extension UIViewController {
             return count
         }
     }
-    func emptyPerson(){
-        Person.ID = ""
-        Person.peepOne = 0
-        Person.peepTwo = 0
-        Person.peepThree = 0
-        Person.name = ""
-        Person.color = 0
-        Person.pic = ""
+    func emptySelectedPerson(){
+        Person.Selected.ID = ""
+        Person.Selected.PeepOne = 1
+        Person.Selected.PeepTwo = 2
+        Person.Selected.PeepThree = 3
+        Person.Selected.Name = ""
+        Person.Selected.Color = 0
     }
     func animateViews(labelImage:UIImageView,collection:UICollectionView,topRightBut:UIImageView,middleLabel:UILabel,topLeftOpts:UIButton,peepView:UIView?,completionHandler:(Bool) -> Void) {
         labelImage.alpha = 0
@@ -204,14 +203,26 @@ extension UIViewController {
             return porty.instanceFromNib()
         case 4 :
             return spacechip.instanceFromNib()
+        case 5 :
+            return cupidity.instanceFromNib()
+        case 6 :
+            return animylfe.instanceFromNib()
         case 8 :
             return theorize.instanceFromNib()
+        case 9 :
+            return clouds.instanceFromNib()
         case 10 :
             return shelfiecontroller.instanceFromNib()
+        case 11 :
+            return trevlly.instanceFromNib()
         case 12 :
             return mymecontroller.instanceFromNib()
+        case 13 :
+            return alli.instanceFromNib()
         case 14 :
             return betatester.instanceFromNib()
+        case 15 :
+            return mucity.instanceFromNib()
         case 16 :
             return awemember.instanceFromNib()
         default :
@@ -681,9 +692,9 @@ extension UIView {
         layer.masksToBounds = true
     }
     func buttonify(color:UIColor){
-        layer.borderWidth = Peeple.Thickness
+        layer.borderWidth = Peeple.Settings.Thickness
         layer.borderColor = color.cgColor
-        layer.cornerRadius = Peeple.cornerRadius
+        layer.cornerRadius = Peeple.Settings.CornerRadius
         layer.masksToBounds = true
     }
     func takeScreenshot() -> UIImage {
@@ -712,7 +723,7 @@ extension UIView {
         layer.masksToBounds = true
     }
     func setPeepleCorners(){
-        layer.cornerRadius = Peeple.cornerRadius
+        layer.cornerRadius = Peeple.Settings.CornerRadius
         layer.masksToBounds = true
     }
     func iscube (){

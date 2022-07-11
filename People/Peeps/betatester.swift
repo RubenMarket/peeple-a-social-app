@@ -22,7 +22,7 @@ class betatester: UIView {
     
     override func layoutSubviews() {
         let user = app.currentUser!
-        let partitionValue = "peeps=\(Person.ID)"
+        let partitionValue = "peeps=\(Person.Selected.ID)"
         let configuration = user.configuration(partitionValue: partitionValue)
         Realm.asyncOpen(configuration: configuration) { [self] (result) in
             switch result {
@@ -33,7 +33,7 @@ class betatester: UIView {
                 // Realm opened
                 if let me = realm.objects(myPeeps.self).first {
                     if let beta = me.beta {
-                        self.betalabel.text = "\(Person.ID) downloaded peeple a social app beta on \(beta.dateDownloaded)"
+                        self.betalabel.text = "\(Person.Selected.ID) downloaded peeple a social app beta on \(beta.dateDownloaded)"
                     } else {
                         let times = NSDate().timeIntervalSince1970
                         let myTimeInterval = TimeInterval(times)
@@ -47,7 +47,7 @@ class betatester: UIView {
                             me.beta = beta
                         }
                         
-                        self.betalabel.text = "\(Person.ID) downloaded peeple a social app beta on \(currentDateTime)"
+                        self.betalabel.text = "\(Person.Selected.ID) downloaded peeple a social app beta on \(currentDateTime)"
                         
                     }
                 }

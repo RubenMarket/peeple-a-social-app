@@ -16,12 +16,12 @@ class cleanergy: UIView {
     var cleanSwitch:Bool = false
     @objc func editPeep(_ notification:Notification) {
         
-        if Peeple.editPeepMode {
+        if Peeple.Settings.editPeepMode {
             UIView.animate(withDuration: 1.0) {
 //                self.layoutSubviews()
             }
         }
-        if !Peeple.editPeepMode {
+        if !Peeple.Settings.editPeepMode {
             UIView.animate(withDuration: 1.0) {
 //                self.layoutSubviews()
             }
@@ -52,8 +52,8 @@ class cleanergy: UIView {
     {
         // Your action
     }
-    func updateMyData(){
-        if let Clenny = Peeps.clenny  {
+    func updateData(){
+        if let Clenny = Peeps.Current.clenny  {
         if Clenny.clearClouds {
             cleanPlanet()
         } else {
@@ -61,26 +61,13 @@ class cleanergy: UIView {
         }
         }
     }
-    func addPersonData(){
-        if let Clenny = Person.clenny  {
-        if Clenny.clearClouds {
-            cleanPlanet()
-        } else {
-            dirtyPlanet()
-        }
-        }
-    }
+   
     override func layoutSubviews() {
         clennyview.setPeepleCorners()
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
             clennyrecycleback.isUserInteractionEnabled = true
         clennyrecycleback.addGestureRecognizer(tapGestureRecognizer)
-        switch Person.ID {
-        case "":
-            updateMyData()
-        default:
-            addPersonData()
-        }
+            updateData()
         
        
        }

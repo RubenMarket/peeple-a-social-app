@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,14 +18,23 @@
                 <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ay8-sr-Tyh">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                 </skView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spachip" translatesAutoresizingMaskIntoConstraints="NO" id="YgO-pL-1fQ">
+                    <rect key="frame" x="16" y="16" width="50" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="dgS-hu-QqD"/>
+                        <constraint firstAttribute="height" constant="55" id="gZ6-dY-Wid"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Jbh-ic-b7a"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Ay8-sr-Tyh" firstAttribute="bottom" secondItem="Jbh-ic-b7a" secondAttribute="bottom" id="04U-6K-fHL"/>
                 <constraint firstItem="Ay8-sr-Tyh" firstAttribute="top" secondItem="Jbh-ic-b7a" secondAttribute="top" id="9ep-dp-jL0"/>
+                <constraint firstItem="YgO-pL-1fQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Cf1-SP-h9G"/>
                 <constraint firstItem="Ay8-sr-Tyh" firstAttribute="trailing" secondItem="Jbh-ic-b7a" secondAttribute="trailing" id="T9m-fM-4g4"/>
                 <constraint firstItem="Ay8-sr-Tyh" firstAttribute="leading" secondItem="Jbh-ic-b7a" secondAttribute="leading" id="fLs-nu-NzD"/>
+                <constraint firstItem="YgO-pL-1fQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="rcm-9C-V3R"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -34,6 +44,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Spachip" width="1537" height="1647"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

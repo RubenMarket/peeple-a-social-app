@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wefie" translatesAutoresizingMaskIntoConstraints="NO" id="beY-Zx-hYq">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="transshelfie" translatesAutoresizingMaskIntoConstraints="NO" id="beY-Zx-hYq">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6M-W4-Mgv">
@@ -37,6 +38,13 @@
                         <constraint firstAttribute="height" constant="217" id="yrm-oz-Yt0"/>
                     </constraints>
                 </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wefie" translatesAutoresizingMaskIntoConstraints="NO" id="7gs-Wc-gTe">
+                    <rect key="frame" x="16" y="16" width="50" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="0eo-qf-1fK"/>
+                        <constraint firstAttribute="width" constant="50" id="J0j-IE-Igr"/>
+                    </constraints>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVh-P7-ris">
                     <rect key="frame" x="16" y="289.5" width="343" height="217"/>
                     <subviews>
@@ -65,8 +73,10 @@
                 <constraint firstItem="pVh-P7-ris" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="127" id="7fs-y2-LNW"/>
                 <constraint firstAttribute="bottom" secondItem="beY-Zx-hYq" secondAttribute="bottom" id="BZr-Ww-sU8"/>
                 <constraint firstItem="L6M-W4-Mgv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Evr-OS-rtb"/>
+                <constraint firstItem="7gs-Wc-gTe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="F0B-Ea-UTK"/>
                 <constraint firstItem="L6M-W4-Mgv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-127" id="HCA-3F-q0e"/>
                 <constraint firstAttribute="trailing" secondItem="beY-Zx-hYq" secondAttribute="trailing" id="R0i-kw-Ytj"/>
+                <constraint firstItem="7gs-Wc-gTe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="Tfk-RR-H1W"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="L6M-W4-Mgv" secondAttribute="trailing" constant="16" id="UBn-0b-ewu"/>
                 <constraint firstItem="beY-Zx-hYq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WHA-5r-RbQ"/>
                 <constraint firstItem="pVh-P7-ris" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="jKI-AU-L4T"/>
@@ -81,6 +91,7 @@
         </view>
     </objects>
     <resources>
-        <image name="wefie" width="1014" height="1144"/>
+        <image name="transshelfie" width="500" height="500"/>
+        <image name="wefie" width="1537" height="1647"/>
     </resources>
 </document>

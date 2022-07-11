@@ -47,7 +47,7 @@ class awemember: UIView {
         self.deslabel.layer.cornerRadius = self.awememberbut.frame.height / 2
         self.deslabel.layer.masksToBounds = true
         DispatchQueue.main.async {
-        self.deslabel.text = "\(Person.ID)'s an Awe Member"
+            self.deslabel.text = "\(Person.Selected.ID)'s an Awe Member"
         }
         
         

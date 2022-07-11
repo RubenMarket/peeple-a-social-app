@@ -32,11 +32,11 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     private var endBackAni:Bool = false
     // Peep Views
     private weak var peepOneView:UIView?
-    private weak var peepTwoView:UIView?
-    private weak var peepThreeView:UIView?
-    private weak var personPeepOne:UIView?
-    private weak var personPeepTwo:UIView?
-    private weak var personPeepThree:UIView?
+        private weak var peepTwoView:UIView?
+        private weak var peepThreeView:UIView?
+        private weak var personPeepOne:UIView?
+        private weak var personPeepTwo:UIView?
+        private weak var personPeepThree:UIView?
     private weak var peeplePlusView:UIView?
     private weak var allPeepView:UIView?
     // all pages
@@ -61,55 +61,39 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     @IBAction func topLeftOptions(_ sender: UIButton) {
         guard let user = app.currentUser else { return }
         // alpha animating page switch with Util function
-        switch Peeple.CurrentPage {
+        switch Peeple.Settings.CurrentPage {
         case .Event:
-//            switch Peeple.EventisSetTo {
-//            case .all:
-//                Peeple.EventisSetTo = .twentyfive
-//            case .twentyfive:
-//                Peeple.EventisSetTo = .five
-//            case .five:
-//                Peeple.EventisSetTo = .all
-//            }
-//            fetchEventData(user: user)
             return
         case .Group:
-            switch Peeple.GroupisSetTo {
+            switch Peeple.Settings.GroupisSetTo {
             case .all:
-                Peeple.GroupisSetTo = .my
+                Peeple.Settings.GroupisSetTo = .my
             case .my:
-                Peeple.GroupisSetTo = .all
+                Peeple.Settings.GroupisSetTo = .all
                 
             case .search:
                 return
             }
             fetchGroupData(user: user)
         case .People:
-            switch Peeple.PeopleisSetTo {
+            switch Peeple.Settings.PeopleisSetTo {
             case .all:
-                Peeple.PeopleisSetTo = .my
+                Peeple.Settings.PeopleisSetTo = .my
             case .my:
-                Peeple.PeopleisSetTo = .all
+                Peeple.Settings.PeopleisSetTo = .all
             case .search:
                 return
             }
             fetchPeopleData(user: user)
         case .Profile:
-            if peeplePlusView != nil {
-                //show peepleplus purchase xib
-                peeplePlusView?.isHidden = true
-                peeplePlusView?.removeFromSuperview()
-                peeplePlusView = nil
-                setSettings(user: user)
-                // hide editprofile view
-            } else {
-           setSettings(user: user)
-                
-            }
+            return
+            
+            
+            
         case .GroupChat:
             fetchGroupData(user: user)
         case .Person:
-            emptyPerson()
+            emptySelectedPerson()
             for view in personPeepView.subviews {
                 view.removeFromSuperview()  }
             fetchPeopleData(user: user)
@@ -179,6 +163,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         
     }
     @IBAction func addInfo(_ sender: UIButton) {
+        guard let user = app.currentUser else { return }
 //        addInfoButton.setTitle("Make Group", for: .normal)
 //        topLeftOptionButton.setTitle("make", for: .normal)
 //        infoTextField.placeholder = "Group Name"
@@ -190,19 +175,56 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
 //            self.addInfoView.isHidden = false
 //        }
 //        collectionView.reloadData()
-        if Peeple.CurrentPage == .Group {
-            if infoTextField.text == "" { return }
-            
-            guard let user = app.currentUser else { return }
+        if Peeple.Settings.CurrentPage == .Profile {
+            if peeplePlusView != nil {
+                //show peepleplus purchase xib
+                peeplePlusView?.isHidden = true
+                peeplePlusView?.removeFromSuperview()
+                peeplePlusView = nil
+                if Peeple.Settings.plus {
+                    self.PickPurchaseButton.setTitle("pick peeple", for: .normal)
+                    self.ChangeColorButton.isHidden = false
+                    self.ARToggleButton.isHidden = false
+                }
+                // hide editprofile view
+            }
+            if allPeepView != nil {
+                allPeepView?.isHidden = true
+                allPeepView?.removeFromSuperview()
+                allPeepView = nil
+            }
+            if Peeple.Settings.editedPeeps == true {
+                //savePeeps
+                for view in profilePageView.subviews {
+                    view.removeFromSuperview()
+                }
+                peepOneView = nil
+                peepTwoView = nil
+                peepThreeView = nil
+                savePeepSelection(user:user)
+                Peeple.Settings.editedPeeps = false
+            }
+                setSettings(user: user)
+        }
+        if Peeple.Settings.CurrentPage == .Group {
+            let eventName = infoTextField.text ?? ""
+            print("here2")
+            if eventName == "" {
+                showEventView(eventView: addInfoView)
+                return
+            }
             guard let GroupName = infoTextField.text else { return }
-            startLoading()
-            addInfoButton.isEnabled = false
+            
             let groupDes:String = infoTextDescription.text ?? ""
             if GroupName.count >= 20 { return }
             let GroupCode:String = UUID().uuidString
+            startLoading()
+            self.addInfoButton.isEnabled = false
             // if person is private add to all gorups
-            if currentUser.priv == false {
+            if Person.Current.Priv == false {
                 let now = Date()
+                
+                
                 let partitionValue = "allGroups=\(Location.city)"
                 // Get a sync configuration from the user object.
                 let configuration = user.configuration(partitionValue: partitionValue)
@@ -212,7 +234,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                         print(error.localizedDescription)
                         self.stopLoading()
                     case .success(let realm):
-                        let newGroup = allGroups(name: GroupName, image: "", des: groupDes, userId: ID.my, color: currentUser.myAppColor,priv: currentUser.priv, dateMade: now,ID:GroupCode)
+                        let newGroup = allGroups(name: GroupName, image: "", des: groupDes, userId: Person.Current.ID, color: Person.Current.Color,priv: Person.Current.Priv, dateMade: now,ID:GroupCode)
                         try! realm.write {
                             realm.add(newGroup,update: .modified)
                         }
@@ -228,7 +250,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     print(error)
                     self.stopLoading()
                 case .success(let realm):
-                    let myGroup = myGroups(name: GroupName, image: "", color: currentUser.myAppColor, des: infoTextDescription.text ?? "", userId: user.id, key: GroupCode)
+                    let myGroup = myGroups(name: GroupName, image: "", color: Person.Current.Color, des: infoTextDescription.text ?? "", userId: user.id, key: GroupCode)
                     if let me = realm.objects(mePerson.self).first {
                         try! realm.write {
                             me.myGroups.append(myGroup)
@@ -238,31 +260,35 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     self.infoTextField.text = ""
                     self.infoTextDescription.text = ""
                     self.addInfoView.isHidden = true
-                    addInfoButton.isEnabled = true
-                    Peeple.GroupisSetTo = .my
+                    self.addInfoButton.isEnabled = true
+                    self.all_Groups = nil
                     fetchGroupData(user: user)
                 }
+                self.addInfoButton.isEnabled = true
                 
             }
             
         }
         
        
-        if Peeple.CurrentPage == .Event {
+        if Peeple.Settings.CurrentPage == .Event {
             // write event to group page feed
-            if Peeple.isLocationEnabled == false {
+            print("here")
+            if Peeple.Settings.isLocationEnabled == false {
+                print("here1")
                 locationManager?.requestWhenInUseAuthorization()
                 return }
             locationManager?.startUpdatingLocation()
             let eventName = infoTextField.text ?? ""
-            let eventDes = infoTextDescription.text ?? ""
+            print("here2")
             if eventName == "" {
                 showEventView(eventView: addInfoView)
                 return
             }
+            print("here3")
+            let eventDes = infoTextDescription.text ?? ""
             if eventName.count >= 30 { return }
             let eventCode:String = UUID().uuidString
-            guard let user = app.currentUser else { return }
             let now = Date()
             startLoading()
             addInfoButton.isEnabled = false
@@ -276,7 +302,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     self.stopLoading()
                 case .success(let realm):
                     // Realm opened
-                    let message = Events(eventName: eventName, color: currentUser.myAppColor, peepOne: currentUser.peepOne, peepTwo: currentUser.peepTwo, peepThree: currentUser.peepThree, eventDuration: eventDuration, lat: Event.latitude, long: Event.longitude, eventDes: eventDes, userId: user.id, isBiz: currentUser.biz, _id: eventCode, timeCode: now)
+                    let message = Events(eventName: eventName, color: Person.Current.Color, peepOne: Person.Current.PeepOne,peepTwo: Person.Current.PeepTwo,peepThree: Person.Current.PeepThree, eventDuration: eventDuration, lat: Event.latitude, long: Event.longitude, eventDes: eventDes, userId: user.id, isBiz: Person.Current.biz, _id: eventCode, timeCode: now)
                     try! realm.write {
                         realm.add(message)
                     }
@@ -295,18 +321,18 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         if eventView.isHidden == true {
             UIView.animate(withDuration: 1.0) {
                 eventView.isHidden = false
+                eventView.alpha = 1
                 self.middleLabel.isHidden = true
                 self.collectionView.isHidden = true
             }
-            
             return
         }
         UIView.animate(withDuration: 1.0) {
         eventView.isHidden = true
+            eventView.alpha = 0
             self.collectionView.isHidden = false
-//            self.middleLabel.isHidden = false
+            self.middleLabel.isHidden = false
         }
-        
     }
     func getEventDuration (from:Date) -> String {
         let now = Date()
@@ -325,7 +351,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     @IBOutlet weak var MyLocationButton: UIButton!
     
     @IBAction func copyMyCode(_ sender: UIButton) {
-        UIPasteboard.general.string = ID.my
+        UIPasteboard.general.string = Person.Current.ID
         // Copied to Clipboard pop-up
         sender.isEnabled = false
         UIView.animate(withDuration: 0.8) {
@@ -342,10 +368,10 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         PickPurchaseButton.setTitleColor(color, for: .normal)
     }
     @IBAction func ToggleAR(_ sender: UIButton) {
-        currentUser.isARActive = !currentUser.isARActive
-        UserDefaults.standard.set(currentUser.isARActive, forKey: "AR")
+        Person.Current.isARActive = !Person.Current.isARActive
+        UserDefaults.standard.set(Person.Current.isARActive, forKey: "AR")
         startLoading()
-        if currentUser.isARActive == false {
+        if Person.Current.isARActive == false {
             view.backgroundColor = .systemGray6
             stopAR(on: ARView)
             stopLoading()
@@ -378,33 +404,37 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         }
     }
     @IBAction func ChangeColor(_ sender: UIButton) {
-        if currentUser.myAppColor >= 8 { currentUser.myAppColor = -1 }
-        currentUser.myAppColor += 1
-        UserDefaults.standard.set(currentUser.myAppColor, forKey: "appColor")
-        pageOptionIndicator.tintColor = Peeple.colors[currentUser.myAppColor]
-        addInfoButton.setTitleColor(Peeple.colors[currentUser.myAppColor], for: .normal)
-        setButtonColors(color: Peeple.colors[currentUser.myAppColor])
-        topLeftOptionButton.tintColor = Peeple.colors[currentUser.myAppColor]
+        if Person.Current.Color >= 8 { Person.Current.Color = -1 }
+        Person.Current.Color += 1
+        UserDefaults.standard.set(Person.Current.Color, forKey: "appColor")
+        pageOptionIndicator.tintColor = Peeple.Settings.Colors[Person.Current.Color]
+        addInfoButton.setTitleColor(Peeple.Settings.Colors[Person.Current.Color], for: .normal)
+        setButtonColors(color: Peeple.Settings.Colors[Person.Current.Color])
+        topLeftOptionButton.tintColor = Peeple.Settings.Colors[Person.Current.Color]
         
         
     }
     
     @IBAction func TogglePrivate(_ sender: UIButton) {
-        if currentUser.priv {
+        if Person.Current.Priv {
             sender.setTitle("enter private", for: .normal)
-            currentUser.priv = false
+            Person.Current.Priv = false
         } else {
-            currentUser.priv = true
+            Person.Current.Priv = true
             sender.setTitle("exit private", for: .normal)
         }
     }
     @IBAction func myRequests(_ sender: UIButton) {
+        var index = Peeple.Settings.language + 1
+        if index == 2 {
+            index = 0 }
+        setLanguage(index: index)
     }
     @IBAction func ToggleLocation(_ sender: UIButton) {
         myCityPressed()
     }
     @IBAction func PickorPurchasePeeps(_ sender: UIButton) {
-        if Peeple.Plus == false {
+        if Peeple.Settings.plus == false {
             peeplePlusView = peeplePlus.instanceFromNib()
             if let plusView = peeplePlusView {
             view.addSubview(plusView)
@@ -412,20 +442,28 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 make.edges.equalTo(editProfileView) } }
             editProfileView.isHidden = true
         } else {
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "toPeeps", sender: nil)
-            }
+            allPeepView = allPeeps.instanceFromNib()
+            if let peepView = allPeepView {
+            view.addSubview(peepView)
+                peepView.snp.makeConstraints { (make) in
+                make.edges.equalTo(editProfileView) } }
+            editProfileView.isHidden = true
         }
     }
     // MARK: Functions
     func addGestures(){
-        let pageTap = UITapGestureRecognizer(target: self, action: #selector(pageTapped(_:)))
+//        let pageTap = UITapGestureRecognizer(target: self, action: #selector(pageTapped(_:)))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(labelSwipedL(_:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(labelSwipedR(_:)))
         let rightOpTap = UITapGestureRecognizer(target: self, action: #selector(rightOpTapped(_:)))
         let zoomIn = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
         let hold = UILongPressGestureRecognizer(target: self, action: #selector(handleHold(_:)))
         hold.minimumPressDuration = 2
-        topRightLabel.isUserInteractionEnabled = true
-        topRightLabel.addGestureRecognizer(pageTap)
+        leftSwipe.direction = .left
+        topRightLabel.addGestureRecognizer(leftSwipe)
+        rightSwipe.direction = .right
+        topRightLabel.addGestureRecognizer(rightSwipe)
+//        topRightLabel.addGestureRecognizer(pageTap)
         pageOptionIndicator.isUserInteractionEnabled = true
         pageOptionIndicator.addGestureRecognizer(rightOpTap)
         view.addGestureRecognizer(hold)
@@ -434,7 +472,12 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     // MARK: SwipeActions
     @objc func rightOpTapped(_ sender:UITapGestureRecognizer)
     {
-        if Peeple.CurrentPage == .Group {
+        guard let user = app.currentUser else { return }
+        if Peeple.Settings.CurrentPage == .Event {
+            self.all_Events = nil
+            fetchEventData(user: user)
+        }
+        if Peeple.Settings.CurrentPage == .Group {
                     guard let text = UIPasteboard.general.string else { return }
                     var didQuery:Bool = false
                     didQuery = findGroups(text: filterSearchString(text: text))
@@ -442,7 +485,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 
             
         }
-        if Peeple.CurrentPage == .People {
+        if Peeple.Settings.CurrentPage == .People {
                 guard let text = UIPasteboard.general.string else { return }
                 var didQuery:Bool = false
                 didQuery = findPeople(text: filterSearchString(text: text))
@@ -450,8 +493,8 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 
             
         }
-        if Peeple.CurrentPage == .GroupChat {
-            if Peeple.isLocationEnabled == false{
+        if Peeple.Settings.CurrentPage == .GroupChat {
+            if Peeple.Settings.isLocationEnabled == false{
                 locationManager?.requestWhenInUseAuthorization()
                 return
             }
@@ -464,7 +507,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             let eventDes:String = infoTextDescription.text ?? ""
             if eventName.count >= 30 { return }
             let eventCode:String = UUID().uuidString
-            guard let user = app.currentUser else { return }
+            
             let now = Date()
             startLoading()
             addInfoButton.isEnabled = false
@@ -479,7 +522,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     self.stopLoading()
                 case .success(let realm):
                     // Realm opened
-                    let message = groupMessages(chatName: eventName, color: currentUser.myAppColor, peepOne: currentUser.peepOne, peepTwo: currentUser.peepTwo, peepThree: currentUser.peepThree, eventDuration: eventDuration, lat: Event.latitude, long: Event.longitude, chatMessage: eventDes, userId: user.id, isBiz: currentUser.biz, _id: eventCode, timeCode: now)
+                    let message = groupMessages(chatName: eventName, color: Person.Current.Color, peepOne: Person.Current.PeepOne,peepTwo: Person.Current.PeepTwo,peepThree: Person.Current.PeepThree, eventDuration: eventDuration, lat: Event.latitude, long: Event.longitude, chatMessage: eventDes, userId: user.id, isBiz: Person.Current.biz, _id: eventCode, timeCode: now)
                     try! realm.write {
                         realm.add(message)
                     }
@@ -494,38 +537,37 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 }
             }
         }
-        if Peeple.CurrentPage == .Profile {
-            switch Peeple.ProfileisSetTo {
-            case .peepOne:
-                Peeple.ProfileisSetTo = .peepTwo
-            case .peepTwo:
-                Peeple.ProfileisSetTo = .peepThree
-            case .peepThree:
-                Peeple.ProfileisSetTo = .peepOne
-                
-            }
-            peepSwitch(peepImage: pageOptionIndicator, peepOneView: peepOneView, peepTwoView: peepTwoView, peepThreeView: peepThreeView, allPeepView: profilePageView, currentOption: Peeple.ProfileisSetTo,peepOne: currentUser.peepOne,peepTwo: currentUser.peepTwo,peepThree: currentUser.peepThree)
-            
+        if Peeple.Settings.CurrentPage == .Profile {
+            switch Peeple.Settings.ProfileisSetTo {
+                        case .peepOne:
+                            Peeple.Settings.ProfileisSetTo = .peepTwo
+                        case .peepTwo:
+                            Peeple.Settings.ProfileisSetTo = .peepThree
+                        case .peepThree:
+                            Peeple.Settings.ProfileisSetTo = .peepOne
+                            
+                        }
+            peepSwitch(peepImage: pageOptionIndicator, peepOneView: peepOneView, peepTwoView: peepTwoView, peepThreeView: peepThreeView, allPeepView: profilePageView, currentOption: Peeple.Settings.ProfileisSetTo,peepOne: Person.Current.PeepOne,peepTwo: Person.Current.PeepTwo,peepThree: Person.Current.PeepThree)
         }
-        if Peeple.CurrentPage == .Person {
-            switch Person.currentOption {
-            case .peepOne:
-                Person.currentOption = .peepTwo
-            case .peepTwo:
-                Person.currentOption = .peepThree
-            case .peepThree:
-                Person.currentOption = .peepOne
-            }
-            peepSwitch(peepImage: pageOptionIndicator, peepOneView: personPeepOne, peepTwoView: personPeepTwo, peepThreeView: personPeepThree, allPeepView: personPeepView, currentOption: Person.currentOption,peepOne: Person.peepOne,peepTwo: Person.peepTwo,peepThree: Person.peepThree)
-                
+        if Peeple.Settings.CurrentPage == .Person {
+            switch Peeple.Settings.PersonOption {
+                        case .peepOne:
+                Peeple.Settings.PersonOption = .peepTwo
+                        case .peepTwo:
+                Peeple.Settings.PersonOption = .peepThree
+                        case .peepThree:
+                Peeple.Settings.PersonOption = .peepOne
+                        }
+            peepSwitch(peepImage: pageOptionIndicator, peepOneView: personPeepOne, peepTwoView: personPeepTwo, peepThreeView: personPeepThree, allPeepView: personPeepView, currentOption: Peeple.Settings.PersonOption,peepOne: Person.Selected.PeepOne,peepTwo: Person.Selected.PeepTwo,peepThree: Person.Selected.PeepThree)
         }
     }
-    @objc func pageTapped(_ sender:UITapGestureRecognizer)
+
+    @objc func labelSwipedL(_ sender:UISwipeGestureRecognizer)
     {
         guard let user = app.currentUser else { return }
         // alpha animating page switch with Util function
         MusicPlayer.shared.playPeep()
-        switch Peeple.CurrentPage {
+        switch Peeple.Settings.CurrentPage {
         case .Event:
             fetchGroupData(user: user)
         case .Group:
@@ -533,30 +575,74 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         case .People:
             fetchProfileData(user:user)
         case .Profile:
-            fetchEventData(user: user)
+            switch Peeple.Settings.ProfileisSetTo {
+                        case .peepOne:
+                            Peeple.Settings.ProfileisSetTo = .peepTwo
+                        case .peepTwo:
+                            Peeple.Settings.ProfileisSetTo = .peepThree
+                        case .peepThree:
+                            return
+                            
+                        }
+            peepSwitch(peepImage: pageOptionIndicator, peepOneView: peepOneView, peepTwoView: peepTwoView, peepThreeView: peepThreeView, allPeepView: profilePageView, currentOption: Peeple.Settings.ProfileisSetTo,peepOne: Person.Current.PeepOne,peepTwo: Person.Current.PeepTwo,peepThree: Person.Current.PeepThree)
         case .GroupChat:
             fetchGroupData(user: user)
         case .Person:
-            emptyPerson()
+            emptySelectedPerson()
             for view in personPeepView.subviews {
                 view.removeFromSuperview()  }
             fetchPeopleData(user: user)
+        
         }
+    }
+    @objc func labelSwipedR(_ sender:UISwipeGestureRecognizer)
+    {
+        guard let user = app.currentUser else { return }
+        // alpha animating page switch with Util function
+        MusicPlayer.shared.playPeep()
+            switch Peeple.Settings.CurrentPage {
+            case .Event:
+                return
+            case .Group:
+                fetchEventData(user: user)
+            case .People:
+                fetchGroupData(user: user)
+            case .Profile:
+                switch Peeple.Settings.ProfileisSetTo {
+                            case .peepThree:
+                                Peeple.Settings.ProfileisSetTo = .peepTwo
+                            case .peepTwo:
+                                Peeple.Settings.ProfileisSetTo = .peepOne
+                            case .peepOne:
+                                fetchPeopleData(user: user)
+                                return
+                            }
+                peepSwitch(peepImage: pageOptionIndicator, peepOneView: peepOneView, peepTwoView: peepTwoView, peepThreeView: peepThreeView, allPeepView: profilePageView, currentOption: Peeple.Settings.ProfileisSetTo,peepOne: Person.Current.PeepOne,peepTwo: Person.Current.PeepTwo,peepThree: Person.Current.PeepThree)
+                
+            case .GroupChat:
+                fetchGroupData(user: user)
+            case .Person:
+                emptySelectedPerson()
+                for view in personPeepView.subviews {
+                    view.removeFromSuperview()  }
+                fetchPeopleData(user: user)
+            }
+        
     }
     @objc func handlePinch(_ sender:UIPinchGestureRecognizer) {
         if sender.scale > 2 {
-            Peeple.zoomLevel = .one
+            Peeple.Settings.zoomLevel = .one
         }else if sender.scale > 0.5 && sender.scale < 1.5 {
-            Peeple.zoomLevel = .two
+            Peeple.Settings.zoomLevel = .two
         } else {
             // if sender.scale <= 0.7
-            Peeple.zoomLevel = .max
+            Peeple.Settings.zoomLevel = .max
         }
         collectionView.reloadData()
     }
     
     @objc func handleHold(_ sender:UILongPressGestureRecognizer) {
-        if Peeple.CurrentPage == .GroupChat {
+        if Peeple.Settings.CurrentPage == .GroupChat {
             if sender.state == .began {
                 if Group.ID != "" {
                     guard let user = app.currentUser else { return }
@@ -586,13 +672,13 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 
             }
         }
-        if Peeple.CurrentPage == .Person {
-            if Person.ID != "" {
+        if Peeple.Settings.CurrentPage == .Person {
+            if Person.Selected.ID != "" {
                 guard let user = app.currentUser else { return }
                 let partitionValue2 = "me=\(user.id)"
                 startLoading()
                 let pasteboard = UIPasteboard.general
-                pasteboard.string = Person.ID
+                pasteboard.string = Person.Selected.ID
                 // Get a sync configuration from the user object.
                 let configuration2 = user.configuration(partitionValue: partitionValue2)
                 Realm.asyncOpen(configuration: configuration2) { [self] (result) in
@@ -601,11 +687,11 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                         print(error)
                         self.stopLoading()
                     case .success(let realm):
-                        let myPerson = myPeople(color: Person.color, image: "\(Person.color)", name: Person.name, bio: "", one: Person.peepOne, two: Person.peepTwo, three: Person.peepThree, _id: Person.ID)
+                        let myPerson = myPeople(color: Person.Selected.Color, image: "", name: Person.Selected.Name, bio: "", peepOne: Person.Selected.PeepOne,peepTwo: Person.Selected.PeepTwo,peepThree: Person.Selected.PeepThree, _id: Person.Selected.ID)
                         if let me = realm.objects(mePerson.self).first {
                             try! realm.write { me.myPeople.append(myPerson) } }
                         self.stopLoading()
-                        let alert = UIAlertController(title: "\(Person.name) added to my people", message: "\(Person.name) : copied to clipboard", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "\(Person.Selected.Name) added to my people", message: "\(Person.Selected.ID) : copied to clipboard", preferredStyle: .alert)
                         self.myGroupLoaded = false
                         alert.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
@@ -622,12 +708,12 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         case .authorized: // the user has already authorized to access the camera.
             setUpAR()
             beginAR(on:ARView)
-            currentUser.isARActive = true
+            Person.Current.isARActive = true
             stopLoading()
         case .notDetermined: // the user has not yet asked for camera access.
             AVCaptureDevice.requestAccess(for: .video) { [self] (granted) in
                 if granted {
-                    currentUser.isARActive = true
+                    Person.Current.isARActive = true
                     DispatchQueue.main.async { [self] in
                         setUpAR()
                         beginAR(on: ARView)
@@ -648,16 +734,20 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     }
     func layoutUI(){
         DispatchQueue.main.async { [self] in
+            view.backgroundColor = .systemGray6
             pageOptionIndicator.addShadow()
             topRightLabel.addShadow()
-            pageOptionIndicator.tintColor = Peeple.colors[currentUser.myAppColor]
-            setButtonColors(color: Peeple.colors[currentUser.myAppColor])
+            pageOptionIndicator.tintColor = Peeple.Settings.Colors[Person.Current.Color]
+            setButtonColors(color: Peeple.Settings.Colors[Person.Current.Color])
             infoTextField.textColor = .white
-            addInfoButton.setTitleColor(Peeple.colors[currentUser.myAppColor], for: .normal)
-            addInfoButton.setTitle("add", for: .normal)
-            infoTextField.textColor = Peeple.colors[currentUser.myAppColor]
-            infoTextDescription.textColor = Peeple.colors[currentUser.myAppColor]
+            addInfoButton.setTitleColor(Peeple.Settings.Colors[Person.Current.Color], for: .normal)
+            addInfoButton.setTitle("ADD", for: .normal)
+            infoTextField.textColor = Peeple.Settings.Colors[Person.Current.Color]
+            infoTextDescription.textColor = Peeple.Settings.Colors[Person.Current.Color]
             infoTextField.addTextShadow()
+            topRightLabel.tintColor = Peeple.Settings.Colors[Person.Current.Color]
+            loadingIndicator.tintColor = Peeple.Settings.Colors[Person.Current.Color]
+            middleLabel.textColor = Peeple.Settings.Colors[Person.Current.Color]
             infoTextDescription.addTextShadow()
             middleLabel.addTextShadow()
             addInfoButton.addTextShadow()
@@ -669,9 +759,11 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             MyRequestsButton.addTextShadow()
             MyLocationButton.addTextShadow()
             PickPurchaseButton.addTextShadow()
-            topLeftOptionButton.tintColor = Peeple.colors[currentUser.myAppColor]
+            topLeftOptionButton.tintColor = Peeple.Settings.Colors[Person.Current.Color]
+            topLeftOptionButton.isHidden = true
             topLeftOptionButton.addTextShadow()
         }
+//        setLanguage(index: Peeple.Settings.language)
     }
 //    func setUpBackAni(){
 //        if endBackAni { return }
@@ -683,7 +775,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
 //        }
 //    }
     override var prefersStatusBarHidden: Bool {
-        return true
+        return false
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -693,12 +785,10 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     override func viewDidLoad() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        layoutUI()
         locationManager = CLLocationManager()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.delegate = self
-        currentUser.myAppColor = UserDefaults.standard.integer(forKey: "appColor")
-        ID.my = UserDefaults.standard.string(forKey: "myCode") ?? ""
-        currentUser.isARActive = UserDefaults.standard.bool(forKey: "AR")
+        Person.Current.isARActive = UserDefaults.standard.bool(forKey: "AR")
         collectionView.register(UINib(nibName: "MainCell", bundle: nil), forCellWithReuseIdentifier: "MainCell")
         addGestures()
         hideKeyboardWhenTappedAround()
@@ -720,20 +810,16 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                     // loading profile peeps and hiding them
                     print("found mePerson")
                     UserDefaults.standard.set(user.id, forKey: "myCode")
-                    currentUser.priv = me.priv
-                    currentUser.ID = user.id
+                    Person.Current.setInfo(id:user.id,priv: me.priv,peepOne: me.peepOne,peepTwo:me.peepTwo,peepThree:me.peepThree,name: me.name,color:UserDefaults.standard.integer(forKey: "appColor"))
                     Qonversion.identify(user.id)
-                    currentUser.peepOne = me.one
-                    currentUser.name = me.name
-                    currentUser.peepTwo = me.two
-                    currentUser.peepThree = me.three
-                    self.loadPeepData(one: me.one, two: me.two, three: me.three, uid: user.id)
+                    self.loadPeepData(one: me.peepOne, two: me.peepTwo, three: me.peepThree, user: user)
                 } else {
                     print("mePerson not found")
                 }
                 
             }
         }
+        layoutUI()
         checkPeeplePlus()
         fetchEventData(user:user)
         
@@ -749,29 +835,29 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     
     // MARK: ItemsHeightandWidth
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch Peeple.CurrentPage {
+        switch Peeple.Settings.CurrentPage {
         case .Event:
-            switch Peeple.zoomLevel{
+            switch Peeple.Settings.zoomLevel{
             case .one:
                 return CGSize(width: collectionView.frame.width, height: collectionView.frame.width/3)
             case .two:
                 return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3)
             case .max:
-                return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/4)
+                return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/3)
             }
         case .Group:
 //            if Peeple.GroupisSetTo == .events { return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/4) }
-            switch Peeple.zoomLevel{
+            switch Peeple.Settings.zoomLevel{
             case .one:
-                return CGSize(width: collectionView.frame.width/2, height: collectionView.frame.height/4)
+                return CGSize(width: collectionView.frame.width/3, height: collectionView.frame.height/5)
             case .two:
-                return CGSize(width: collectionView.frame.width/2, height: collectionView.frame.height/4)
+                return CGSize(width: collectionView.frame.width/3, height: collectionView.frame.height/5)
             case .max:
-                return CGSize(width: collectionView.frame.width/2, height: collectionView.frame.height/4)
+                return CGSize(width: collectionView.frame.width/3, height: collectionView.frame.height/5)
             }
             
         case .People:
-            switch Peeple.zoomLevel{
+            switch Peeple.Settings.zoomLevel{
             case .one:
                 return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
             case .two:
@@ -791,9 +877,9 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     }
     // MARK: ItemsInSection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch Peeple.CurrentPage {
+        switch Peeple.Settings.CurrentPage {
         case .Event:
-            switch Peeple.EventisSetTo {
+            switch Peeple.Settings.EventisSetTo {
             case .all:
                 return count(count: all_Events?.count ?? 0)
             case .twentyfive:
@@ -803,7 +889,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 
             }
         case .Group:
-            switch Peeple.GroupisSetTo {
+            switch Peeple.Settings.GroupisSetTo {
             case .all:
                 return count(count: all_Groups?.count ?? 0)
             case .my:
@@ -814,7 +900,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
 //                return count(count: all_Events?.count ?? 0)
             }
         case .People:
-            switch Peeple.PeopleisSetTo{
+            switch Peeple.Settings.PeopleisSetTo{
             case .all:
                 return count(count: all_People?.count ?? 0)
             case .my:
@@ -837,9 +923,9 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         cell.mainImageView.addShadow()
         cell.mainTextLabel.addTextShadow()
         cell.mainImageView.setPeepleCorners()
-        switch Peeple.CurrentPage {
+        switch Peeple.Settings.CurrentPage {
         case .Event:
-            switch Peeple.EventisSetTo {
+            switch Peeple.Settings.EventisSetTo {
             case .all:
                 cell.allEvents = all_Events?[indexPath.row]
             case .twentyfive:
@@ -849,7 +935,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             }
             return cell
         case .Group:
-            switch Peeple.GroupisSetTo {
+            switch Peeple.Settings.GroupisSetTo {
             case .all:
                 cell.allGroups = all_Groups?[indexPath.row]
             case .my:
@@ -861,7 +947,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             }
             return cell
         case .People:
-            switch Peeple.PeopleisSetTo{
+            switch Peeple.Settings.PeopleisSetTo{
             case .all:
                 cell.allPeople = all_People?[indexPath.row]
             case .my:
@@ -880,9 +966,9 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     }
     // MARK: DidSelectItem
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch Peeple.CurrentPage {
+        switch Peeple.Settings.CurrentPage {
         case .Event:
-            switch Peeple.EventisSetTo {
+            switch Peeple.Settings.EventisSetTo {
             case .all:
                                 guard let event = all_Events?[indexPath.row] else { return }
                                 // to event in maps
@@ -896,7 +982,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                                 let mapItem = MKMapItem(placemark: placemark)
                 
                                 mapItem.name = "\(event.eventName) : \(event.eventDes)"
-                let alert = UIAlertController(title: "\(event.eventName)", message: "Exercise cation when visitng unkown places and only go to public areas. ", preferredStyle: .alert)
+                let alert = UIAlertController(title: "\(event.eventName):\(event.eventDes)", message: "Exercise cation when visitng unkown places and only go to public areas. ", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "continue to maps", style: .default, handler: { action in
                     mapItem.openInMaps(launchOptions:[
                         MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
@@ -916,7 +1002,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             }
         case .Group:
             // saving previus page
-            switch Peeple.GroupisSetTo {
+            switch Peeple.Settings.GroupisSetTo {
             case .all:
                 guard let group = all_Groups?[indexPath.row] else { return }
                 toGroupChatWith(ID: group._id, name: group.name, pic: group.image, color: group.color, des: group.des)
@@ -931,16 +1017,16 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             
         case .People:
             // saving the previous page to return upon swipe back
-            switch Peeple.PeopleisSetTo{
+            switch Peeple.Settings.PeopleisSetTo{
             case .all:
                 guard let person = all_People?[indexPath.row] else { return }
-                toPersonWith(ID: person._id, name: person.name, pic: person.image, color: person.color, one: person.one, two: person.two, three: person.three)
+                toPersonWith(ID: person._id, name: person.name, pic: person.image, priv: person.priv, color: person.color, one: person.peepOne,two: person.peepTwo,three: person.peepThree)
             case .my:
                 guard let person = my_People?[indexPath.row] else { return }
-                toPersonWith(ID: person._id, name: person.name, pic: person.image, color: person.color, one: person.one, two: person.two, three: person.three)
+                toPersonWith(ID: person._id, name: person.name, pic: person.image, priv: false, color: person.color,one: person.peepOne,two: person.peepTwo,three: person.peepThree)
             case .search:
                 guard let person = search_People?[indexPath.row] else { return }
-                toPersonWith(ID: person._id, name: person.name, pic: person.image, color: person.color, one: person.one, two: person.two, three: person.three)
+                toPersonWith(ID: person._id, name: person.name, pic: person.image, priv: person.priv, color: person.color,one: person.peepOne,two: person.peepTwo,three: person.peepThree)
             }
         case .Profile:
             return
@@ -983,9 +1069,7 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
             return }
         Event.latitude = location.coordinate.latitude
         Event.longitude = location.coordinate.longitude
-        
-        UserDefaults.standard.set(true, forKey: "isLocationEnabled")
-        Peeple.isLocationEnabled = true
+        print("here12")
         didPass = true
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             // Process Response
@@ -998,36 +1082,71 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
         print(error.localizedDescription)
         
     }
-    private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        
-        //This method does real time status monitoring.
-        
-        switch status {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
         case .notDetermined:
             print(".NotDetermined")
-            Peeple.isLocationEnabled = false
-            break
-            
+            Peeple.Settings.isLocationEnabled = false
         case .authorizedAlways:
+            print("here7")
+            UserDefaults.standard.set(true, forKey: "isLocationEnabled")
+            Peeple.Settings.isLocationEnabled = true
             locationManager?.startUpdatingLocation()
-            startLoading()
         case .denied:
             print(".Denied")
-            Peeple.isLocationEnabled = false
-            break
+            Peeple.Settings.isLocationEnabled = false
             
         case .authorizedWhenInUse:
             print(".whenisuse")
+            print("here6")
+            UserDefaults.standard.set(true, forKey: "isLocationEnabled")
+            Peeple.Settings.isLocationEnabled = true
             locationManager?.startUpdatingLocation()
-            startLoading()
         case .restricted:
             print(".Restricted")
-            Peeple.isLocationEnabled = false
+            Peeple.Settings.isLocationEnabled = false
             break
             
         default:
             print("Unhandled authorization status")
-            Peeple.isLocationEnabled = false
+            Peeple.Settings.isLocationEnabled = false
+            break
+            
+        }
+        
+        
+    }
+    private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        
+        //This method does real time status monitoring.
+        print("here5")
+        switch status {
+        case .notDetermined:
+            print(".NotDetermined")
+            Peeple.Settings.isLocationEnabled = false
+        case .authorizedAlways:
+            print("here7")
+            UserDefaults.standard.set(true, forKey: "isLocationEnabled")
+            Peeple.Settings.isLocationEnabled = true
+            locationManager?.startUpdatingLocation()
+        case .denied:
+            print(".Denied")
+            Peeple.Settings.isLocationEnabled = false
+            
+        case .authorizedWhenInUse:
+            print(".whenisuse")
+            print("here6")
+            UserDefaults.standard.set(true, forKey: "isLocationEnabled")
+            Peeple.Settings.isLocationEnabled = true
+            locationManager?.startUpdatingLocation()
+        case .restricted:
+            print(".Restricted")
+            Peeple.Settings.isLocationEnabled = false
+            break
+            
+        default:
+            print("Unhandled authorization status")
+            Peeple.Settings.isLocationEnabled = false
             break
             
         }
@@ -1047,10 +1166,14 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
                 }
                 if let country = placemark.country {
                     Location.country = country
+//                    if country == "Brazil" {
+//                        setLanguage(index:1)
+//
+//                    }
                     UserDefaults.standard.set(country, forKey: "country")
                 }
                 self.stopLoading()
-                if currentUser.priv == false {
+                if Person.Current.Priv == false {
                     addAllPerson()
                 }
                 MyLocationButton.isEnabled = false
@@ -1066,14 +1189,16 @@ class MainPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSo
     
     // MARK: loadingIndicator
     func stopLoading() {
-        loadingIndicator.isHidden = true
-        UIView.animate(withDuration: 0.5) { self.collectionView.alpha = 1 }
+        UIView.animate(withDuration: 0.5) {
+            self.loadingIndicator.isHidden = true
+            self.collectionView.alpha = 1 }
         timer?.invalidate()
         timer = nil
     }
     func startLoading() {
-        loadingIndicator.isHidden = false
-        UIView.animate(withDuration: 0.5) { self.collectionView.alpha = 0 }
+        UIView.animate(withDuration: 0.5) {
+            self.loadingIndicator.isHidden = false
+            self.collectionView.alpha = 0 }
         if timer == nil {
             timer = Timer.scheduledTimer(timeInterval:0.0, target: self, selector: #selector(animateView), userInfo: nil, repeats: false)
         }
@@ -1147,25 +1272,26 @@ extension MainPage {
         
     }
     func fetchEventData(user:User){
-        Peeple.CurrentPage = .Event
+        Peeple.Settings.CurrentPage = .Event
         addInfoView.isHidden = true
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, topLeftOpts: topLeftOptionButton, peepView: profilePageView, completionHandler: { (true) in
             collectionView.isHidden = false
-            topRightLabel.image = UIImage(named: Peeple.PlanetLabel)
+            topRightLabel.image = UIImage(named: Peeple.Settings.RightPage)
             profilePageView.isHidden = true
             addInfoButton.isHidden = false
             editProfileView.isHidden = true
             infoTextField.placeholder = "Event Name"
             infoTextDescription.placeholder = "Event Description"
-            middleLabel.isHidden = true
             collectionView.reloadData()
             pageOptionIndicator.image = nil
         })
-        switch Peeple.EventisSetTo {
+        switch Peeple.Settings.EventisSetTo {
         case .all:
+            middleLabel.text = "Local live events\n\(Location.city)"
+            middleLabel.isHidden = false
             topLeftOptionButton.setTitle("all", for: .normal)
             pageOptionIndicator.image = UIImage(named: "earth")
-                        middleLabel.isHidden = true
+                        
                         if all_Events == nil {
                             startLoading()
                             let configuration1 = user.configuration(partitionValue: "allEvents=\(Location.city)")
@@ -1188,7 +1314,7 @@ extension MainPage {
             
                         }
                         if all_Events?.count == 0 {
-                            middleLabel.text = "no local live events. \(Location.city)"
+                            middleLabel.text = "Local live events\n\(Location.city)"
                             middleLabel.isHidden = false
                         }
             collectionView.reloadData()
@@ -1202,25 +1328,26 @@ extension MainPage {
         }
     }
     func fetchGroupData(user:User){
-        Peeple.CurrentPage = .Group
+        Peeple.Settings.CurrentPage = .Group
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, topLeftOpts: topLeftOptionButton, peepView: profilePageView, completionHandler: { (true) in
-            topRightLabel.image = UIImage(named: Peeple.GroupLabel)
+            topRightLabel.image = UIImage(named: Peeple.Settings.BothPage)
             topRightLabel.isHidden = false
             profilePageView.isHidden = true
             topWordLabel.text = ""
             addInfoButton.isHidden = false
             middleLabel.isHidden = true
-            pageOptionIndicator.isHidden = false
+            addInfoButton.setTitle("add", for: .normal)
+            pageOptionIndicator.isHidden = true
             pageOptionIndicator.image = UIImage(named: "search")
             collectionView.reloadData()
         })
-        switch Peeple.GroupisSetTo {
+        switch Peeple.Settings.GroupisSetTo {
         case .all:
             addInfoView.isHidden = true
             topLeftOptionButton.setTitle("all", for: .normal)
             if all_Groups == nil {
                 startLoading()
-                self.middleLabel.text = "all groups"
+                self.middleLabel.text = "Groups in this area\n\(Location.city)"
                 self.middleLabel.isHidden = false
                 // The partition determines which subset of data to access.
                 let partitionValue = "allGroups=\(Location.city)"
@@ -1239,7 +1366,7 @@ extension MainPage {
                     }
                 } }
             if all_Groups?.count == 0 {
-                self.middleLabel.text = "all groups"
+                self.middleLabel.text = "Groups in this area\n\(Location.city)"
                 self.middleLabel.isHidden = false
             }
             self.collectionView.reloadData()
@@ -1330,7 +1457,7 @@ extension MainPage {
     }
     
     func fetchPeopleData(user:User){
-        Peeple.CurrentPage = .People
+        Peeple.Settings.CurrentPage = .People
         animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, topLeftOpts: topLeftOptionButton, peepView: profilePageView, completionHandler: { (true) in
             collectionView.reloadData()
             collectionView.isHidden = false
@@ -1339,13 +1466,14 @@ extension MainPage {
             personPeepView.isHidden = true
             addInfoButton.isHidden = true
             // setting pageLabel image
-            
+            pageOptionIndicator.isHidden = true
             topLeftOptionButton.setBackgroundImage(nil, for: .normal)
-            topRightLabel.image = UIImage(named: Peeple.PeopleLabel)
+            topLeftOptionButton.isHidden = true
+            topRightLabel.image = UIImage(named: Peeple.Settings.BothPage)
             // unhiding label when from a persons profile
             topRightLabel.isHidden = false
             //        middleLabel.isHidden = true
-            pageOptionIndicator.isHidden = false
+            pageOptionIndicator.isHidden = true
             pageOptionIndicator.image = UIImage(named: "search")
             // hiding group view
             addInfoView.isHidden = true
@@ -1354,15 +1482,15 @@ extension MainPage {
             //        middleLabel.isHidden = false
             profilePageView.isHidden = true
         })
-        switch Peeple.PeopleisSetTo {
+        switch Peeple.Settings.PeopleisSetTo {
         case .all:
             
-            self.middleLabel.text = "all people"
+            self.middleLabel.text = "People in this area\n\(Location.country)"
             self.middleLabel.isHidden = false
             topLeftOptionButton.setTitle("all", for: .normal)
             if all_People == nil {
                 startLoading()
-                self.middleLabel.text = "all people"
+                self.middleLabel.text = "People in this area\n\(Location.country)"
                 self.middleLabel.isHidden = false
                 // The partition determines which subset of data to access.
                 let partitionValue = "allPeople=\(Location.country)"
@@ -1381,7 +1509,7 @@ extension MainPage {
                     }
                 } }
             if self.all_People?.count == 0 {
-                self.middleLabel.text = "no people in this area : \(Location.country)"
+                self.middleLabel.text = "People in this area\n\(Location.country)"
                 self.middleLabel.isHidden = false
             }
             self.collectionView.reloadData()
@@ -1429,25 +1557,29 @@ extension MainPage {
         }
     }
     func fetchProfileData(user:User){
-        Peeple.CurrentPage = .Profile
-        Person.ID = currentUser.ID
+        Peeple.Settings.CurrentPage = .Profile
         editProfileView.isHidden = true
+        self.middleLabel.text = ""
         collectionView.reloadData()
-        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, topLeftOpts: topLeftOptionButton, peepView: profilePageView, completionHandler: { (true) in
-            pageOptionIndicator.image = UIImage(named: Peeple.peepPics[currentUser.peepOne])
-            topRightLabel.image = UIImage(named: Peeple.ProfileLabel)
+        
+        animateViews(labelImage: topRightLabel, collection: collectionView, topRightBut: pageOptionIndicator, middleLabel: middleLabel, topLeftOpts: addInfoButton, peepView: profilePageView, completionHandler: { (true) in
+            pageOptionIndicator.isHidden = false
+            pageOptionIndicator.image = UIImage(named: "pers")
+            topRightLabel.image = UIImage(named: Peeple.Settings.LeftPage)
             collectionView.reloadData()
-            topLeftOptionButton.setTitle("edit", for: .normal)
+            addInfoButton.setTitle("edit", for: .normal)
+            addInfoButton.isHidden = false
             profilePageView.isHidden = false
             collectionView.isHidden = true
             middleLabel.isHidden = true
             
         })
-        
+        middleLabel.isHidden = true
         if peepOneView == nil {
-            self.peepOneView = loadPeep(num: currentUser.peepOne)
-            self.peepTwoView = loadPeep(num: currentUser.peepTwo)
-            self.peepThreeView = loadPeep(num: currentUser.peepThree)
+            middleLabel.isHidden = true
+            self.peepOneView = loadPeep(num: Person.Current.PeepOne)
+            self.peepTwoView = loadPeep(num: Person.Current.PeepTwo)
+            self.peepThreeView = loadPeep(num: Person.Current.PeepThree)
             let peepViews:[UIView?] = [peepOneView,peepTwoView,peepThreeView]
             for peeps in peepViews {
                 guard let view = peeps else { break }
@@ -1461,6 +1593,7 @@ extension MainPage {
             stopLoading()
         } else {
             //                peepOneView?.layoutSubviews()
+            middleLabel.isHidden = true
             peepOneView?.isHidden = false
             peepTwoView?.isHidden = true
             peepThreeView?.isHidden = true
@@ -1469,7 +1602,7 @@ extension MainPage {
             stopLoading()
         }
         
-        
+        middleLabel.isHidden = true
         
     }
     func setSettings(user:User){
@@ -1477,32 +1610,36 @@ extension MainPage {
         pageOptionIndicator.image = UIImage(named: "pers")
 //        backImage.image = UIImage(named: "earthBack")
             middleLabel.isHidden = true
+            topRightLabel.isHidden = true
         editProfileView.isHidden = false
-            topLeftOptionButton.setTitle("back", for: .normal)
+            addInfoButton.setTitle("back", for: .normal)
         profilePageView.isHidden = true
             collectionView.reloadData() } else {
+                topRightLabel.isHidden = false
                 fetchProfileData(user: user)
             }
-        if Peeple.Plus {
+        if Peeple.Settings.plus {
             self.PickPurchaseButton.setTitle("choose peeple", for: .normal)
-            self.ChangeColorButton.isEnabled = true
-            self.ARToggleButton.isEnabled = true
+            self.ChangeColorButton.isHidden = false
+            self.ARToggleButton.isHidden = false
         }
+        
     }
     func checkPeeplePlus(){
         Qonversion.checkPermissions { (permissions, error) in
           if let error = error {
             // handle error
+              print(error)
             return
           }
             
           if let premium: Qonversion.Permission = permissions["Peeple Plus"], premium.isActive {
             switch premium.renewState {
                case .willRenew, .nonRenewable:
-                Peeple.Plus = true
-                self.PickPurchaseButton.setTitle("choose peeple", for: .normal)
-                self.ChangeColorButton.isEnabled = true
-                self.ARToggleButton.isEnabled = true
+                Peeple.Settings.plus = true
+                self.PickPurchaseButton.setTitle("pick peeple", for: .normal)
+                self.ChangeColorButton.isHidden = false
+                self.ARToggleButton.isHidden = false
                  // .willRenew is the state of an auto-renewable subscription
                  // .nonRenewable is the state of consumable/non-consumable IAPs that could unlock lifetime access
                  break
@@ -1520,48 +1657,43 @@ extension MainPage {
         }
        
     }
-    func toPersonWith(ID:String,name:String,pic:String,color:Int,one:Int,two:Int,three:Int){
-        startLoading()
-        Peeple.CurrentPage = .Person
-        Person.currentOption = .peepOne
-        Person.ID = ID
-        Person.peepOne = one
-        Person.peepTwo = two
-        Person.peepThree = three
-        Person.name = name
-        Person.color = color
-        Person.pic = pic
-        topRightLabel.isHidden = true
-        personPeepView.isHidden = false
-        profilePageView.isHidden = true
-        collectionView.isHidden = true
-        middleLabel.isHidden = true
-        pageOptionIndicator.image = UIImage(named: Peeple.peepPics[one])
-        topLeftOptionButton.setTitle("back", for: .normal)
-        personPeepOne = loadPeep(num: one)
-        personPeepTwo = loadPeep(num: two)
-        personPeepThree = loadPeep(num: three)
-        let peeps:[UIView?] = [personPeepOne,personPeepTwo,personPeepThree]
-        for peep in peeps {
-            guard let view = peep else {
-                stopLoading()
-                break }
-            view.isHidden = true
-            personPeepView.addSubview(view)
-            personPeepView.sendSubviewToBack(view)
-            view.snp.makeConstraints { (make) in
-                make.edges.equalTo(personPeepView) }
+    func toPersonWith(ID:String,name:String,pic:String,priv:Bool,color:Int,one:Int,two:Int,three:Int){
+            startLoading()
+        Peeple.Settings.CurrentPage = .Person
+            Peeple.Settings.PersonOption = .peepOne
+        Person.Selected.setInfo(id: ID, priv: priv, peepOne: one, peepTwo: two, peepThree: three, name: name, color: color)
+            topRightLabel.isHidden = false
+            personPeepView.isHidden = false
+            profilePageView.isHidden = true
+            collectionView.isHidden = true
+            middleLabel.isHidden = true
+        pageOptionIndicator.image = UIImage(named: Peeple.Settings.PeepPics[one])
+            topLeftOptionButton.setTitle("back", for: .normal)
+        topLeftOptionButton.isHidden = false
+            personPeepOne = loadPeep(num: one)
+            personPeepTwo = loadPeep(num: two)
+            personPeepThree = loadPeep(num: three)
+            let peeps:[UIView?] = [personPeepOne,personPeepTwo,personPeepThree]
+            for peep in peeps {
+                guard let view = peep else {
+                    stopLoading()
+                    break }
+                view.isHidden = true
+                personPeepView.addSubview(view)
+                personPeepView.sendSubviewToBack(view)
+                view.snp.makeConstraints { (make) in
+                    make.edges.equalTo(personPeepView) }
+            }
+            personPeepOne?.isHidden = false
+            personPeepOne?.layoutSubviews()
+            stopLoading()
         }
-        personPeepOne?.isHidden = false
-        personPeepOne?.layoutSubviews()
-        stopLoading()
-    }
     func peepSwitch(peepImage:UIImageView,peepOneView:UIView?,peepTwoView:UIView?,peepThreeView:UIView?,allPeepView:UIView,currentOption:Peeple.ProfileOptions,peepOne:Int,peepTwo:Int,peepThree:Int){
         allPeepView.alpha = 0.0
         switch currentOption {
         case .peepOne:
-            peepImage.image = UIImage(named: Peeple.peepPics[peepOne])
-            backImage.image = UIImage(named: Peeple.peepBacks[peepOne])
+            peepImage.image = UIImage(named: Peeple.Settings.PeepPics[peepOne])
+            backImage.image = UIImage(named: Peeple.Settings.PeepBacks[peepOne])
             if peepOneView != nil {
                 peepOneView?.isHidden = false
                 peepOneView?.layoutSubviews()
@@ -1571,8 +1703,8 @@ extension MainPage {
                 self.stopLoading()
             }
         case .peepTwo:
-            peepImage.image = UIImage(named: Peeple.peepPics[peepTwo])
-            backImage.image = UIImage(named: Peeple.peepBacks[peepTwo])
+            peepImage.image = UIImage(named: Peeple.Settings.PeepPics[peepTwo])
+            backImage.image = UIImage(named: Peeple.Settings.PeepBacks[peepTwo])
             if peepTwoView != nil {
                 peepOneView?.isHidden = true
                 peepTwoView?.layoutSubviews()
@@ -1581,8 +1713,8 @@ extension MainPage {
                 allPeepView.isHidden = false
             }
         case .peepThree:
-            peepImage.image = UIImage(named: Peeple.peepPics[peepThree])
-            backImage.image = UIImage(named: Peeple.peepBacks[peepThree])
+            peepImage.image = UIImage(named: Peeple.Settings.PeepPics[peepThree])
+            backImage.image = UIImage(named: Peeple.Settings.PeepBacks[peepThree])
             if peepThreeView != nil {
                 peepOneView?.isHidden = true
                 peepTwoView?.isHidden = true
@@ -1602,7 +1734,7 @@ extension MainPage {
         
     }
     func toGroupChatWith(ID:String,name:String,pic:String,color:Int,des:String){
-        Peeple.CurrentPage = .GroupChat
+        Peeple.Settings.CurrentPage = .GroupChat
         startLoading()
         collectionView.reloadData()
         Group.ID = ID
@@ -1611,13 +1743,13 @@ extension MainPage {
         Group.pic = pic
         Group.des = des
         topRightLabel.isHidden = true
-        addInfoButton.isHidden = true
+        addInfoButton.isHidden = false
         topLeftOptionButton.setTitle("back", for: .normal)
         infoTextField.placeholder = "Event Name"
         infoTextDescription.placeholder = "description"
         middleLabel.isHidden = true
-        pageOptionIndicator.image = UIImage(named: Peeple.GroupBoxImage)
-        topWordLabel.textColor = Peeple.colors[color]
+        pageOptionIndicator.image = UIImage(named: Peeple.Settings.GroupBoxImage)
+        topWordLabel.textColor = Peeple.Settings.Colors[color]
         topWordLabel.text = name
         guard let user = app.currentUser else {
             self.stopLoading()
@@ -1637,7 +1769,7 @@ extension MainPage {
                 self.stopLoading()
             }
             if group_Events?.count == 0 {
-                middleLabel.text = "no live events in this group"
+                middleLabel.text = "Live events in this group"
                 middleLabel.isHidden = false
             }
         }
@@ -1703,11 +1835,38 @@ extension MainPage {
                 self.present(alert, animated: true, completion: nil)
             case .success(let realm):
                 // Realm opened
-                let task = allPeople(color: currentUser.myAppColor, image: "", name: currentUser.name, biz: false, bio: "",one : currentUser.peepOne,two: currentUser.peepTwo,three: currentUser.peepThree,priv:false, ID: user.id)
+                let task = allPeople(color: Person.Current.Color, image: "", name: Person.Current.Name, peepOne: Person.Current.PeepOne,peepTwo: Person.Current.PeepTwo,peepThree: Person.Current.PeepThree, biz: false, bio: "",priv:false, ID: user.id)
                 try! realm.write { realm.add(task,update: .modified) }
                 
                 print("Successfully logged in as user \(user)")
             }
+        }
+    }
+    func savePeepSelection(user:User){
+        startLoading()
+        let partitionValue2 = "me=\(user.id)"
+        // Get a sync configuration from the user object.
+        let configuration2 = user.configuration(partitionValue: partitionValue2)
+        Realm.asyncOpen(configuration: configuration2) { [self] (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+                DispatchQueue.main.async {
+                    self.stopLoading()
+                }
+                
+            case .success(let realm):
+                if let me = realm.objects(mePerson.self).first {
+                    try! realm.write {
+                        me.peepOne = Person.Current.PeepOne
+                        me.peepTwo = Person.Current.PeepTwo
+                        me.peepThree = Person.Current.PeepThree
+                    }
+                    DispatchQueue.main.async {
+                        self.stopLoading() }
+                }
+            }
+            
         }
     }
     func findPeople(text: String) -> Bool{
@@ -1717,7 +1876,7 @@ extension MainPage {
         guard let user = app.currentUser else { return false}
         // The partition determines which subset of data to access.
         let partitionValue = "allPeople=\(Location.country)"
-        Peeple.PeopleisSetTo = .search
+        Peeple.Settings.PeopleisSetTo = .search
         // Get a sync configuration from the user object.
         let configuration = user.configuration(partitionValue: partitionValue)
         Realm.asyncOpen(configuration: configuration) { (result) in
@@ -1739,7 +1898,7 @@ extension MainPage {
         guard let user = app.currentUser else { return false}
         // The partition determines which subset of data to access.
         let partitionValue = "allGroups=\(Location.city)"
-        Peeple.GroupisSetTo = .search
+        Peeple.Settings.GroupisSetTo = .search
         // Get a sync configuration from the user object.
         let configuration = user.configuration(partitionValue: partitionValue)
         Realm.asyncOpen(configuration: configuration) { (result) in
@@ -1758,6 +1917,28 @@ extension MainPage {
             }
         }
         return true
+    }
+    func setLanguage(index:Int){
+        UserDefaults.standard.set(index, forKey: "language")
+        Peeple.Settings.language = index
+        switch index {
+        case 0:
+            //english
+            return
+            //set image labels for portugese
+            //set text labels for portugese
+        case 1:
+            //portugese
+            return
+            //set image labels for portugese
+            //set text labels for portugese
+        case 2:
+            //set image labels for spanish
+            //set text lables for spanish
+            return
+        default:
+            return
+        }
     }
     func filterSearchString(text:String) -> String {
         // extra checks and text filters here
@@ -1781,39 +1962,37 @@ extension MainPage {
         // all tests passed. return text
         return text
     }
-    func loadPeepData(one:Int,two:Int,three:Int,uid:String){
-        guard let user = app.currentUser else { return }
-        let thePeeps:[Int] = [one,two,three]
-        let partitionValue = "peeps=\(uid)"
-        let configuration = user.configuration(partitionValue: partitionValue)
-        Realm.asyncOpen(configuration: configuration) { (result) in
-            switch result {
-            case .failure(let error):
-                print("Failed to open realm: \(error.localizedDescription)")
-                // Handle error...
-            case .success(let realm):
-                // Realm opened
-                if let peeps = realm.objects(myPeeps.self).first {
-                    for Peep in thePeeps {
-                        switch Peep {
-                        case 1:
-                            if let charight = peeps.charight {  Peeps.charight = charight }
-                        case 2:
-                            if let cleanergy = peeps.cleanergy {  Peeps.clenny = cleanergy }
-                        case 3:
-                            if let porty = peeps.portflio {  Peeps.porty = porty }
-                        default:
-                            print("no peep")
-                            
+   
+    func loadPeepData(one:Int,two:Int,three:Int,user:User){
+            let thePeeps:[Int] = [one,two,three]
+        let partitionValue = "peeps=\(user.id)"
+            let configuration = user.configuration(partitionValue: partitionValue)
+            Realm.asyncOpen(configuration: configuration) { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Failed to open realm: \(error.localizedDescription)")
+                    // Handle error...
+                case .success(let realm):
+                    // Realm opened
+                    if let peeps = realm.objects(myPeeps.self).first {
+                        for Peep in thePeeps {
+                            switch Peep {
+                            case 1:
+                                if let charight = peeps.charight {  Peeps.Current.charight = charight }
+                            case 2:
+                                if let cleanergy = peeps.cleanergy {  Peeps.Current.clenny = cleanergy }
+                            case 3:
+                                if let porty = peeps.portflio {  Peeps.Current.porty = porty }
+                            default:
+                                print("no peep data")
+                                
+                            }
                         }
+                        
                     }
-                    
                 }
-                
-                
             }
         }
-    }
     //    func loadPersonPeepData(one:Int,two:Int,three:Int,id:String){
     //        guard let user = app.currentUser else { return }
     //        let thePeeps:[Int] = [one,two,three]

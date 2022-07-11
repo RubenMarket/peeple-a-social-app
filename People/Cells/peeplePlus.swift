@@ -18,7 +18,16 @@ class peeplePlus: UIView {
           
           if let premium: Qonversion.Permission = permissions["Peeple Plus"], premium.isActive {
             // Flow for success state
-              Peeple.Plus = true
+              Peeple.Settings.plus = true
+              self.peeplePlusLabel.text = """
+                                     - All of the Peeple
+                                     
+                                     - App color customization
+                                     
+                                     - Augmented Reality Feature
+                                     """
+              self.peeplePlusButton.isEnabled = false
+              self.peeplePlusButton.setTitle("Peeple Plus Member", for: .normal)
           }
         }
     }
@@ -51,8 +60,8 @@ class peeplePlus: UIView {
                                """
         peeplePlusLabel.addTextShadow()
         peeplePlusButton.addTextShadow()
-        peeplePlusLabel.textColor = Peeple.colors[currentUser.myAppColor]
-        peeplePlusButton.setTitleColor(Peeple.colors[currentUser.myAppColor], for: .normal)
+        peeplePlusLabel.textColor = Peeple.Settings.Colors[Person.Current.Color]
+        peeplePlusButton.setTitleColor(Peeple.Settings.Colors[Person.Current.Color], for: .normal)
     }
     class func instanceFromNib() -> UIView {
         return UINib(nibName: "PeeplePlus", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView

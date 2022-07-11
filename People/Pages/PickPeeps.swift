@@ -50,7 +50,7 @@ class pickpeeps: UIViewController {
         return true
     }
     override func viewWillAppear(_ animated: Bool) {
-        if currentUser.isARActive {
+        if Person.Current.isARActive {
             view.backgroundColor = .black
         }
         
@@ -81,86 +81,86 @@ class pickpeeps: UIViewController {
         default:
             return
         }
-        if currentUser.isARActive {
+        if Person.Current.isARActive {
             view.backgroundColor = .black
             ARModeActivate()
         }
-        donebut.setTitleColor(Peeple.colors[currentUser.myAppColor], for: .normal)
+        donebut.setTitleColor(Peeple.Settings.Colors[Person.Current.Color], for: .normal)
         
     }
     override func viewDidLayoutSubviews() {
         
     }
     @IBAction func peep(_ sender: UIButton) {
-        guard let user = app.currentUser else { return }
-        let partitionValue = "me=\(user.id)"
-        let configuration2 = user.configuration(partitionValue: partitionValue)
-        switch peepToSwitch {
-        case 1:
-            peepOne = sender.tag
-            
-            Realm.asyncOpen(configuration: configuration2) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Failed to open realm: \(error.localizedDescription)")
-                    // Handle error...
-                case .success(let realm):
-                    // Realm opened
-                    if let me = realm.object(ofType: mePerson.self, forPrimaryKey: user.id) {
-                        try! realm.write {
-                            me.one = self.peepOne!
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: false, completion: nil)
-                    }
-                    
-                }
-            }
-        case 2:
-            peepTwo = sender.tag
-            Realm.asyncOpen(configuration: configuration2) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Failed to open realm: \(error.localizedDescription)")
-                    // Handle error...
-                case .success(let realm):
-                    // Realm opened
-                    if let me = realm.object(ofType: mePerson.self, forPrimaryKey: user.id) {
-                        try! realm.write {
-                            me.one = self.peepTwo!
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: false, completion: nil)
-                    }
-                    
-                }
-            }
-        case 3:
-            peepThree = sender.tag
-            Realm.asyncOpen(configuration: configuration2) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Failed to open realm: \(error.localizedDescription)")
-                    // Handle error...
-                case .success(let realm):
-                    // Realm opened
-                    if let me = realm.object(ofType: mePerson.self, forPrimaryKey: user.id) {
-                        try! realm.write {
-                            me.one = self.peepThree!
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: false, completion: nil)
-                    }
-                    
-                }
-            }
-        default:
-            return
-        }
-        
+//        guard let user = app.currentUser else { return }
+//        let partitionValue = "me=\(user.id)"
+//        let configuration2 = user.configuration(partitionValue: partitionValue)
+//        switch peepToSwitch {
+//        case 1:
+//            peepOne = sender.tag
+//            
+//            Realm.asyncOpen(configuration: configuration2) { (result) in
+//                switch result {
+//                case .failure(let error):
+//                    print("Failed to open realm: \(error.localizedDescription)")
+//                    // Handle error...
+//                case .success(let realm):
+//                    // Realm opened
+//                    if let me = realm.object(ofType: mePerson.self, forPrimaryKey: user.id) {
+//                        try! realm.write {
+//                            me.one = self.peepOne!
+//                        }
+//                    }
+//                    DispatchQueue.main.async {
+//                        self.dismiss(animated: false, completion: nil)
+//                    }
+//                    
+//                }
+//            }
+//        case 2:
+//            peepTwo = sender.tag
+//            Realm.asyncOpen(configuration: configuration2) { (result) in
+//                switch result {
+//                case .failure(let error):
+//                    print("Failed to open realm: \(error.localizedDescription)")
+//                    // Handle error...
+//                case .success(let realm):
+//                    // Realm opened
+//                    if let me = realm.object(ofType: mePerson.self, forPrimaryKey: user.id) {
+//                        try! realm.write {
+//                            me.peep = self.peepTwo!
+//                        }
+//                    }
+//                    DispatchQueue.main.async {
+//                        self.dismiss(animated: false, completion: nil)
+//                    }
+//                    
+//                }
+//            }
+//        case 3:
+//            peepThree = sender.tag
+//            Realm.asyncOpen(configuration: configuration2) { (result) in
+//                switch result {
+//                case .failure(let error):
+//                    print("Failed to open realm: \(error.localizedDescription)")
+//                    // Handle error...
+//                case .success(let realm):
+//                    // Realm opened
+//                    if let me = realm.object(ofType: mePerson.self, forPrimaryKey: user.id) {
+//                        try! realm.write {
+//                            me.one = self.peepThree!
+//                        }
+//                    }
+//                    DispatchQueue.main.async {
+//                        self.dismiss(animated: false, completion: nil)
+//                    }
+//                    
+//                }
+//            }
+//        default:
+//            return
+//        }
+//        
         
 //        func greencheckmark() {
 //            if sender.transform != CGAffineTransform.identity{

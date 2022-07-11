@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="dIH-Vg-uM8" customClass="alli" customModule="People" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" image="transalexia" translatesAutoresizingMaskIntoConstraints="NO" id="bL1-PA-mKn">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alli" translatesAutoresizingMaskIntoConstraints="NO" id="hZ6-Bc-cdt">
+                    <rect key="frame" x="16" y="16" width="50" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="OhV-Da-5Qx"/>
+                        <constraint firstAttribute="width" constant="50" id="jTk-bU-t2Q"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="MVy-Je-tvM"/>
+            <constraints>
+                <constraint firstItem="bL1-PA-mKn" firstAttribute="trailing" secondItem="MVy-Je-tvM" secondAttribute="trailing" id="6fT-Er-l7d"/>
+                <constraint firstItem="hZ6-Bc-cdt" firstAttribute="leading" secondItem="dIH-Vg-uM8" secondAttribute="leading" constant="16" id="NII-bb-Wz7"/>
+                <constraint firstItem="bL1-PA-mKn" firstAttribute="leading" secondItem="MVy-Je-tvM" secondAttribute="leading" id="ecg-hC-PTZ"/>
+                <constraint firstItem="hZ6-Bc-cdt" firstAttribute="top" secondItem="dIH-Vg-uM8" secondAttribute="top" constant="16" id="ffN-ky-MyW"/>
+                <constraint firstItem="bL1-PA-mKn" firstAttribute="top" secondItem="MVy-Je-tvM" secondAttribute="top" constant="-44" id="hHa-Da-Xpu"/>
+                <constraint firstItem="bL1-PA-mKn" firstAttribute="bottom" secondItem="MVy-Je-tvM" secondAttribute="bottom" id="s2v-jL-Gxw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="28.260869565217394" y="45.535714285714285"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="alli" width="1537" height="1647"/>
+        <image name="transalexia" width="500" height="500"/>
+    </resources>
+</document>

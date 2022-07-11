@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,19 +16,28 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" image="transcupdity" translatesAutoresizingMaskIntoConstraints="NO" id="lKc-Th-Crn">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                 </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cupinge" translatesAutoresizingMaskIntoConstraints="NO" id="UCs-Tr-jCv">
+                    <rect key="frame" x="16" y="16" width="50" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="08h-yE-VQV"/>
+                        <constraint firstAttribute="width" constant="50" id="qfg-53-o1x"/>
+                    </constraints>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.95686274509803915" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="UCs-Tr-jCv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="MoV-f0-8tQ"/>
                 <constraint firstItem="lKc-Th-Crn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Rur-ti-I3S"/>
                 <constraint firstAttribute="bottom" secondItem="lKc-Th-Crn" secondAttribute="bottom" id="YGF-4u-ZJj"/>
                 <constraint firstItem="lKc-Th-Crn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fta-pZ-XZ3"/>
                 <constraint firstAttribute="trailing" secondItem="lKc-Th-Crn" secondAttribute="trailing" id="m1t-xw-LHy"/>
+                <constraint firstItem="UCs-Tr-jCv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="w9D-Qa-CCh"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="78" y="66"/>
         </view>
     </objects>
     <resources>
+        <image name="cupinge" width="1537" height="1647"/>
         <image name="transcupdity" width="500" height="500"/>
     </resources>
 </document>

@@ -63,6 +63,16 @@
 		8480F81527E768C7001859DA /* peepsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8480F81427E768C6001859DA /* peepsound.mp3 */; };
 		8481197FD838860A4197252B /* Pods_People.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED383403FC54E35530547268 /* Pods_People.framework */; };
 		84E8094F27EEAFF8004CF23A /* configFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8094E27EEAFF8004CF23A /* configFile.swift */; };
+		84FC68AA28785F5D00395528 /* animlyfe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FC68A928785F5D00395528 /* animlyfe.swift */; };
+		84FC68AE28785FF000395528 /* Animlyfe.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FC68AD28785FF000395528 /* Animlyfe.xib */; };
+		84FC68B02878622600395528 /* clouds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FC68AF2878622600395528 /* clouds.swift */; };
+		84FC68B22878627300395528 /* Clouds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FC68B12878627300395528 /* Clouds.xib */; };
+		84FC68B42878638800395528 /* trevlly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FC68B32878638800395528 /* trevlly.swift */; };
+		84FC68B6287863C500395528 /* Trevelly.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FC68B5287863C500395528 /* Trevelly.xib */; };
+		84FC68B828786A7100395528 /* alli.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FC68B728786A7100395528 /* alli.swift */; };
+		84FC68BA28786A7F00395528 /* Alli.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FC68B928786A7F00395528 /* Alli.xib */; };
+		84FC68BC28786AFC00395528 /* mucity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FC68BB28786AFC00395528 /* mucity.swift */; };
+		84FC68BE28786B0800395528 /* Mucity.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FC68BD28786B0800395528 /* Mucity.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +147,16 @@
 		8479FD3727517B7A0074098F /* PeeplePlus.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeeplePlus.xib; sourceTree = "<group>"; };
 		8480F81427E768C6001859DA /* peepsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = peepsound.mp3; sourceTree = SOURCE_ROOT; };
 		84E8094E27EEAFF8004CF23A /* configFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = configFile.swift; sourceTree = "<group>"; };
+		84FC68A928785F5D00395528 /* animlyfe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = animlyfe.swift; sourceTree = "<group>"; };
+		84FC68AD28785FF000395528 /* Animlyfe.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Animlyfe.xib; sourceTree = "<group>"; };
+		84FC68AF2878622600395528 /* clouds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clouds.swift; sourceTree = "<group>"; };
+		84FC68B12878627300395528 /* Clouds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Clouds.xib; sourceTree = "<group>"; };
+		84FC68B32878638800395528 /* trevlly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trevlly.swift; sourceTree = "<group>"; };
+		84FC68B5287863C500395528 /* Trevelly.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Trevelly.xib; sourceTree = "<group>"; };
+		84FC68B728786A7100395528 /* alli.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alli.swift; sourceTree = "<group>"; };
+		84FC68B928786A7F00395528 /* Alli.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Alli.xib; sourceTree = "<group>"; };
+		84FC68BB28786AFC00395528 /* mucity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mucity.swift; sourceTree = "<group>"; };
+		84FC68BD28786B0800395528 /* Mucity.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Mucity.xib; sourceTree = "<group>"; };
 		8C10420553EDC8376A10EF1D /* Pods-People.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-People.debug.xcconfig"; path = "Pods/Target Support Files/Pods-People/Pods-People.debug.xcconfig"; sourceTree = "<group>"; };
 		ED383403FC54E35530547268 /* Pods_People.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_People.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -257,27 +277,37 @@
 			isa = PBXGroup;
 			children = (
 				82B3D8622488011A009CC79A /* charight.swift */,
-				82E8763024896C870029C722 /* portolio.swift */,
-				82C1711E25106EA000EB7D71 /* cleanergy.swift */,
-				82E8763A248A056B0029C722 /* theorize.swift */,
-				8248480E24A80C7600D3C6AE /* myme.swift */,
-				82B1310924A5036D0048814F /* awemember.swift */,
-				8248481224A815E400D3C6AE /* shelfie.swift */,
-				82B1310B24A5057E0048814F /* betatester.swift */,
-				82B1311124A50AD40048814F /* comingsoon.swift */,
-				82E876362489CDB00029C722 /* spacechip.swift */,
-				82BA735D26D82B4400AF0771 /* cupidity.swift */,
 				82B3D8602487EDF3009CC79A /* Charight.xib */,
+				84FC68A928785F5D00395528 /* animlyfe.swift */,
+				84FC68AD28785FF000395528 /* Animlyfe.xib */,
+				82E8763024896C870029C722 /* portolio.swift */,
 				82B3D86624880F33009CC79A /* Portfolio.xib */,
+				82C1711E25106EA000EB7D71 /* cleanergy.swift */,
 				82B3D86424880E4E009CC79A /* Cleanergy.xib */,
-				82BA735B26D82AE300AF0771 /* Cupidity.xib */,
+				82E8763A248A056B0029C722 /* theorize.swift */,
 				82E87638248A04CB0029C722 /* theorize.xib */,
-				82E876342489CD220029C722 /* spacechip.xib */,
-				8248481024A8124600D3C6AE /* shelfie.xib */,
-				82B1310724A502080048814F /* awemember.xib */,
-				82B1310D24A505910048814F /* betatester.xib */,
+				84FC68AF2878622600395528 /* clouds.swift */,
+				84FC68B12878627300395528 /* Clouds.xib */,
+				84FC68B32878638800395528 /* trevlly.swift */,
+				84FC68B5287863C500395528 /* Trevelly.xib */,
+				8248480E24A80C7600D3C6AE /* myme.swift */,
 				82B1311824A6EB9C0048814F /* myme.xib */,
+				82B1310924A5036D0048814F /* awemember.swift */,
+				82B1310724A502080048814F /* awemember.xib */,
+				8248481224A815E400D3C6AE /* shelfie.swift */,
+				8248481024A8124600D3C6AE /* shelfie.xib */,
+				82B1310B24A5057E0048814F /* betatester.swift */,
+				82B1310D24A505910048814F /* betatester.xib */,
+				82B1311124A50AD40048814F /* comingsoon.swift */,
 				82B1310F24A50A3E0048814F /* comingsoon.xib */,
+				82E876362489CDB00029C722 /* spacechip.swift */,
+				82E876342489CD220029C722 /* spacechip.xib */,
+				82BA735D26D82B4400AF0771 /* cupidity.swift */,
+				82BA735B26D82AE300AF0771 /* Cupidity.xib */,
+				84FC68B728786A7100395528 /* alli.swift */,
+				84FC68B928786A7F00395528 /* Alli.xib */,
+				84FC68BB28786AFC00395528 /* mucity.swift */,
+				84FC68BD28786B0800395528 /* Mucity.xib */,
 			);
 			path = Peeps;
 			sourceTree = "<group>";
@@ -408,9 +438,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8480F81527E768C7001859DA /* peepsound.mp3 in Resources */,
+				84FC68BA28786A7F00395528 /* Alli.xib in Resources */,
 				821D9FB620B7A48900CD69D7 /* LaunchScreen.storyboard in Resources */,
 				82E87639248A04CB0029C722 /* theorize.xib in Resources */,
 				82B1310824A502080048814F /* awemember.xib in Resources */,
+				84FC68AE28785FF000395528 /* Animlyfe.xib in Resources */,
 				82B1311924A6EB9C0048814F /* myme.xib in Resources */,
 				82098488263339EA00F9B4E3 /* requestCell.xib in Resources */,
 				8479FD34275154480074098F /* allPeeps.xib in Resources */,
@@ -418,13 +450,16 @@
 				82B3D86524880E4E009CC79A /* Cleanergy.xib in Resources */,
 				82B1311024A50A3E0048814F /* comingsoon.xib in Resources */,
 				82BC3B0F26B75E5900E4F027 /* peepleSound.wav in Resources */,
+				84FC68B6287863C500395528 /* Trevelly.xib in Resources */,
 				82BA735C26D82AE300AF0771 /* Cupidity.xib in Resources */,
 				82B3D86724880F33009CC79A /* Portfolio.xib in Resources */,
 				82B1310E24A505910048814F /* betatester.xib in Resources */,
 				821D9FB320B7A48900CD69D7 /* Assets.xcassets in Resources */,
 				827D582723042AAC0039B256 /* postcell.xib in Resources */,
 				8479FD302751511D0074098F /* MainCell.xib in Resources */,
+				84FC68BE28786B0800395528 /* Mucity.xib in Resources */,
 				8248481124A8124600D3C6AE /* shelfie.xib in Resources */,
+				84FC68B22878627300395528 /* Clouds.xib in Resources */,
 				828E81622695632F0068C778 /* Main.storyboard in Resources */,
 				8479FD3827517B7A0074098F /* PeeplePlus.xib in Resources */,
 				82B3D8612487EDF3009CC79A /* Charight.xib in Resources */,
@@ -501,11 +536,13 @@
 				82B1310C24A5057E0048814F /* betatester.swift in Sources */,
 				842007472868CACA00EBD87A /* peeplePlus.swift in Sources */,
 				829CE9B222822FFE002F238C /* Requests.swift in Sources */,
+				84FC68AA28785F5D00395528 /* animlyfe.swift in Sources */,
 				82BA735E26D82B4400AF0771 /* cupidity.swift in Sources */,
 				826B117521DBCB4700321A46 /* Group.swift in Sources */,
 				82E8763124896C870029C722 /* portolio.swift in Sources */,
 				841BF5412786464000350C27 /* ChatPage.swift in Sources */,
 				82BC756D23FB8449009072A8 /* People.swift in Sources */,
+				84FC68B02878622600395528 /* clouds.swift in Sources */,
 				821D9FAE20B7A48900CD69D7 /* Login.swift in Sources */,
 				82E876372489CDB00029C722 /* spacechip.swift in Sources */,
 				8248480F24A80C7600D3C6AE /* myme.swift in Sources */,
@@ -516,10 +553,13 @@
 				82AEC1132104F45A00C9B5C7 /* Events.swift in Sources */,
 				842007492868E03E00EBD87A /* allPeeps.swift in Sources */,
 				82DF929C251A41A900537A7B /* Peeps.swift in Sources */,
+				84FC68B42878638800395528 /* trevlly.swift in Sources */,
 				82B3D86D248879BD009CC79A /* PickPeeps.swift in Sources */,
 				82B1311224A50AD40048814F /* comingsoon.swift in Sources */,
 				828A2A5724147CA900822CBB /* Utils.swift in Sources */,
+				84FC68BC28786AFC00395528 /* mucity.swift in Sources */,
 				82B3D8632488011A009CC79A /* charight.swift in Sources */,
+				84FC68B828786A7100395528 /* alli.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

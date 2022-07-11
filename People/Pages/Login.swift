@@ -101,7 +101,7 @@ print(userIdentifier)
 //                    self.present(alert, animated: true, completion: nil)
                 case .success(let user):
                     print("Successfully logged in as user \(user)")
-                    ID.my = user.id
+                    Person.Current.ID = user.id
                     UserDefaults.standard.set(user.id, forKey: "myCode")
                     self.returningPersonCheck(user: user)
                         
@@ -122,7 +122,7 @@ print(userIdentifier)
     func setUpSignInAppleButton() {
       let authorizationButton = ASAuthorizationAppleIDButton()
       authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
-        authorizationButton.cornerRadius = Peeple.cornerRadius
+        authorizationButton.cornerRadius = Peeple.Settings.CornerRadius
       //Add button on some view or stack
         self.emailview.addSubview(authorizationButton)
         authorizationButton.snp.makeConstraints { (make) in
@@ -166,14 +166,13 @@ print(userIdentifier)
                     if me.priv == false {
                         self.addAllPerson(user: user, name: me.name)
                     }
-                    
                     DispatchQueue.main.async {
                         self.stopLoading()
                         self.performSegue(withIdentifier: "tohome", sender: nil)
                     }
                 } else {
                     print("non returning user : mePerson not found")
-                    let mePeep = mePerson(image:"", name: self.name ?? "", biz: false, one: 1, two: 2, three: 3, priv: false, beta: false,_id: user.id)
+                    let mePeep = mePerson(name: self.name ?? "",biz: false,peepOne: 1,peepTwo: 2,peepThree: 3, priv: false, beta: false,_id: user.id)
                     try! realm.write {
                         realm.add(mePeep, update: .all)
                     }
@@ -206,7 +205,7 @@ print(userIdentifier)
                 self.present(alert, animated: true, completion: nil)
             case .success(let realm):
                 // Realm opened
-                let task = allPeople(color: 0, image: "", name: name, biz: false, bio: "",one : 1,two: 2,three: 3,priv:false, ID: user.id)
+                let task = allPeople(color: 0,image: "",name:name,peepOne:1,peepTwo:2,peepThree: 3,biz:false, bio:"",priv:false,ID:user.id)
                 try! realm.write { realm.add(task,update: .modified) }
             
                 print("Successfully logged in as user \(user)")
@@ -236,7 +235,7 @@ print(userIdentifier)
         })
     }
     override var prefersStatusBarHidden: Bool {
-        return true }
+        return false }
     
     override func viewDidLoad() {
         super.viewDidLoad()

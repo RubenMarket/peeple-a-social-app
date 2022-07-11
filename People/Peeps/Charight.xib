@@ -16,8 +16,8 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" image="charybackicons" translatesAutoresizingMaskIntoConstraints="NO" id="piQ-mF-NfM">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="542"/>
                 </imageView>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="charight" translatesAutoresizingMaskIntoConstraints="NO" id="APx-uy-tbp">
-                    <rect key="frame" x="307" y="18" width="50" height="55"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="charight" translatesAutoresizingMaskIntoConstraints="NO" id="APx-uy-tbp">
+                    <rect key="frame" x="16" y="16" width="50" height="55"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="4r3-yv-rDN"/>
                         <constraint firstAttribute="width" constant="50" id="UJk-NO-sFB"/>
@@ -295,12 +295,13 @@
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="height" secondItem="AYw-ra-PQ1" secondAttribute="height" id="jJm-ah-OJg"/>
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="2.5" id="leJ-4f-vni"/>
                 <constraint firstItem="ej6-TA-VZW" firstAttribute="centerX" secondItem="AYw-ra-PQ1" secondAttribute="centerX" constant="4" id="mgp-44-yqI"/>
-                <constraint firstAttribute="trailing" secondItem="APx-uy-tbp" secondAttribute="trailing" constant="18" id="tgH-kj-4Mf"/>
-                <constraint firstItem="APx-uy-tbp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="xZM-ig-TGY"/>
+                <constraint firstItem="APx-uy-tbp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="tKu-p7-nbG"/>
+                <constraint firstItem="APx-uy-tbp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="xZM-ig-TGY"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="buttonView" destination="KCm-jy-bUV" id="KA1-Px-W7P"/>
+                <outlet property="charightBack" destination="piQ-mF-NfM" id="d2C-Uq-g5x"/>
                 <outlet property="firstViewY" destination="P3J-mv-nry" id="QXi-fM-ndE"/>
                 <outlet property="firstcharbut" destination="EFK-oD-UFF" id="2aJ-T5-W47"/>
                 <outlet property="firstcharimage" destination="uaP-16-4mB" id="Pzb-Ys-u5w"/>

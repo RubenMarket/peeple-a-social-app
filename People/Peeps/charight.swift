@@ -21,6 +21,7 @@ class charightview : UIView {
     @IBOutlet var charightbuttons: [UIButton]!
     private var profpic:String = ""
     @IBOutlet weak var buttonView: UIView!
+    @IBOutlet weak var charightBack: UIImageView!
     private var editPeep:Bool = true
     private var sharedPeepNum = 0
     private var didSharepeep:Bool = false
@@ -69,36 +70,36 @@ class charightview : UIView {
     
     
     @IBAction func firstchar(_ sender: UIButton) {
-        if Person.ID == currentUser.ID {
+        if Person.Selected.ID == "" {
             editPeep(isEditing: editPeep)
         } else {
-                if didSharepeep { return }
-            didSharepeep = true
-                let times = NSDate().timeIntervalSince1970
-                let myTimeInterval = TimeInterval(times)
-                let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .short
-            guard let user = app.currentUser else { return }
-                   // Get a sync configuration from the user object.
-                let config = user.configuration(partitionValue: "earthFeed=\(Location.country)")
-                   // Open the realm asynchronously to ensure backend data is downloaded first.
-                Realm.asyncOpen(configuration: config) { [self] (result) in
-                       switch result {
-                       case .failure(let error):
-                           print("Failed to open realm: \(error.localizedDescription)")
-                       case .success(let Realm):
-                           let share = earthFeed(text: causes[selectedTags[1]]!, name: Person.name, time: formatter.string(from: time as Date), imgeurl: "charryMainCell", peepone: Person.peepOne, peeptwo: Person.peepTwo, peepthree: Person.peepThree, color: Person.color, biz: false, peep: 1, lotag: "", userID: Person.ID, _id: "\(Int.random(in: 1...30))")
-                           try! Realm.write {
-                               Realm.add(share,update: .modified)
-                           
-                       }
-                          
-                           print("stories filled")
-                       }
-                   }
-        
+//                if didSharepeep { return }
+//            didSharepeep = true
+//                let times = NSDate().timeIntervalSince1970
+//                let myTimeInterval = TimeInterval(times)
+//                let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
+//                let formatter = DateFormatter()
+//                formatter.dateStyle = .medium
+//                formatter.timeStyle = .short
+//            guard let user = app.currentUser else { return }
+//                   // Get a sync configuration from the user object.
+//                let config = user.configuration(partitionValue: "earthFeed=\(Location.country)")
+//                   // Open the realm asynchronously to ensure backend data is downloaded first.
+//                Realm.asyncOpen(configuration: config) { [self] (result) in
+//                       switch result {
+//                       case .failure(let error):
+//                           print("Failed to open realm: \(error.localizedDescription)")
+//                       case .success(let Realm):
+//                           let share = earthFeed(text: causes[selectedTags[1]]!, name: Person.name, time: formatter.string(from: time as Date), imgeurl: "charryMainCell", peepone: Person.peepOne, peeptwo: Person.peepTwo, peepthree: Person.peepThree, color: Person.color, biz: false, peep: 1, lotag: "", userID: Person.ID, _id: "\(Int.random(in: 1...30))")
+//                           try! Realm.write {
+//                               Realm.add(share,update: .modified)
+//
+//                       }
+//
+//                           print("stories filled")
+//                       }
+//                   }
+//
         }
         
         print("char 1")
@@ -108,35 +109,35 @@ class charightview : UIView {
     @IBOutlet weak var secondcharimage: UIImageView!
     
     @IBAction func secondchar(_ sender: UIButton) {
-        if Person.ID == currentUser.ID {
+        if Person.Selected.ID == "" {
             editPeep(isEditing: editPeep)
         } else {
-                if didSharepeep { return }
-            didSharepeep = true
-                let times = NSDate().timeIntervalSince1970
-                let myTimeInterval = TimeInterval(times)
-                let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .short
-            guard let user = app.currentUser else { return }
-                   // Get a sync configuration from the user object.
-                let config = user.configuration(partitionValue: "earthFeed=\(Location.country)")
-                   // Open the realm asynchronously to ensure backend data is downloaded first.
-                Realm.asyncOpen(configuration: config) { [self] (result) in
-                       switch result {
-                       case .failure(let error):
-                           print("Failed to open realm: \(error.localizedDescription)")
-                       case .success(let Realm):
-                           let share = earthFeed(text: causes[selectedTags[0]]!, name: Person.name, time: formatter.string(from: time as Date), imgeurl: "charryMainCell", peepone: Person.peepOne, peeptwo: Person.peepTwo, peepthree: Person.peepThree, color: Person.color, biz: false, peep: 1, lotag: "", userID: Person.ID, _id: "\(Int.random(in: 1...30))")
-                           try! Realm.write {
-                               Realm.add(share,update: .modified)
-                           
-                       }
-                           print("stories filled")
-                       }
-                   }
-        
+//                if didSharepeep { return }
+//            didSharepeep = true
+//                let times = NSDate().timeIntervalSince1970
+//                let myTimeInterval = TimeInterval(times)
+//                let time = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
+//                let formatter = DateFormatter()
+//                formatter.dateStyle = .medium
+//                formatter.timeStyle = .short
+//            guard let user = app.currentUser else { return }
+//                   // Get a sync configuration from the user object.
+//                let config = user.configuration(partitionValue: "earthFeed=\(Location.country)")
+//                   // Open the realm asynchronously to ensure backend data is downloaded first.
+//                Realm.asyncOpen(configuration: config) { [self] (result) in
+//                       switch result {
+//                       case .failure(let error):
+//                           print("Failed to open realm: \(error.localizedDescription)")
+//                       case .success(let Realm):
+//                           let share = earthFeed(text: causes[selectedTags[0]]!, name: Person.name, time: formatter.string(from: time as Date), imgeurl: "charryMainCell", peepone: Person.peepOne, peeptwo: Person.peepTwo, peepthree: Person.peepThree, color: Person.color, biz: false, peep: 1, lotag: "", userID: Person.ID, _id: "\(Int.random(in: 1...30))")
+//                           try! Realm.write {
+//                               Realm.add(share,update: .modified)
+//
+//                       }
+//                           print("stories filled")
+//                       }
+//                   }
+//
         }
         
         print("char 2")
@@ -184,6 +185,7 @@ class charightview : UIView {
             UIView.animate(withDuration: 1.0) {
                 self.buttonView.isHidden = false
                 self.buttonView.alpha = 1
+                self.charightBack.alpha = 0
                 self.firstViewY.constant = self.firstY - 50
                 self.secondViewY.constant = self.secondY + 50
                 self.layoutSubviews()
@@ -194,6 +196,7 @@ class charightview : UIView {
             UIView.animate(withDuration: 1.0) {
                 self.buttonView.isHidden = true
                 self.buttonView.alpha = 0
+                self.charightBack.alpha = 1
                 self.firstViewY.constant = self.firstY
                 self.secondViewY.constant = self.secondY
                 self.layoutSubviews()
@@ -226,7 +229,7 @@ class charightview : UIView {
         
     }
     func updateMyData(){
-        if let Charight = Peeps.charight {
+        if let Charight = Peeps.Current.charight {
             let one = Charight.choice1
             let two = Charight.choice2
             if two != -1 { firstcharimage.image = UIImage(named:causeImages[two]) }
@@ -239,20 +242,6 @@ class charightview : UIView {
            defaultViews()
         }
         
-    }
-    func addPersonData(){
-        if let Charight = Person.charight {
-            let one = Charight.choice1
-            let two = Charight.choice2
-            if two != -1 { firstcharimage.image = UIImage(named:causeImages[two]) }
-            self.firstcharbut.setTitle(causes[two], for: .normal)
-            self.selectedTags[1] = one
-            if one != -1 {  secondcharimage.image = UIImage(named:causeImages[one]) }
-            self.secondcharbut.setTitle(causes[one], for: .normal)
-            self.selectedTags[0] = two
-        } else {
-           defaultViews()
-        }
     }
     func defaultViews(){
         let one = selectedTags[1]
@@ -277,12 +266,7 @@ class charightview : UIView {
 //        swipedd()
         firstcharview.addShadow()
         secondcharview.addShadow()
-        switch Person.ID {
-        case "":
             updateMyData()
-        default:
-            addPersonData()
-        }
         
 //        self.sharedPeepNum = Int.random(in: 1...Peeple.rarity)
         self.centerxp = self.firstcharview.center.x

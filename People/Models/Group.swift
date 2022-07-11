@@ -81,9 +81,9 @@ class myGroups:EmbeddedObject {
 
 class groupMessages:Object {
     @Persisted var color: Int = 0
-    @Persisted var peepOne: Int = 0
-    @Persisted var peepTwo: Int = 0
-    @Persisted var peepThree: Int = 0
+    @Persisted var peepOne: Int = 1
+    @Persisted var peepTwo: Int = 2
+    @Persisted var peepThree: Int = 3
     @Persisted var eventDuration: Int = 0
     @Persisted var lat: Double = 0
     @Persisted var long: Double = 0

@@ -126,8 +126,8 @@
                         <constraint firstAttribute="height" constant="61" id="wwO-UO-Ztn"/>
                     </constraints>
                 </view>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Portoflio" translatesAutoresizingMaskIntoConstraints="NO" id="eBP-tL-ujq">
-                    <rect key="frame" x="307" y="18" width="50" height="55"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Portoflio" translatesAutoresizingMaskIntoConstraints="NO" id="eBP-tL-ujq">
+                    <rect key="frame" x="16" y="16" width="50" height="55"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="3Wf-TK-gRA"/>
                         <constraint firstAttribute="width" constant="50" id="dJ5-gM-59h"/>
@@ -137,10 +137,11 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="mvI-Ud-0tP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2w8-GY-hdZ"/>
+                <constraint firstItem="eBP-tL-ujq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="A0X-qy-WSk"/>
                 <constraint firstItem="q79-fJ-cJs" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-7.5" id="KKr-it-G9B"/>
                 <constraint firstItem="u2Y-Ft-rbt" firstAttribute="top" secondItem="q79-fJ-cJs" secondAttribute="bottom" constant="125.5" id="NHG-yP-rqd"/>
                 <constraint firstItem="mvI-Ud-0tP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="S7u-Qw-clq"/>
-                <constraint firstItem="eBP-tL-ujq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="SmP-uo-83a"/>
+                <constraint firstItem="eBP-tL-ujq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="SmP-uo-83a"/>
                 <constraint firstAttribute="trailing" secondItem="mvI-Ud-0tP" secondAttribute="trailing" id="V6g-fa-D2g"/>
                 <constraint firstItem="u2Y-Ft-rbt" firstAttribute="trailing" secondItem="loM-GT-rWs" secondAttribute="trailing" id="ZhV-wt-mAH"/>
                 <constraint firstItem="q79-fJ-cJs" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="g8g-fK-Z9k"/>
@@ -148,7 +149,6 @@
                 <constraint firstItem="q79-fJ-cJs" firstAttribute="trailing" secondItem="loM-GT-rWs" secondAttribute="trailing" id="mzk-xf-qwZ"/>
                 <constraint firstAttribute="bottom" secondItem="mvI-Ud-0tP" secondAttribute="bottom" id="opA-xr-s25"/>
                 <constraint firstItem="u2Y-Ft-rbt" firstAttribute="leading" secondItem="loM-GT-rWs" secondAttribute="leading" id="q9l-lb-QsF"/>
-                <constraint firstAttribute="trailing" secondItem="eBP-tL-ujq" secondAttribute="trailing" constant="18" id="rhD-db-mMm"/>
                 <constraint firstItem="q79-fJ-cJs" firstAttribute="top" secondItem="loM-GT-rWs" secondAttribute="bottom" constant="113" id="w40-ee-Pn8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

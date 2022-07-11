@@ -11,8 +11,9 @@ import UIKit
 import AVFoundation
 import CoreLocation
 
-struct Peeple {
-    static var zoomLevel:zoom = .max
+class Peeple {
+    static let Settings = Peeple()
+    var zoomLevel:zoom = .max
     enum zoom { case one,two, max }
     enum EventOptions { case all, twentyfive,five }
     enum GroupOptions { case all, my, search }
@@ -20,81 +21,101 @@ struct Peeple {
     enum ProfileOptions { case peepOne, peepTwo, peepThree }
     enum Page { case Event, Group, People, Profile, GroupChat, Person }
     enum prevPage { case Group, People }
-    static var CurrentPage:Page = Page.Event
-    static var fromPage:prevPage = prevPage.Group
-    static let colors:[UIColor] = [.systemGray6,#colorLiteral(red: 1, green: 0.3019607843, blue: 0.2549019608, alpha: 1),#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1),#colorLiteral(red: 1, green: 0.9568627451, blue: 0.4862745098, alpha: 1),#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1),#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 1, green: 0.7137254902, blue: 0.7568627451, alpha: 1),.white]
+    var PersonOption:ProfileOptions = .peepOne
+    var CurrentPage:Page = Page.Event
+    var fromPage:prevPage = prevPage.Group
+    let Colors:[UIColor] = [.systemGray,#colorLiteral(red: 1, green: 0.3019607843, blue: 0.2549019608, alpha: 1),#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1),#colorLiteral(red: 1, green: 0.9568627451, blue: 0.4862745098, alpha: 1),#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1),#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 1, green: 0.7137254902, blue: 0.7568627451, alpha: 1),.systemGray6]
     // 1 out of below chance to post on click
-    static let rarity:Int = 30
+    let Rarity:Int = 30
+    var language:Int = UserDefaults.standard.integer(forKey: "language")
     // the views width divided by below number
-    static let cornerRadius:CGFloat = 17
-    static var Plus:Bool = false
-    static let Thickness:CGFloat = 2
-    static let earthBackImg:String = "earthBack"
-    static var isLocationEnabled:Bool = UserDefaults.standard.bool(forKey: "isLocationEnabled")
-    static let peepTags: [Int: String] = [1:"charight",2:"cleanergy",3:"Portoflio",4:"Spacechip",5:"Cupidity",6:"Animalife",7:"Comingsoon",8:"Theorize",9:"Clouds",10:"Shelfie",11:"Traveld",12:"Myme",13:"Alexia",14:"Beta Tester",15:"Musicity",16:"Awe Member",17:"blue soon"]
-    static let peepPics: [String] = ["emptyRectangle","charight","cleanergy","Portoflio","Spacechip","Cupidity","Animalife","Comingsoon","Theorize","Clouds","Shelfie","Traveld","Myme","Alexia","Beta Tester","Musicity","Awe Member","blue soon"]
-    static let peepBacks: [String] = ["earthBack","charBack","earthBack","portBack","Spacechip","Cupidity","Animalife","Comingsoon","Theorize","Clouds","Shelfie","Traveld","Myme","Alexia","Beta Tester","Musicity","Awe Member","blue soon"]
-    static let allImage:String = "all"
-    static let topImage:String = "top"
-    static let myImage:String = "my"
+    let CornerRadius:CGFloat = 17
+    var plus:Bool = false
+    var editedPeeps:Bool = false
+    let Thickness:CGFloat = 0.0
+    let RightPage:String = "rightavailable"
+    let LeftPage:String = "leftavailable"
+    let BothPage:String = "bothavailable"
+    let EarthBackImg:String = "earthBack"
+    var isLocationEnabled:Bool = UserDefaults.standard.bool(forKey: "isLocationEnabled")
+    //language index defined
+    let Languages: [Int: String] = [0:"english",1:"portugese",2:"spanish"]
+    let PeepTags: [Int: String] = [1:"charight",2:"cleanergy",3:"Portoflio",4:"Spachip",5:"cupinge",6:"animlyfe",7:"blue soon",8:"theroy",9:"clnow",10:"wefie",11:"trevlly",12:"weme",13:"alli",14:"beattester",15:"mucity",16:"awemember",17:"blue soon"]
+    let PeepPics: [String] = ["emptyRectangle","charight","cleanergy","Portoflio","Spachip","cupinge","animlyfe","blue soon","theroy","clnow","wefie","trevlly","weme","alli","beattester","mucity","awemember","blue soon"]
+    let PeepBacks: [String] = ["earthBack","charBack","earthBack","portBack","Spacechip","Cupidity","Animalife","Comingsoon","Theorize","Clouds","Shelfie","Traveld","Myme","Alexia","Beta Tester","Musicity","Awe Member","blue soon"]
     //group
-    static var GroupisSetTo:GroupOptions = .all
-    static let GroupTabImage:String = "TabGroups"
-    static let GroupBoxImage:String = "groupimage"
-    static let GroupLabel:String = "groupslabel"
+    var GroupisSetTo:GroupOptions = .all
+    let GroupBoxImage:String = "groupimage"
+//    var GroupLabel:String = "groupslabel"
     //people
-    static var PeopleisSetTo:PeopleOptions = .all
-    static let PeopleTabImage:String = "TabPeople"
-    static let PeoplecellImage:String = "pers"
-    static let PeopleLabel:String = "peoplabel"
+    var PeopleisSetTo:PeopleOptions = .all
+    let PeoplecellImage:String = "pers"
+//    var PeopleLabel:String = "peoplabel"
     //profile
-    static var ProfileisSetTo:ProfileOptions = .peepOne
-    static var editPeepMode:Bool = false
-    static var peepSwitch:Int = 0
-    static let ProfileTabImage:String = "TabProfile"
-    static let ProfileLabel:String = "profilelabel"
+    var ProfileisSetTo:ProfileOptions = .peepOne
+    var editPeepMode:Bool = false
+    var peepSwitch:Int = 0
+//    var ProfileLabel:String = "profilelabel"
     //planet
-    static var EventisSetTo:EventOptions = .all
-    static let EventTabImage:String = "TabPlanet"
-    // has event image set as planetlabel
-    static let PlanetLabel:String = "planetlabel"
+    var EventisSetTo:EventOptions = .all
     //event
+//    var EventLabel:String = "eventslabel"
+}
+struct Portugese{
+    static let EventLabel:String = "peventlabel"
+    static let ProfileLabel:String = "pprofilelabel"
+    static let PeopleLabel:String = "ppeoplelabel"
+    static let GroupLabel:String = "pgrouplabel"
+}
+struct English {
     static let EventLabel:String = "eventslabel"
-   
-   
+    static let ProfileLabel:String = "profilelabel"
+    static let PeopleLabel:String = "peoplabel"
+    static let GroupLabel:String = "groupslabel"
 }
-
-struct Person {
-    static var currentOption:Peeple.ProfileOptions = .peepOne
-    static var ID:String = ""
-    static var name:String = ""
-    static var peepOne:Int = 0
-    static var peepTwo:Int = 0
-    static var peepThree:Int = 0
-    static var color:Int = 0
-    static var pic:String = ""
-    static var charight:charightChoice?
-    static var clenny:cleanergyClenny?
-    static var porty:portflioPost?
-}
-struct currentUser {
-    static var ID:String = ""
-    static var isARActive:Bool = false
-    static let beta:Bool = false
-    static var Pro:Bool = false
-    static var priv:Bool = false
-    static var biz:Bool?
+//struct Person {
+//
+//    static var ID:String = ""
+//    static var name:String = ""
+//    static var peepOne:Int = 0
+//    static var peepTwo:Int = 0
+//    static var peepThree:Int = 0
+//    static var color:Int = 0
+//    static var pic:String = ""
+////    static var charight:charightChoice?
+////    static var clenny:cleanergyClenny?
+////    static var porty:portflioPost?
+//}
+class Person {
+    static let Current = Person()
+    static let Selected = Person()
     // deafults to 0 if empty
-    static var myAppColor:Int = UserDefaults.standard.integer(forKey: "appColor")
-    static var peepOne:Int = 1
-    static var peepTwo:Int = 2
-    static var peepThree:Int = 3
-    static var name:String = ""
+    var Color:Int = UserDefaults.standard.integer(forKey: "appColor")
+    var ID:String = ""
+    var isARActive:Bool = false
+    var Beta:Bool = false
+    var Priv:Bool = false
+    var biz:Bool?
+    var PeepOne:Int = 1
+    var PeepTwo:Int = 2
+    var PeepThree:Int = 3
+    var Name:String = ""
+    func setInfo(id:String,priv:Bool,peepOne:Int,peepTwo:Int,peepThree:Int,name:String,color:Int){
+        ID = id
+        Priv = priv
+        Color = color
+        PeepOne = peepOne
+        PeepTwo = peepTwo
+        PeepThree = peepThree
+        Name = name
+    }
 }
-struct Peeps {
-    static var charight:charightChoice?
-    static var clenny:cleanergyClenny?
-    static var porty:portflioPost?
+class Peeps {
+    static let Current = Peeps()
+    static let Selected = Peeps()
+    var charight:charightChoice?
+    var clenny:cleanergyClenny?
+    var porty:portflioPost?
 }
 struct Event {
     static var ID:String = ""
@@ -107,9 +128,6 @@ struct Group {
     static var color:Int = 0
     static var pic:String = ""
     static var des:String = ""
-}
-struct ID {
-    static var my:String = ""
 }
 struct Location {
     static var country:String = UserDefaults.standard.string(forKey: "country") ?? "earth"
