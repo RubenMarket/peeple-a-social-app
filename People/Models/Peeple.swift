@@ -18,13 +18,13 @@ class Peeple {
     enum EventOptions { case all, twentyfive,five }
     enum GroupOptions { case all, my, search }
     enum PeopleOptions { case all, my, search }
-    enum ProfileOptions { case peepOne, peepTwo, peepThree }
+    enum ProfileOptions { case peepOne, peepTwo, peepThree, settings }
     enum Page { case Event, Group, People, Profile, GroupChat, Person }
     enum prevPage { case Group, People }
     var PersonOption:ProfileOptions = .peepOne
     var CurrentPage:Page = Page.Event
     var fromPage:prevPage = prevPage.Group
-    let Colors:[UIColor] = [.systemGray,#colorLiteral(red: 1, green: 0.3019607843, blue: 0.2549019608, alpha: 1),#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1),#colorLiteral(red: 1, green: 0.9568627451, blue: 0.4862745098, alpha: 1),#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1),#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 1, green: 0.7137254902, blue: 0.7568627451, alpha: 1),.systemGray6]
+    var Colors:[UIColor] = [.white,#colorLiteral(red: 1, green: 0.3019607843, blue: 0.2549019608, alpha: 1),#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1),#colorLiteral(red: 1, green: 0.9568627451, blue: 0.4862745098, alpha: 1),#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1),#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 1, green: 0.7137254902, blue: 0.7568627451, alpha: 1)]
     // 1 out of below chance to post on click
     let Rarity:Int = 30
     var language:Int = UserDefaults.standard.integer(forKey: "language")

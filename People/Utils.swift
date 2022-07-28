@@ -181,7 +181,7 @@ extension UIViewController {
         collection.alpha = 0
         topRightBut.alpha = 0
         peepView?.alpha = 0
-        UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseIn) {
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseIn) {
             labelImage.alpha = 0.9
             collection.alpha = 0.9
             topLeftOpts.alpha = 0.9
@@ -692,10 +692,9 @@ extension UIView {
         layer.masksToBounds = true
     }
     func buttonify(color:UIColor){
-        layer.borderWidth = Peeple.Settings.Thickness
-        layer.borderColor = color.cgColor
-        layer.cornerRadius = Peeple.Settings.CornerRadius
+        layer.cornerRadius = frame.height / 2
         layer.masksToBounds = true
+        layer.backgroundColor = color.cgColor
     }
     func takeScreenshot() -> UIImage {
         // Begin context

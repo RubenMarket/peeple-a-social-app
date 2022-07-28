@@ -20,11 +20,11 @@ class peeplePlus: UIView {
             // Flow for success state
               Peeple.Settings.plus = true
               self.peeplePlusLabel.text = """
+                                     Peeple Plus Active
+                                     
                                      - All of the Peeple
-                                     
+                                                                    
                                      - App color customization
-                                     
-                                     - Augmented Reality Feature
                                      """
               self.peeplePlusButton.isEnabled = false
               self.peeplePlusButton.setTitle("Peeple Plus Member", for: .normal)
@@ -55,8 +55,6 @@ class peeplePlus: UIView {
                                - Access all of the Peeple
                                
                                - App color customization
-                               
-                               - Augmented Reality Feature
                                """
         peeplePlusLabel.addTextShadow()
         peeplePlusButton.addTextShadow()

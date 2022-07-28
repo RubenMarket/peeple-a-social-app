@@ -63,7 +63,6 @@ class cleanergy: UIView {
     }
    
     override func layoutSubviews() {
-        clennyview.setPeepleCorners()
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
             clennyrecycleback.isUserInteractionEnabled = true
         clennyrecycleback.addGestureRecognizer(tapGestureRecognizer)

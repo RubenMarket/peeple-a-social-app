@@ -39,7 +39,7 @@
                     <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="24"/>
                     <color key="tintColor" systemColor="systemGray6Color"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="$9.49 / Month"/>
+                    <state key="normal" title="$2.49 / Month"/>
                     <connections>
                         <action selector="purchasePeeplePlus:" destination="iN0-l3-epB" eventType="touchUpInside" id="Jx3-u2-Fa4"/>
                     </connections>

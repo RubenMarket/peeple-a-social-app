@@ -122,7 +122,8 @@ print(userIdentifier)
     func setUpSignInAppleButton() {
       let authorizationButton = ASAuthorizationAppleIDButton()
       authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
-        authorizationButton.cornerRadius = Peeple.Settings.CornerRadius
+        authorizationButton.layer.cornerRadius = authorizationButton.frame.height / 2
+        authorizationButton.layer.masksToBounds = true
       //Add button on some view or stack
         self.emailview.addSubview(authorizationButton)
         authorizationButton.snp.makeConstraints { (make) in

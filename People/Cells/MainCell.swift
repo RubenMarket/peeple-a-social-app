@@ -46,7 +46,7 @@ class MainViewCell: UICollectionViewCell {
         progressCircle.timeToFill = Double(timeLeft)
         print(Float(timeLeft / 6))
         mainTextLabel.textColor = Peeple.Settings.Colors[eventColor]
-        mainTextLabel.text = "\(eventName)\n\n\(timeLeft) minutes left"
+        mainTextLabel.text = "\(eventName)\n"
         mainTextLabel.isHidden = false
     }
     func setGroups(groupName:String,groupColor:Int){
@@ -90,7 +90,7 @@ class MainViewCell: UICollectionViewCell {
         progressCircle.progress = Float(timeLeft / 6)
         progressCircle.timeToFill = Double(timeLeft)
         mainTextLabel.textColor = Peeple.Settings.Colors[eventColor]
-        mainTextLabel.text = "\(groupName): \(groupDes). \(timeLeft) minutes left"
+        mainTextLabel.text = "\(groupName): \(groupDes)."
         mainTextLabel.isHidden = false
     }
     var allEvents : Events! {

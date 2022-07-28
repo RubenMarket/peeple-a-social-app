@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,17 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" image="lightlogo" translatesAutoresizingMaskIntoConstraints="NO" id="CBb-fb-fhE">
-                                <rect key="frame" x="64" y="0.0" width="247" height="667"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" image="lightlogo" translatesAutoresizingMaskIntoConstraints="NO" id="CBb-fb-fhE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="CBb-fb-fhE" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="9CH-Zc-MNy"/>
                             <constraint firstItem="CBb-fb-fhE" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="9pe-AX-nl2"/>
-                            <constraint firstItem="CBb-fb-fhE" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="64" id="Ix6-0K-Evh"/>
-                            <constraint firstAttribute="trailing" secondItem="CBb-fb-fhE" secondAttribute="trailing" constant="64" id="JzY-WC-Or8"/>
+                            <constraint firstItem="CBb-fb-fhE" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Ix6-0K-Evh"/>
+                            <constraint firstAttribute="trailing" secondItem="CBb-fb-fhE" secondAttribute="trailing" id="JzY-WC-Or8"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,9 +36,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="lightlogo" width="500" height="500"/>
-        <systemColor name="tertiarySystemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="lightlogo" width="500" height="801"/>
     </resources>
 </document>

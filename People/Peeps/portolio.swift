@@ -80,12 +80,6 @@ class portoflio : UIView{
         
     }
     func roundCornersP(){
-        self.gameNameLabel1.setPeepleCorners()
-        self.gameNameLabel2.setPeepleCorners()
-        self.gameNameLabel3.setPeepleCorners()
-        self.usernameOrIDBut1.setPeepleCorners()
-        self.usernameOrIDBut2.setPeepleCorners()
-        self.usernameOrIDBut3.setPeepleCorners()
         self.gameNameLabel1.addShadow()
         self.gameNameLabel2.addShadow()
         self.gameNameLabel3.addShadow()
